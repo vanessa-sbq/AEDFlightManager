@@ -8,6 +8,7 @@ add_executable(AEDFlightManager src/main.cpp
         src/Application.cpp
         src/Application.h
         src/FlightManager.h
+        src/Graph.h
 )
 
 # Doxygen Build
