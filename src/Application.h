@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+/**@brief Class that manages the menu.*/
 class Application{
 public:
     void run();
