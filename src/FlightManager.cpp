@@ -1,7 +1,46 @@
 #include "FlightManager.h"
 
+FlightManager::FlightManager(){
+
+}
+
 void FlightManager::parseData(){
-    // ToDo
+    std::ifstream in;
+
+    // Open the file using the provided path.
+    in.open("../inputFiles/airlines.csv");
+    if (!in.is_open()){
+        std::cout << "Unable to open airlines.csv.\n";
+        return;
+    }
+    processAirlines(in);
+    in.close();
+
+    in.open("../inputFiles/airports.csv");
+    if (!in.is_open()){
+        std::cout << "Unable to open airports.csv.\n";
+        return;
+    }
+    processAirports(in);
+    in.close();
+
+    in.open("../inputFiles/flights.csv");
+    if (!in.is_open()){
+        std::cout << "Unable to open flights.csv.\n";
+        return;
+    }
+    processFlights(in);
+    in.close();
+}
+
+void FlightManager::processAirlines(std::ifstream &in){
+
+}
+void FlightManager::processAirports(std::ifstream &in){
+
+}
+void FlightManager::processFlights(std::ifstream &in){
+
 }
 
 
