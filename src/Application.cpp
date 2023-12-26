@@ -1,8 +1,6 @@
 #include "Application.h"
 
-/*
- * Starts the application.
- */
+/**@brief Starts the application.*/
 void Application::run(int processedKey) {
     L1:
     clearScreen();
