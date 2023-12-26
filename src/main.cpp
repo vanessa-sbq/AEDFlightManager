@@ -20,6 +20,15 @@ int main() {
     }
 
     Application app = Application(env);
-    app.run();
+    int nextRun = -1;
+
+    goBack:
+        try {
+            app.run(nextRun);
+        } catch (std::invalid_argument& invalid_argument){
+            nextRun = std::stoi(invalid_argument.what());
+            goto goBack;
+        }
+
     return 0;
 }

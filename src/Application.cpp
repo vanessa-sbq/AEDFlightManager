@@ -3,10 +3,9 @@
 /*
  * Starts the application.
  */
-void Application::run() {
+void Application::run(int processedKey) {
     L1:
     clearScreen();
-    int processedKey = processKey(showMainMenu());
     while (processedKey == -1){
         clearScreen();
         processedKey = processKey(showMainMenu());
@@ -14,35 +13,38 @@ void Application::run() {
 
     switch (processedKey) {
         case 1:
-            // ToDo
+            globalNumberOfAvailableFlights(); // ToDo
             std::cout << 1;
             break;
         case 2:
-            // ToDo
+            numberOfFlightsOutOfAnAirport(); // ToDo
             std::cout << 2;
             break;
         case 3:
-            // ToDo
+            numberOfFlights(); // ToDo
             std::cout << 3;
             break;
         case 4:
-            // ToDo
+            numberOfDestinations(); // ToDo
             std::cout << 4;
             break;
         case 5:
-            // ToDo
+            flightsWithGreatestNumberOfStops(); // ToDo
             std::cout << 5;
             break;
         case 6:
-            // ToDo
+            topAirportsWithGreatestAirCapacity(); // ToDo
             std::cout << 6;
             break;
         case 7:
-            // ToDo
+            essentialAirports(); // ToDo
             std::cout << 7;
             break;
         case 8:
-            // ToDo
+            checkBestFlightOptions(); // ToDo
+            std::cout << 8;
+            break;
+        case 9:
             std::cout << "Thank-You very much and Bye-Bye.";
             break;
         default:
@@ -53,7 +55,14 @@ void Application::run() {
 }
 
 void Application::clearScreen() {
-    // ToDo
+    if (env == "win")
+        L1:
+        std::cout << "\n\n\n\n\n\n\n\n\n"
+                     "\n\n\n\n\n\n\n\n\n"
+                     "\n\n\n\n\n\n\n\n\n"
+                     "\n\n\n\n\n\n\n\n\n";
+    else if (env == "unix")
+        if ( system("clear") == -1 ) goto L1;
 }
 
 void Application::delay(long sleepMS) {
@@ -84,13 +93,87 @@ std::string Application::showMainMenu() {
               << "5 - Show maximum trips (flights with greatest number of stops).\n"
               << "6 - Show top airports with greatest air capacity.\n" // ToDo: user can choose top-k airport
               << "7 - Show essential airports.\n"
-              << "8 - Exit.\n";
+              << "8 - Check best flight option(s).\n" // ToDo: Users may want to travel using only some airlines
+              << "9 - Exit.\n";
 
 
     std::cout << "Input: ";
     std::cin >> option;
     std::cout << "\n";
     return option;
+}
+
+void Application::showGoBackMenu(int functionNumber, const std::string& functionName) {
+    L1:
+    clearScreen();
+    std::cout << "\n\nWhat would you like to do next:\n"
+    << "1 - Return to main menu.\n"
+    << "2 - (again) " << functionName << "\n";
+
+    std::string opt;
+    std::cout << "Input: ";
+    std::cin >> opt;
+    std::cout << "\n";
+
+    int processedKey = processKey(opt);
+
+    switch (processedKey) {
+        case -1:
+            goto L1;
+        case 1:
+            // This needs to return to main otherwise when the "new" run method called here returned the program would
+            // still keep on executing...
+            // This way we are replacing the variable in main and still calling the function run in main
+            // the no-no function -> run(-1)
+            throw std::invalid_argument("-1");
+        case 2:
+            // the no-no function -> run(functionNumber)
+            throw std::invalid_argument(std::to_string(functionNumber));
+        default:
+            std::cout << "\n* Error while parsing option, please input a valid numeric option. *\n";
+            delay(2000);
+            goto L1;
+    }
+}
+
+void Application::globalNumberOfAvailableFlights() {
+    delay(2000);
+    showGoBackMenu(1, "Show global number of available flights.");
+}
+
+void Application::numberOfFlightsOutOfAnAirport() {
+    delay(2000);
+    showGoBackMenu(2, "Show number of flights out of an airport.");
+}
+
+void Application::numberOfFlights() {
+    delay(2000);
+    showGoBackMenu(3, "Show number of flights per city/airline.");
+}
+
+void Application::numberOfDestinations() {
+    delay(2000);
+    showGoBackMenu(4, "Show number of destinations (airports, cities, countries)\nfrom a given airport in a maximum amount of X stops (lay-overs).");
+}
+
+void Application::flightsWithGreatestNumberOfStops() {
+    delay(2000);
+    showGoBackMenu(5, "Show maximum trips (flights with greatest number of stops).");
+}
+
+void Application::topAirportsWithGreatestAirCapacity() {
+    delay(2000);
+    showGoBackMenu(6, "Show top airports with greatest air capacity.");
+}
+
+void Application::essentialAirports() {
+    delay(2000);
+    showGoBackMenu(7, "Show essential airports.");
+}
+
+void Application::checkBestFlightOptions() {
+    delay(2000);
+    showGoBackMenu(8, "Check best flight option(s).");
 }
 
 

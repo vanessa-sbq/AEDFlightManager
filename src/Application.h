@@ -15,7 +15,7 @@ public:
         this->env = env;
     }
 
-    void run();
+    void run(int processedKey);
     void clearScreen();
     static void delay(long sleepTime);
     static int processKey(const std::string& option);
@@ -23,6 +23,15 @@ public:
 private:
     // Menu options
     std::string showMainMenu();
+    void showGoBackMenu(int option, const std::string& functionName);
+    void globalNumberOfAvailableFlights();
+    void numberOfFlightsOutOfAnAirport();
+    void numberOfFlights();
+    void numberOfDestinations();
+    void flightsWithGreatestNumberOfStops();
+    void topAirportsWithGreatestAirCapacity();
+    void essentialAirports();
+    void checkBestFlightOptions();
     // ToDo
 
     // System environment variable
