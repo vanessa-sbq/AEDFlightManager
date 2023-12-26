@@ -14,8 +14,10 @@ private:
     void showMainMenu();
     // ToDo
 
-    // System environment variable
-    std::string env;
+    // Attributes
+    std::string env; // System environment variable
+    int option;
 };
+
 
 #endif //AEDFLIGHTMANAGER_APPLICATION_H
