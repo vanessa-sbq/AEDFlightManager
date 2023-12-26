@@ -3,6 +3,8 @@
 
 #include <fstream>
 #include <iostream>
+#include <set>
+#include "AirportNetwork.h"
 
 /**@brief Class that does operations on the data.*/
 class FlightManager{
@@ -24,10 +26,14 @@ public:
     void printTopKAirport(); // 7
     void printEssentialAirports(); // 8
 
+    void testingCalculateDistance();
+
     // Best flight options
     // ToDo
 
 private:
+    AirportNetwork airportNetwork;
+    std::set<Airline> airlines;
     // Data parsing
     void processAirlines(std::ifstream &in);
     void processAirports(std::ifstream &in);

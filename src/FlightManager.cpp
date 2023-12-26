@@ -1,8 +1,6 @@
 #include "FlightManager.h"
 
-FlightManager::FlightManager(){
-
-}
+FlightManager::FlightManager(){}
 
 void FlightManager::parseData(){
     std::ifstream in;
@@ -92,4 +90,15 @@ void FlightManager::printTopKAirport(){
 // 8
 void FlightManager::printEssentialAirports(){
     // ToDo
+}
+
+void FlightManager::testingCalculateDistance() {
+    double lat1,lat2,long1,long2;
+    std::cout << "lat 1 = "; std::cin >> lat1;
+    std::cout << "lat 2 = "; std::cin >> lat2;
+    std::cout << "long 1 = "; std::cin >> long1;
+    std::cout << "long 2 = "; std::cin >> long2;
+
+    double res = airportNetwork.calculateDistance(std::pair<double, double>(lat1, long1), std::pair<double, double>(lat2, long2));
+    std::cout << "distance = " << res;
 }

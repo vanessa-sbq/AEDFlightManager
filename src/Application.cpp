@@ -3,6 +3,7 @@
 /**@brief Starts the application.*/
 void Application::run(int processedKey) {
     L1:
+    //flightManager.testingCalculateDistance();
     clearScreen();
     while (processedKey == -1){
         clearScreen();
@@ -11,7 +12,8 @@ void Application::run(int processedKey) {
 
     switch (processedKey) {
         case 1:
-            globalNumberOfAvailableFlights(); // ToDo
+            //globalNumberOfAvailableFlights(); // ToDo
+            flightManager.testingCalculateDistance();
             std::cout << 1;
             break;
         case 2:

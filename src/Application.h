@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include "FlightManager.h"
 
 /**@brief Class that manages the menu.*/
 class Application{
@@ -22,6 +23,8 @@ public:
     static int processKey(const std::string& option);
 
 private:
+    FlightManager flightManager;
+
     // Menu options
     std::string showMainMenu();
     void showGoBackMenu(int option, const std::string& functionName);
