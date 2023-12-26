@@ -3,7 +3,12 @@ project(AEDFlightManager)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(AEDFlightManager main.cpp)
+add_executable(AEDFlightManager src/main.cpp
+        src/FlightManager.cpp
+        src/Application.cpp
+        src/Application.h
+        src/FlightManager.h
+)
 
 # Doxygen Build
 find_package(Doxygen)

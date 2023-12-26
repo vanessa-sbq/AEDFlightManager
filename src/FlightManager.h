@@ -1,0 +1,12 @@
+#ifndef AEDFLIGHTMANAGER_FLIGHTMANAGER_H
+#define AEDFLIGHTMANAGER_FLIGHTMANAGER_H
+
+class FlightManager{
+public:
+
+
+private:
+
+};
+
+#endif //AEDFLIGHTMANAGER_FLIGHTMANAGER_H
