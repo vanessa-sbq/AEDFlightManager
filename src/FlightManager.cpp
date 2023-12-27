@@ -177,7 +177,7 @@ void dfsNumberFlights(Vertex<Airport>* airport, int& numberFlights, const std::s
     airport->setVisited(true);
 
     for (const Edge<Airport>& flight : airport->getAdj()){
-        if (flight.getWeight2() == airlineCode){
+        if (flight.getWeight2()->getCode() == airlineCode){
             numberFlights++;
         }
 

@@ -11,12 +11,8 @@ add_executable(AEDFlightManager src/main.cpp
         src/Graph.h
         src/Airport.cpp
         src/Airport.h
-        src/Flight.cpp
-        src/Flight.h
         src/Airline.cpp
         src/Airline.h
-        src/AirportNetwork.cpp
-        src/AirportNetwork.h
 )
 
 # Doxygen Build

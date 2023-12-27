@@ -1,8 +1,6 @@
-//
-// Created by vascocosta on 12/26/23.
-//
-
 #include "Airport.h"
+
+#include <utility>
 
 Airport::Airport(const std::pair<double, double> p,
                  std::string code,
@@ -10,10 +8,10 @@ Airport::Airport(const std::pair<double, double> p,
                  std::string city,
                  std::string country) :
         positionInfo(p),
-        code(code),
-        name(name),
-        city(city),
-        country(country) {}
+        code(std::move(code)),
+        name(std::move(name)),
+        city(std::move(city)),
+        country(std::move(country)) {}
 
 
 const std::pair<double, double> &Airport::getPositionInfo() const {
@@ -34,40 +32,6 @@ const std::string &Airport::getCity() const {
 
 const std::string &Airport::getCountry() const {
     return country;
-}
-
-const std::vector<Flight> &Airport::getDestinations() const {
-    return destinations;
-}
-
-bool Airport::isVisited() const {
-    return visited;
-}
-
-void Airport::setVisited(bool value){
-    visited = value;
-}
-
-int Airport::getIndegree() const {
-    return indegree;
-}
-
-int Airport::setIndegree(int indegree) {
-    return this->indegree = indegree;
-}
-
-bool Airport::addDestination(Flight &flight) {
-    for (Flight f : destinations) {
-        if (f.getDest() == flight.getDest())
-            return false;
-    }
-
-    destinations.push_back(flight);
-    return true;
-}
-
-std::pair<double, double> Airport::getInfo(){
-    return positionInfo;
 }
 
 bool Airport::operator == (const Airport &p2) const {

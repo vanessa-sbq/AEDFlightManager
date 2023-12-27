@@ -62,16 +62,16 @@ template <class T>
 class Edge {
     Vertex<T> * dest;      // destination vertex
     // edge weights
-    double weight;   // for the distance
-    string weight2;  // for the airline
+    double distance;   // for the distance
+    Airline* airline;  // for the airline
 public:
-    Edge(Vertex<T> *d, double w1, string w2);
+    Edge(Vertex<T> *d, double w1, Airline* w2);
     Vertex<T> *getDest() const;
     void setDest(Vertex<T> *dest);
     double getWeight() const;
-    string getWeight2() const;
+    Airline* getWeight2() const;
     void setWeight(double weight);
-    void setWeight2(string weight2);
+    void setWeight2(Airline* weight2);
     friend class Graph<T>;
     friend class Vertex<T>;
 };
@@ -97,7 +97,6 @@ public:
     vector<T> dfs() const;
     vector<T> dfs(const T & source) const;
     vector<T> bfs(const T &source) const;
-    vector<T> topsort() const;
 };
 
 /****************** Provided constructors and functions ********************/
@@ -106,7 +105,7 @@ template <class T>
 Vertex<T>::Vertex(T in): info(in) {}
 
 template <class T>
-Edge<T>::Edge(Vertex<T> *d, double w1, string w2): dest(d), weight(w1), weight2(w2) {}
+Edge<T>::Edge(Vertex<T> *d, double w1, Airline* w2): dest(d), distance(w1), airline(w2) {}
 
 template <class T>
 int Graph<T>::getNumVertex() const {
@@ -150,22 +149,22 @@ void Edge<T>::setDest(Vertex<T> *d) {
 
 template<class T>
 double Edge<T>::getWeight() const {
-    return weight;
+    return distance;
 }
 
 template<class T>
-string Edge<T>::getWeight2() const {
-    return weight2;
+Airline* Edge<T>::getWeight2() const {
+    return airline;
 }
 
 template<class T>
 void Edge<T>::setWeight(double weight) {
-    Edge::weight = weight;
+    Edge::distance = weight;
 }
 
 template<class T>
-void Edge<T>::setWeight2(string weight2){
-    Edge:weight2 = weight2;
+void Edge<T>::setWeight2(Airline* weight2){
+    Edge::airline = weight2;
 }
 
 
@@ -401,27 +400,6 @@ vector<T> Graph<T>::bfs(const T & source) const {
             }
         }
     }
-    return res;
-}
-
-
-
-/****************** toposort ********************/
-//=============================================================================
-// Exercise 1: Topological Sorting
-//=============================================================================
-// TODO
-/*
- * Performs a topological sorting of the vertices of a graph (this).
- * Returns a vector with the contents of the vertices by topological order.
- * If the graph has cycles, returns an empty vector.
- * Follows the algorithm described in theoretical classes.
- */
-
-template<class T>
-vector<T> Graph<T>::topsort() const {
-    vector<T> res;
-
     return res;
 }
 
