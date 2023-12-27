@@ -45,7 +45,7 @@ void Application::run(int processedKey) {
             std::cout << 8;
             break;
         case 9:
-            std::cout << "Thank-You very much and Bye-Bye.";
+            std::cout << "Thank you very much and Bye-Bye.";
             break;
         default:
             goto L1;
@@ -95,6 +95,7 @@ std::string Application::showMainMenu() {
               << "7 - Show essential airports.\n"
               << "8 - Check best flight option(s).\n" // ToDo: Users may want to travel using only some airlines
               << "9 - Exit.\n";
+               // ToDo: 2 or more options are missing
 
 
     std::cout << "Input: ";
@@ -196,6 +197,9 @@ void Application::numberOfFlights() {
 
 void Application::numberOfDestinations() {
     delay(2000);
+    std::string airport_code = "RYR"; // ToDo: Change this to user input
+    int x = 2;                        // ToDo: Change this to user input
+    flightManager.printNumReachableDests(airport_code, x);
     showGoBackMenu(4, "Show number of destinations (airports, cities, countries)\nfrom a given airport in a maximum amount of X stops (lay-overs).");
 }
 
@@ -206,6 +210,8 @@ void Application::flightsWithGreatestNumberOfStops() {
 
 void Application::topAirportsWithGreatestAirCapacity() {
     delay(2000);
+    int k = 2;  // ToDo: Change this to user input
+    flightManager.printTopKAirport(k);
     showGoBackMenu(6, "Show top airports with greatest air capacity.");
 }
 

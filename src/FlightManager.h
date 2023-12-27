@@ -1,48 +1,48 @@
-    #ifndef AEDFLIGHTMANAGER_FLIGHTMANAGER_H
-    #define AEDFLIGHTMANAGER_FLIGHTMANAGER_H
+#ifndef AEDFLIGHTMANAGER_FLIGHTMANAGER_H
+#define AEDFLIGHTMANAGER_FLIGHTMANAGER_H
 
-    #include <fstream>
-    #include <iostream>
-    #include <unordered_set>
-    #include "AirportNetwork.h"
-    #include "Airline.h"
+#include <fstream>
+#include <iostream>
+#include <unordered_set>
+#include "AirportNetwork.h"
+#include "Airline.h"
 
-    /**@brief Class that does operations on the data.*/
-    class FlightManager{
-    public:
-        // Constructor
-        FlightManager();
+/**@brief Class that does operations on the data.*/
+class FlightManager{
+public:
+    // Constructor
+    FlightManager();
 
-        // Data parsing
-        void parseData();
+    // Data parsing
+    void parseData();
 
-        // Network statistics
-        void printGlobalNumAirports(); // 1
-        void printGlobalNumFlights(); // 1
-        void printNumFlightsOutOfAirport(); // 2
-        void printNumFlightsCity(const std::string& cityName, const std::string& coutryName); // 3
-        void printNumFlightsAirline(const std::string& airlineName); // 3
+    // Network statistics
+    void printGlobalNumAirports(); // 1
+    void printGlobalNumFlights(); // 1
+    void printNumFlightsOutOfAirport(); // 2
+    void printNumFlightsCity(const std::string& cityName, const std::string& coutryName); // 3
+    void printNumFlightsAirline(const std::string& airlineName); // 3
 
-        void printNumDestinations(const std::string& airportName);
+    void printNumDestinations(const std::string& airportName);
 
-        void printNumCountriesFromAirport(); // 4
-        void printNumReachableDests(); //5
-        void printMaxTrip(); // 6
-        void printTopKAirport(); // 7
-        void printEssentialAirports(); // 8
+    void printNumCountriesFromAirport(std::string airport_name); // 4
+    void printNumReachableDests(std::string airport_name, int x); //5
+    void printMaxTrip(); // 6
+    void printTopKAirport(int k); // 7
+    void printEssentialAirports(); // 8
 
-        void testingCalculateDistance();
+    void testingCalculateDistance();
 
-        // Best flight options
-        // ToDo
+    // Best flight options
+    // ToDo
 
-    private:
-        AirportNetwork airportNetwork;
-        std::unordered_set<Airline ,HashFunction> airlines;
-        // Data parsing
-        void processAirlines(std::ifstream &in);
-        void processAirports(std::ifstream &in);
-        void processFlights(std::ifstream &in);
-    };
+private:
+    AirportNetwork airportNetwork;
+    std::unordered_set<Airline ,HashFunction> airlines;
+    // Data parsing
+    void processAirlines(std::ifstream &in);
+    void processAirports(std::ifstream &in);
+    void processFlights(std::ifstream &in);
+};
 
-    #endif //AEDFLIGHTMANAGER_FLIGHTMANAGER_H
+#endif //AEDFLIGHTMANAGER_FLIGHTMANAGER_H

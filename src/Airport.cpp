@@ -66,5 +66,9 @@ bool Airport::addDestination(Flight &flight) {
     return true;
 }
 
+std::pair<double, double> Airport::getInfo(){
+    return positionInfo;
+}
+
 
 
