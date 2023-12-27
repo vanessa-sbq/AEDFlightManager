@@ -12,7 +12,6 @@
 /**@brief Class that manages the menu.*/
 class Application{
 public:
-
     Application(std::string env){
         this->env = env;
     }

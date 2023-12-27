@@ -1,6 +1,5 @@
 #include "FlightManager.h"
 
-FlightManager::FlightManager(){}
 
 void FlightManager::parseData(){
     std::ifstream in;
@@ -102,3 +101,5 @@ void FlightManager::testingCalculateDistance() {
     double res = airportNetwork.calculateDistance(std::pair<double, double>(lat1, long1), std::pair<double, double>(lat2, long2));
     std::cout << "distance = " << res;
 }
+
+FlightManager::FlightManager() = default;
