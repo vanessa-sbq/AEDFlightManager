@@ -85,7 +85,7 @@ int Application::processKey(const std::string& option) {
 std::string Application::showMainMenu() {
     std::string option;
     std::cout << "\nSelect an operation you would like to do:\n\n"
-              << "1 - Show global number of available flights.\n"
+              << "1 - Show global number of available flights/airports.\n"
               << "2 - Show number of flights out of an airport.\n"  // ToDo: can also filter by airlines
               << "3 - Show number of flights per city/airline.\n"
               << "4 - Show number of destinations (airports, cities, countries)\n"

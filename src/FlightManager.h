@@ -22,6 +22,9 @@
         void printNumFlightsOutOfAirport(); // 2
         void printNumFlightsCity(const std::string& cityName, const std::string& coutryName); // 3
         void printNumFlightsAirline(const std::string& airlineName); // 3
+
+        void printNumDestinations(const std::string& airportName);
+
         void printNumCountriesFromAirport(); // 4
         void printNumReachableDests(); //5
         void printMaxTrip(); // 6

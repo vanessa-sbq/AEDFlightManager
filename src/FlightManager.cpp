@@ -194,6 +194,11 @@ void FlightManager::printNumCountriesFromAirport(){
     // ToDo
 }
 
+void FlightManager::printNumDestinations(const std::string& airportName){
+    
+}
+
+
 
 // 5
 void FlightManager::printNumReachableDests(){
