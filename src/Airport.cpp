@@ -70,5 +70,6 @@ std::pair<double, double> Airport::getInfo(){
     return positionInfo;
 }
 
-
-
+bool Airport::operator == (const Airport &p2) const {
+    return (code==p2.code);
+}

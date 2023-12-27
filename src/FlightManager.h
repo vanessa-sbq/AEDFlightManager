@@ -4,8 +4,10 @@
 #include <fstream>
 #include <iostream>
 #include <unordered_set>
-#include "AirportNetwork.h"
+//#include "AirportNetwork.h" // ToDo: remove?
 #include "Airline.h"
+#include "Graph.h"
+#include "Airport.h"
 
 /**@brief Class that does operations on the data.*/
 class FlightManager{
@@ -37,7 +39,8 @@ public:
     // ToDo
 
 private:
-    AirportNetwork airportNetwork;
+    //AirportNetwork airportNetwork;  // ToDo: remove?
+    Graph<Airport> airportNetwork;
     std::unordered_set<Airline ,HashFunction> airlines;
     // Data parsing
     void processAirlines(std::ifstream &in);

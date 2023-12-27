@@ -104,7 +104,7 @@ void FlightManager::printNumFlightsOutOfAirport(){
  *  @details as a flight, incoming flights (in-degree).
  *  @details Time Complexity for this is O(V) + O(E) where V is the number of airports and E then number of edges.
  * */
-void dfsAirport(Airport* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName);
+void dfsAirport(Vertex<Airport>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName);
 void FlightManager::printNumFlightsCity(const std::string& cityName, const std::string& coutryName){
     unsigned long numberFlights = 0;
 
@@ -114,11 +114,11 @@ void FlightManager::printNumFlightsCity(const std::string& cityName, const std::
     std::string coutryNameDup = coutryName;
     for (char &c: coutryNameDup) c = (char) std::tolower(c);
 
-    for (Airport* airport : airportNetwork.getAirports()){
+    for (Vertex<Airport>* airport : airportNetwork.getVertexSet()){
         airport->setVisited(false);
     }
 
-    for (Airport* airport : airportNetwork.getAirports()){
+    for (Vertex<Airport>* airport : airportNetwork.getVertexSet()){
         if (!airport->isVisited()){
             dfsAirport(airport, numberFlights, cityName, coutryName);
         }
@@ -128,18 +128,18 @@ void FlightManager::printNumFlightsCity(const std::string& cityName, const std::
     numberFlights == 0 ? std::cout << " has no flights.\n" : std::cout << " has " << numberFlights << " flights.\n";
 }
 
-void dfsAirport(Airport* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName){
+void dfsAirport(Vertex<Airport>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName){
     airport->setVisited(true);
 
-    if (airport->getCity() == cityName && airport->getCountry() == coutryName){
-        numberFlights += airport->getDestinations().size(); // out-degree
+    if (airport->getInfo().getCity() == cityName && airport->getInfo().getCountry() == coutryName){
+        numberFlights += airport->getAdj().size(); // out-degree
     }
 
-    for (const auto& flight : airport->getDestinations()){
+    for (const auto& flight : airport->getAdj()){
 
         auto destinationAirport = flight.getDest();
 
-        if (destinationAirport->getCity() == cityName && destinationAirport->getCountry() == coutryName){
+        if (destinationAirport->getInfo().getCity() == cityName && destinationAirport->getInfo().getCountry() == coutryName){
             numberFlights += 1; // in-degree
         }
 
@@ -155,15 +155,15 @@ void dfsAirport(Airport* airport, unsigned long& numberFlights, const std::strin
  *  @details If it is then we will increment the counter.
  *  @details Time Complexity for this is O(V) + O(E) where V is the number of airports and E then number of edges.
  * */
-void dfsNumberFlights(Airport* airport, int& numberFlights, const std::string& airlineCode);
+void dfsNumberFlights(Vertex<Airport>* airport, int& numberFlights, const std::string& airlineCode);
 void FlightManager::printNumFlightsAirline(const std::string& airlineCode){
     int numberFlights = 0;
 
-    for (Airport* airport : airportNetwork.getAirports()){
+    for (Vertex<Airport>* airport : airportNetwork.getVertexSet()){
         airport->setVisited(false);
     }
 
-    for (Airport* airport : airportNetwork.getAirports()){
+    for (Vertex<Airport>* airport : airportNetwork.getVertexSet()){
         if (!airport->isVisited()){
             dfsNumberFlights(airport, numberFlights, airlineCode);
         }
@@ -173,11 +173,11 @@ void FlightManager::printNumFlightsAirline(const std::string& airlineCode){
     numberFlights == 0 ? std::cout << " has no flights.\n" : std::cout << " has " << numberFlights << " flights.\n";
 }
 
-void dfsNumberFlights(Airport* airport, int& numberFlights, const std::string& airlineCode){
+void dfsNumberFlights(Vertex<Airport>* airport, int& numberFlights, const std::string& airlineCode){
     airport->setVisited(true);
 
-    for (const auto& flight : airport->getDestinations()){
-        if (flight.getAirline().getCode() == airlineCode){
+    for (const Edge<Airport>& flight : airport->getAdj()){
+        if (flight.getWeight2() == airlineCode){
             numberFlights++;
         }
 
@@ -205,6 +205,7 @@ void FlightManager::printNumDestinations(const std::string& airportName){
 
 
 // 5
+int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport &source, int x);
 void FlightManager::printNumReachableDests(std::string airport_code, int x){
     // ToDo
     std::cout << airport_code;
@@ -212,6 +213,39 @@ void FlightManager::printNumReachableDests(std::string airport_code, int x){
     // 1. bfs for all distances until x
     // 2. count number of airports, cities, countries (separately)
     // 3. print counts
+}
+
+int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport &source, int x) {
+    int count = 0;
+    auto vertex = airport_network->findVertex(source);
+
+    for (auto& a : airport_network->getVertexSet()) a->setVisited(false);
+
+    if (vertex == nullptr) return count;
+
+    std::queue<Vertex<Airport>*> q;
+    q.push(vertex);
+    vertex->setVisited(true);
+    int level = 0;
+    while (!q.empty() && level < x + 1){
+        int size = q.size();
+        for (int i = 0; i < size; i++){
+            auto v = q.front();
+            q.pop();
+            // ToDo: distinguish between airports, cities and countries
+            if (level <= x) count++;
+
+            for (auto& e : v->getAdj()){
+                auto w = e.getDest();
+                if (!w->isVisited()){
+                    w->setVisited(true);
+                    q.push(w);
+                }
+            }
+        }
+        level++;
+    }
+    return count;
 }
 
 
@@ -224,9 +258,9 @@ void FlightManager::printMaxTrip(){
 // 7
 void FlightManager::printTopKAirport(int k){
     // ToDo
-    for (Airport* airport : airportNetwork.getAirports()){
+    for (Vertex<Airport>* airport : airportNetwork.getVertexSet()){
         // DEBUG
-        std::cout << airport->getDestinations().size();
+        std::cout << airport->getAdj().size();
         std::cout << "AAA";
     }
     // algorithm:

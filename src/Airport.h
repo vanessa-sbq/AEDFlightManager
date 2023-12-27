@@ -44,9 +44,9 @@ public:
     int setIndegree(int indegree);
 
     bool addDestination(Flight &flight);
+    bool operator == (const Airport &p2) const;
 
-    friend class AirportNetwork;
-
+    //friend class AirportNetwork;  // ToDo: remove?
 };
 
 

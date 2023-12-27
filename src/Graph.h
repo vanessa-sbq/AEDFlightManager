@@ -9,6 +9,7 @@
 #include <queue>
 #include <stack>
 #include <list>
+#include <cmath>
 
 using namespace std;
 
@@ -60,13 +61,17 @@ public:
 template <class T>
 class Edge {
     Vertex<T> * dest;      // destination vertex
-    double weight;         // edge weight
+    // edge weights
+    double weight;   // for the distance
+    string weight2;  // for the airline
 public:
-    Edge(Vertex<T> *d, double w);
+    Edge(Vertex<T> *d, double w1, string w2);
     Vertex<T> *getDest() const;
     void setDest(Vertex<T> *dest);
     double getWeight() const;
+    string getWeight2() const;
     void setWeight(double weight);
+    void setWeight2(string weight2);
     friend class Graph<T>;
     friend class Vertex<T>;
 };
@@ -87,6 +92,7 @@ public:
     bool removeVertex(const T &in);
     bool addEdge(const T &sourc, const T &dest, double w);
     bool removeEdge(const T &sourc, const T &dest);
+    double calculateDistance(const std::pair<double, double> p1, const std::pair<double, double> p2);
     vector<Vertex<T> * > getVertexSet() const;
     vector<T> dfs() const;
     vector<T> dfs(const T & source) const;
@@ -100,8 +106,7 @@ template <class T>
 Vertex<T>::Vertex(T in): info(in) {}
 
 template <class T>
-Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w) {}
-
+Edge<T>::Edge(Vertex<T> *d, double w1, string w2): dest(d), weight(w1), weight2(w2) {}
 
 template <class T>
 int Graph<T>::getNumVertex() const {
@@ -149,9 +154,20 @@ double Edge<T>::getWeight() const {
 }
 
 template<class T>
+string Edge<T>::getWeight2() const {
+    return weight2;
+}
+
+template<class T>
 void Edge<T>::setWeight(double weight) {
     Edge::weight = weight;
 }
+
+template<class T>
+void Edge<T>::setWeight2(string weight2){
+    Edge:weight2 = weight2;
+}
+
 
 /*
  * Auxiliary function to find a vertex with a given content.
@@ -407,6 +423,24 @@ vector<T> Graph<T>::topsort() const {
     vector<T> res;
 
     return res;
+}
+
+template<class T>
+double Graph<T>::calculateDistance(const std::pair<double, double> p1, const std::pair<double, double> p2) {
+    double distanceLatitudes = (p2.first - p1.first) * M_PI / 180.0;
+    double distanceLongitudes = (p2.second - p1.second) * M_PI / 180.0;
+
+    double lat1 = p1.first * M_PI / 180.0;
+    double lat2 = p2.first * M_PI / 180.0;
+
+    double a = pow(sin(distanceLatitudes / 2),2) +
+               pow(sin(distanceLongitudes / 2),2) *
+               cos(lat1) * cos(lat2);
+
+    double rad = 6371;
+    double c = 2 * asin(sqrt(a));
+
+    return rad * c;
 }
 
 #endif /* GRAPH_H_ */
