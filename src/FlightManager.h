@@ -35,7 +35,7 @@
 
     private:
         AirportNetwork airportNetwork;
-        std::unordered_set<Airline, std::string ,HashFunction> airlines; // Add unordered set for airlines
+        std::unordered_set<Airline ,HashFunction> airlines;
         // Data parsing
         void processAirlines(std::ifstream &in);
         void processAirports(std::ifstream &in);
