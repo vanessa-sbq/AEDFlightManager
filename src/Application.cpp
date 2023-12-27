@@ -12,8 +12,7 @@ void Application::run(int processedKey) {
 
     switch (processedKey) {
         case 1:
-            //globalNumberOfAvailableFlights(); // ToDo
-            flightManager.testingCalculateDistance();
+            globalNumberOfAvailableFlights(); // ToDo
             std::cout << 1;
             break;
         case 2:
@@ -139,11 +138,14 @@ void Application::showGoBackMenu(int functionNumber, const std::string& function
 
 void Application::globalNumberOfAvailableFlights() {
     delay(2000);
+    flightManager.printGlobalNumAirports();
+    flightManager.printGlobalNumFlights();
     showGoBackMenu(1, "Show global number of available flights.");
 }
 
 void Application::numberOfFlightsOutOfAnAirport() {
     delay(2000);
+    flightManager.printNumFlightsOutOfAirport();
     showGoBackMenu(2, "Show number of flights out of an airport.");
 }
 

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <unordered_set>
+#include <unordered_map>
 #include <sstream>
 #include "Airline.h"
 #include "Graph.h"
@@ -43,7 +44,6 @@ private:
 
     std::unordered_set<Airline* ,HashFunction> airlineSet;
     std::unordered_map<std::string, Airline*> airlineMap;
-
     std::unordered_map<std::string, Airport*> airportMap;
 
     // Data parsing

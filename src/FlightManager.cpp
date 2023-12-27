@@ -1,4 +1,5 @@
 #include "FlightManager.h"
+#include <set>
 
 
 void FlightManager::parseData(){
@@ -119,19 +120,61 @@ void FlightManager::processFlights(std::ifstream &in){
     }
 }
 
-
-// 1
 void FlightManager::printGlobalNumAirports(){
-    // ToDo
+    std::cout << "Number of Airports = " << airportMap.size() << '\n';
 }
+
 void FlightManager::printGlobalNumFlights(){
-    // ToDo
+    int numFlights = 0;
+
+    for (auto v : airportNetwork.getVertexSet()) {
+        if (!v->isVisited()) {
+            queue<Vertex<Airport*> *> q;
+            q.push(v);
+            v->setVisited(true);
+            while (!q.empty()) {
+                auto vertex = q.front();
+
+                numFlights += vertex->getAdj().size();
+
+                q.pop();
+                for (auto & e : vertex->getAdj()) {
+                    auto w = e.getDest();
+                    if ( ! w->isVisited() ) {
+                        q.push(w);
+                        w->setVisited(true);
+                    }
+                }
+            }
+        }
+    }
+
+    std::cout << "Number of flights = " << numFlights << '\n';
 }
 
 
 // 2
 void FlightManager::printNumFlightsOutOfAirport(){
-    // ToDo
+    std::string airport;
+    std::cout << "Airport code: ";
+    std::cin >> airport;
+
+    for (char &c : airport) c = char(tolower(c));
+
+    auto v = airportNetwork.findVertex(airportMap[airport]);
+    if (v == NULL) {
+        std::cout << "Invalid airport code" << '\n';
+        return;
+    }
+
+    std::cout << "Number of flights out of " << airport << ": " << v->getAdj().size() <<'\n';
+
+    std::set<std::string> airlines;
+    for (Edge<Airport*> e : v->getAdj()) {
+        airlines.insert(e.getWeight2()->getCode());
+    }
+
+    std::cout << "Number of airlines flying out of " << airport << ": " << airlines.size() << '\n';
 }
 
 
