@@ -20,6 +20,7 @@ public:
 
     bool addFlight(const Airport* origin, const Airport* destination, double distance, Airline &airline);
     double calculateDistance(const std::pair<double, double> p1, const std::pair<double, double> p2);
+    int numAirportsReachableBFS(const std::pair<double,double> &source, int x);
     std::vector<Airport*> getAirports();
 };
 

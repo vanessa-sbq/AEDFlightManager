@@ -44,6 +44,10 @@ bool Airport::isVisited() const {
     return visited;
 }
 
+void Airport::setVisited(bool v) {
+    Airport::visited = v;
+}
+
 int Airport::getIndegree() const {
     return indegree;
 }
@@ -60,6 +64,10 @@ bool Airport::addDestination(Flight &flight) {
 
     destinations.push_back(flight);
     return true;
+}
+
+std::pair<double, double> Airport::getInfo(){
+    return positionInfo;
 }
 
 

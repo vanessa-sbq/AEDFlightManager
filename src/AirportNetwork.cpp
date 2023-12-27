@@ -4,6 +4,7 @@
 
 #include "AirportNetwork.h"
 #include <cmath>
+#include <queue>
 
 Airport *AirportNetwork::findAirport(const std::pair<double, double> &info) const {
     for (Airport *airport : airports) {
@@ -54,4 +55,37 @@ double AirportNetwork::calculateDistance(const std::pair<double, double> p1, con
     double c = 2 * asin(sqrt(a));
 
     return rad * c;
+}
+
+int AirportNetwork::numAirportsReachableBFS(const std::pair<double,double> &source, int x) {
+    int count = 0;
+    auto vertex = findAirport(source);
+
+    for (auto& a : getAirports()) a->setVisited(false);
+
+    if (vertex == nullptr) return count;
+
+    std::queue<Airport*> q;
+    q.push(vertex);
+    vertex->setVisited(true);
+    int level = 0;
+    while (!q.empty() && level < x + 1){
+        int size = q.size();
+        for (int i = 0; i < size; i++){
+            auto v = q.front();
+            q.pop();
+            // ToDo: distinguish between airports, cities and countries
+            if (level <= x) count++;
+
+            for (auto& e : v->getDestinations()){
+                auto w = e.getDest();
+                if (!w->isVisited()){
+                    w->setVisited(true);
+                    q.push(w);
+                }
+            }
+        }
+        level++;
+    }
+    return count;
 }

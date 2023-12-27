@@ -74,9 +74,9 @@ void FlightManager::printNumCountriesFromAirport(std::string airport_name){
 
 
 // 5
-void FlightManager::printNumReachableDests(std::string airport_name, int x){
+void FlightManager::printNumReachableDests(std::string airport_code, int x){
     // ToDo
-    std::cout << airport_name;
+    std::cout << airport_code;
     // algorithm:
     // 1. bfs for all distances until x
     // 2. count number of airports, cities, countries (separately)

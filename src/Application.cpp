@@ -154,9 +154,9 @@ void Application::numberOfFlights() {
 
 void Application::numberOfDestinations() {
     delay(2000);
-    std::string airport_name = "RYR"; // ToDo: Change this to user input
+    std::string airport_code = "RYR"; // ToDo: Change this to user input
     int x = 2;                        // ToDo: Change this to user input
-    flightManager.printNumReachableDests(airport_name, x);
+    flightManager.printNumReachableDests(airport_code, x);
     showGoBackMenu(4, "Show number of destinations (airports, cities, countries)\nfrom a given airport in a maximum amount of X stops (lay-overs).");
 }
 
