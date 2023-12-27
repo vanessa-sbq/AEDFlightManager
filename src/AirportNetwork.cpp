@@ -23,6 +23,10 @@ bool AirportNetwork::addAirport(const std::pair<double, double> &info, std::stri
     return true;
 }
 
+std::vector<Airport*> AirportNetwork::getAirports() {
+    return airports;
+}
+
 bool AirportNetwork::addFlight(const Airport *origin, const Airport *destination, double distance, Airline &airline) {
     Airport* src = findAirport(origin->getPositionInfo());
     Airport* dest = findAirport(destination->getPositionInfo());

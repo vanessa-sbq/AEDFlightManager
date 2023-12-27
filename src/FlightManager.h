@@ -20,10 +20,10 @@ public:
     void printGlobalNumFlights(); // 1
     void printNumFlightsOutOfAirport(); // 2
     void printNumFlightsCityAirline(); // 3
-    void printNumCountriesFromAirport(); // 4
-    void printNumReachableDests(); //5
+    void printNumCountriesFromAirport(std::string airport_name); // 4
+    void printNumReachableDests(std::string airport_name, int x); //5
     void printMaxTrip(); // 6
-    void printTopKAirport(); // 7
+    void printTopKAirport(int k); // 7
     void printEssentialAirports(); // 8
 
     void testingCalculateDistance();

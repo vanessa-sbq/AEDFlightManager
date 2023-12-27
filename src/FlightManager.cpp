@@ -64,14 +64,23 @@ void FlightManager::printNumFlightsCityAirline(){
 
 
 // 4
-void FlightManager::printNumCountriesFromAirport(){
+void FlightManager::printNumCountriesFromAirport(std::string airport_name){
     // ToDo
+    std::cout << airport_name;
+    // algorithm:
+    // 1. traverse adjacency list of airport
+    // 2. print all country names of the list
 }
 
 
 // 5
-void FlightManager::printNumReachableDests(){
+void FlightManager::printNumReachableDests(std::string airport_name, int x){
     // ToDo
+    std::cout << airport_name;
+    // algorithm:
+    // 1. bfs for all distances until x
+    // 2. count number of airports, cities, countries (separately)
+    // 3. print counts
 }
 
 
@@ -82,8 +91,17 @@ void FlightManager::printMaxTrip(){
 
 
 // 7
-void FlightManager::printTopKAirport(){
+void FlightManager::printTopKAirport(int k){
     // ToDo
+    for (Airport* airport : airportNetwork.getAirports()){
+        // DEBUG
+        std::cout << airport->getDestinations().size();
+        std::cout << "AAA";
+    }
+    // algorithm:
+    // 1. k is the number of times a max is skipped
+    // 2. Find the next max until k is 0
+    // 3. print the k-th airport
 }
 
 
