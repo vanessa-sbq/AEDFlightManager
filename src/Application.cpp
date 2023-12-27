@@ -147,8 +147,51 @@ void Application::numberOfFlightsOutOfAnAirport() {
 }
 
 void Application::numberOfFlights() {
-    delay(2000);
-    showGoBackMenu(3, "Show number of flights per city/airline.");
+    L1:
+    std::cout << "Choose an option:\n"
+    << "1 - Per City\n"
+    << "2 - Per AirLine\n";
+
+    std::string opt;
+    std::cout << "Input: ";
+    std::cin >> opt;
+    std::cout << "\n";
+    clearScreen();
+
+
+    if(processKey(opt) == 1) {
+        std::string city;
+        std::string country;
+        std::cout << "Please input city's name: ";
+        std::cin >> city;
+        std::cout << "\n";
+        std::cout << "Please input country's name: ";
+        std::cin >> country;
+        std::cout << "\n";
+        delay(1000);
+        clearScreen();
+
+// ToDo -> Ao construir as funções de parsing, fazer com que haja um map com (CityName, CountryName)(Key), AirPort(Value)
+        flightManager.printNumFlightsCity(city, country);
+        delay(2000);
+        showGoBackMenu(3, "Show number of flights per city/airline.");
+
+    }
+    if (processKey(opt) == 2){
+        std::string airline;
+        std::cout << "Please input Airline's name: ";
+        std::cin >> airline;
+        std::cout << "\n";
+        delay(1000);
+        clearScreen();
+        flightManager.printNumFlightsAirline(airline);
+        delay(2000);
+        showGoBackMenu(3, "Show number of flights per city/airline.");
+    } else {
+        goto L1;
+    }
+
+
 }
 
 void Application::numberOfDestinations() {

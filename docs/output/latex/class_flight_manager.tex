@@ -1,0 +1,99 @@
+\doxysection{Flight\+Manager Class Reference}
+\hypertarget{class_flight_manager}{}\label{class_flight_manager}\index{FlightManager@{FlightManager}}
+
+
+Class that does operations on the data.  
+
+
+
+
+{\ttfamily \#include $<$Flight\+Manager.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_flight_manager_a399eac8dc20dfad684223547717950d7}\label{class_flight_manager_a399eac8dc20dfad684223547717950d7} 
+void {\bfseries parse\+Data} ()
+\item 
+\Hypertarget{class_flight_manager_a88c9221312df604cd44c5279220893fb}\label{class_flight_manager_a88c9221312df604cd44c5279220893fb} 
+void {\bfseries print\+Global\+Num\+Airports} ()
+\item 
+\Hypertarget{class_flight_manager_ae4c1be97835361dfcb66eb6df99aa85a}\label{class_flight_manager_ae4c1be97835361dfcb66eb6df99aa85a} 
+void {\bfseries print\+Global\+Num\+Flights} ()
+\item 
+\Hypertarget{class_flight_manager_ac05d785d237adb8ac85f187e3a4d76cd}\label{class_flight_manager_ac05d785d237adb8ac85f187e3a4d76cd} 
+void {\bfseries print\+Num\+Flights\+Out\+Of\+Airport} ()
+\item 
+void \mbox{\hyperlink{class_flight_manager_ad6b99d3a31b9ff2cfdd01585ae8824e7}{print\+Num\+Flights\+City}} (const std\+::string \&city\+Name)
+\begin{DoxyCompactList}\small\item\em Print the number of flights that a city has. \end{DoxyCompactList}\item 
+\Hypertarget{class_flight_manager_a5c2e29e632b814d44b312b9d1354d106}\label{class_flight_manager_a5c2e29e632b814d44b312b9d1354d106} 
+void {\bfseries print\+Num\+Flights\+Airline} (const std\+::string \&airline\+Name)
+\item 
+\Hypertarget{class_flight_manager_aa3e16b7fc83c082e10a992f9cc311fa2}\label{class_flight_manager_aa3e16b7fc83c082e10a992f9cc311fa2} 
+void {\bfseries print\+Num\+Countries\+From\+Airport} ()
+\item 
+\Hypertarget{class_flight_manager_a0c8e0307221b6f5bbf8da7444f4de8f6}\label{class_flight_manager_a0c8e0307221b6f5bbf8da7444f4de8f6} 
+void {\bfseries print\+Num\+Reachable\+Dests} ()
+\item 
+\Hypertarget{class_flight_manager_a1e56d0d44e9037c6b52f63f5ebafa5a2}\label{class_flight_manager_a1e56d0d44e9037c6b52f63f5ebafa5a2} 
+void {\bfseries print\+Max\+Trip} ()
+\item 
+\Hypertarget{class_flight_manager_a6f5f5804eea30b9b82159d8f281bc917}\label{class_flight_manager_a6f5f5804eea30b9b82159d8f281bc917} 
+void {\bfseries print\+Top\+KAirport} ()
+\item 
+\Hypertarget{class_flight_manager_a00395fd3b9bbdc4c2d70910b637c3d52}\label{class_flight_manager_a00395fd3b9bbdc4c2d70910b637c3d52} 
+void {\bfseries print\+Essential\+Airports} ()
+\item 
+\Hypertarget{class_flight_manager_ab0c7e1f03f2358642d1dbe926c33dc32}\label{class_flight_manager_ab0c7e1f03f2358642d1dbe926c33dc32} 
+void {\bfseries testing\+Calculate\+Distance} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_flight_manager_a62d0b55f1bb098481d54590442c22c37}\label{class_flight_manager_a62d0b55f1bb098481d54590442c22c37} 
+void {\bfseries process\+Airlines} (std\+::ifstream \&in)
+\item 
+\Hypertarget{class_flight_manager_a289c730da2913dbf45e041b4b6103a9f}\label{class_flight_manager_a289c730da2913dbf45e041b4b6103a9f} 
+void {\bfseries process\+Airports} (std\+::ifstream \&in)
+\item 
+\Hypertarget{class_flight_manager_a83f2295040b89bb779a67dcd9c7d9f85}\label{class_flight_manager_a83f2295040b89bb779a67dcd9c7d9f85} 
+void {\bfseries process\+Flights} (std\+::ifstream \&in)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_flight_manager_a4fe67defe2059f6113e19d2d2345191d}\label{class_flight_manager_a4fe67defe2059f6113e19d2d2345191d} 
+\mbox{\hyperlink{class_airport_network}{Airport\+Network}} {\bfseries airport\+Network}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that does operations on the data. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_flight_manager_ad6b99d3a31b9ff2cfdd01585ae8824e7}\label{class_flight_manager_ad6b99d3a31b9ff2cfdd01585ae8824e7} 
+\index{FlightManager@{FlightManager}!printNumFlightsCity@{printNumFlightsCity}}
+\index{printNumFlightsCity@{printNumFlightsCity}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printNumFlightsCity()}{printNumFlightsCity()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Num\+Flights\+City (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{city\+Name }\end{DoxyParamCaption})}
+
+
+
+Print the number of flights that a city has. 
+
+The number of flights is considered to be out-\/degree (Flights that have this \doxylink{class_airport}{Airport} as source)
+
+plus it\textquotesingle{}s in-\/degree (Flights that have this \doxylink{class_airport}{Airport} as destination).
+
+The Time Complexity should be O(1) however, if a city has more than one \doxylink{class_airport}{Airport} then Time Complexity
+
+will be O(\+Number of Airports of that City). Also, due to the use of an hashmap, in the worst case
+
+the time complexity can be O(n) or even O(n + Number of Airports of that City) where n is the
+
+size of the hashmap. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/Flight\+Manager.\+h\item 
+/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/Flight\+Manager.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,77 @@
+\doxysection{Airport Class Reference}
+\hypertarget{class_airport}{}\label{class_airport}\index{Airport@{Airport}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_airport_a69713065f3c6606c13ba796e3c4e0d10}\label{class_airport_a69713065f3c6606c13ba796e3c4e0d10} 
+{\bfseries Airport} (const std\+::pair$<$ double, double $>$ p, std\+::string code, std\+::string name, std\+::string city, std\+::string country)
+\item 
+\Hypertarget{class_airport_a01e820f9d4b0d712564b511b88fb3374}\label{class_airport_a01e820f9d4b0d712564b511b88fb3374} 
+const std\+::pair$<$ double, double $>$ \& {\bfseries get\+Position\+Info} () const
+\item 
+\Hypertarget{class_airport_a78dcc4385c4ddfc18fb49b642fb04196}\label{class_airport_a78dcc4385c4ddfc18fb49b642fb04196} 
+const std\+::string \& {\bfseries get\+Code} () const
+\item 
+\Hypertarget{class_airport_aa5be38443c1de176e52c4f5f5252c956}\label{class_airport_aa5be38443c1de176e52c4f5f5252c956} 
+const std\+::string \& {\bfseries get\+Name} () const
+\item 
+\Hypertarget{class_airport_a1a4c025d8d747398108356bf42d74eee}\label{class_airport_a1a4c025d8d747398108356bf42d74eee} 
+const std\+::string \& {\bfseries get\+City} () const
+\item 
+\Hypertarget{class_airport_aad0a9be7a85e90b7090be9007de855b8}\label{class_airport_aad0a9be7a85e90b7090be9007de855b8} 
+const std\+::string \& {\bfseries get\+Country} () const
+\item 
+\Hypertarget{class_airport_a7fe0e9fba68864c847bf1564d59a0bcd}\label{class_airport_a7fe0e9fba68864c847bf1564d59a0bcd} 
+const std\+::vector$<$ \mbox{\hyperlink{class_flight}{Flight}} $>$ \& {\bfseries get\+Destinations} () const
+\item 
+\Hypertarget{class_airport_ae0c8e702145d72ca69af5d51c7d8b7a4}\label{class_airport_ae0c8e702145d72ca69af5d51c7d8b7a4} 
+bool {\bfseries is\+Visited} () const
+\item 
+\Hypertarget{class_airport_a5a3b00ebb486d125364eb5bfca1bd842}\label{class_airport_a5a3b00ebb486d125364eb5bfca1bd842} 
+int {\bfseries get\+Indegree} () const
+\item 
+\Hypertarget{class_airport_a810d80546d13acdef792b2ddf416ec67}\label{class_airport_a810d80546d13acdef792b2ddf416ec67} 
+int {\bfseries set\+Indegree} (int indegree)
+\item 
+\Hypertarget{class_airport_a9607dbf739657ba68d7a14f4e3d2e17e}\label{class_airport_a9607dbf739657ba68d7a14f4e3d2e17e} 
+bool {\bfseries add\+Destination} (\mbox{\hyperlink{class_flight}{Flight}} \&flight)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_airport_abdf311aae17d08164e22af9542477998}\label{class_airport_abdf311aae17d08164e22af9542477998} 
+std\+::pair$<$ double, double $>$ {\bfseries position\+Info}
+\item 
+\Hypertarget{class_airport_a9d5275582b3d183d5fd756da38afee77}\label{class_airport_a9d5275582b3d183d5fd756da38afee77} 
+std\+::string {\bfseries code}
+\item 
+\Hypertarget{class_airport_a7f3bf800ff1d56c6cf5ac2011fd50a5d}\label{class_airport_a7f3bf800ff1d56c6cf5ac2011fd50a5d} 
+std\+::string {\bfseries name}
+\item 
+\Hypertarget{class_airport_a97ee68b449c91d3ef1105486176b80d1}\label{class_airport_a97ee68b449c91d3ef1105486176b80d1} 
+std\+::string {\bfseries city}
+\item 
+\Hypertarget{class_airport_a7f26cdde932db3f9a34bcfd99ff17062}\label{class_airport_a7f26cdde932db3f9a34bcfd99ff17062} 
+std\+::string {\bfseries country}
+\item 
+\Hypertarget{class_airport_a2833a96db27f66f4267a17027e056f12}\label{class_airport_a2833a96db27f66f4267a17027e056f12} 
+std\+::vector$<$ \mbox{\hyperlink{class_flight}{Flight}} $>$ {\bfseries destinations}
+\item 
+\Hypertarget{class_airport_ab802be812c69e3179a367d821ef68a57}\label{class_airport_ab802be812c69e3179a367d821ef68a57} 
+bool {\bfseries visited}
+\item 
+\Hypertarget{class_airport_aaa104787d8351d9867b0c3c57ec4c1a5}\label{class_airport_aaa104787d8351d9867b0c3c57ec4c1a5} 
+int {\bfseries indegree}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_airport_a8f80d83c058b9ed0fe3996b2740b3ebe}\label{class_airport_a8f80d83c058b9ed0fe3996b2740b3ebe} 
+class {\bfseries Airport\+Network}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/Airport.\+h\item 
+/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/Airport.\+cpp\end{DoxyCompactItemize}

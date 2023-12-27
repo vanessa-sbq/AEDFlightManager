@@ -3,7 +3,6 @@
 //
 
 #include "AirportNetwork.h"
-#include <cmath>
 
 Airport *AirportNetwork::findAirport(const std::pair<double, double> &info) const {
     for (Airport *airport : airports) {

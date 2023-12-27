@@ -1,0 +1,67 @@
+\doxysection{Graph\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_graph}{}\label{class_graph}\index{Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graph_a8b7b7465fbfd562e2a469f90a437ab75}\label{class_graph_a8b7b7465fbfd562e2a469f90a437ab75} 
+\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} {\bfseries find\+Vertex} (const T \&in) const
+\item 
+\Hypertarget{class_graph_a0853eac15cdf0f06d63f4b8a7820ec71}\label{class_graph_a0853eac15cdf0f06d63f4b8a7820ec71} 
+int {\bfseries get\+Num\+Vertex} () const
+\item 
+\Hypertarget{class_graph_a00be284ea2be3b3d0f0d2e493b70245b}\label{class_graph_a00be284ea2be3b3d0f0d2e493b70245b} 
+bool {\bfseries add\+Vertex} (const T \&in)
+\item 
+\Hypertarget{class_graph_af9c903104ad69a7782979fa9caedf163}\label{class_graph_af9c903104ad69a7782979fa9caedf163} 
+bool {\bfseries remove\+Vertex} (const T \&in)
+\item 
+\Hypertarget{class_graph_ac61af3aafe6277215f5a3b3cc7d58ce2}\label{class_graph_ac61af3aafe6277215f5a3b3cc7d58ce2} 
+bool {\bfseries add\+Edge} (const T \&sourc, const T \&dest, double w)
+\item 
+\Hypertarget{class_graph_a1106092a37366486cf55576f9ec01692}\label{class_graph_a1106092a37366486cf55576f9ec01692} 
+bool {\bfseries remove\+Edge} (const T \&sourc, const T \&dest)
+\item 
+\Hypertarget{class_graph_a923b43995f81ad9319bbc81a1e433e64}\label{class_graph_a923b43995f81ad9319bbc81a1e433e64} 
+vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} $>$ {\bfseries get\+Vertex\+Set} () const
+\item 
+\Hypertarget{class_graph_a911798b1a89f8c4ae90ba3eee849cff8}\label{class_graph_a911798b1a89f8c4ae90ba3eee849cff8} 
+vector$<$ T $>$ {\bfseries dfs} () const
+\item 
+\Hypertarget{class_graph_a510522c8221b321a82e687fe2f2cb484}\label{class_graph_a510522c8221b321a82e687fe2f2cb484} 
+vector$<$ T $>$ {\bfseries dfs} (const T \&source) const
+\item 
+\Hypertarget{class_graph_aa47a4130165550e208e7a063fce6983a}\label{class_graph_aa47a4130165550e208e7a063fce6983a} 
+vector$<$ T $>$ {\bfseries bfs} (const T \&source) const
+\item 
+\Hypertarget{class_graph_af1d4affd1f886bf598d0f4cf4a0cb7cb}\label{class_graph_af1d4affd1f886bf598d0f4cf4a0cb7cb} 
+vector$<$ T $>$ {\bfseries topsort} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graph_ab2bb8011642e0d5e6a71e0981d661056}\label{class_graph_ab2bb8011642e0d5e6a71e0981d661056} 
+void {\bfseries dfs\+Visit} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*}v, vector$<$ T $>$ \&res) const
+\item 
+\Hypertarget{class_graph_a06743c0b3e219cfeefa5aade38556cb7}\label{class_graph_a06743c0b3e219cfeefa5aade38556cb7} 
+bool {\bfseries dfs\+Is\+DAG} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*}v) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graph_a73d4e735fc0a7c83c9c689a2b53fa623}\label{class_graph_a73d4e735fc0a7c83c9c689a2b53fa623} 
+vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} $>$ {\bfseries vertex\+Set}
+\item 
+\Hypertarget{class_graph_a1e0cd13bd9e91a125a484a0817c030a1}\label{class_graph_a1e0cd13bd9e91a125a484a0817c030a1} 
+int {\bfseries \+\_\+index\+\_\+}
+\item 
+\Hypertarget{class_graph_a261998fc1e44c878c595c2b0a05680be}\label{class_graph_a261998fc1e44c878c595c2b0a05680be} 
+stack$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $>$ {\bfseries \+\_\+stack\+\_\+}
+\item 
+\Hypertarget{class_graph_ab06fb542caac016248829c9e6fd11ec4}\label{class_graph_ab06fb542caac016248829c9e6fd11ec4} 
+list$<$ list$<$ T $>$ $>$ {\bfseries \+\_\+list\+\_\+sccs\+\_\+}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/Graph.\+h\end{DoxyCompactItemize}

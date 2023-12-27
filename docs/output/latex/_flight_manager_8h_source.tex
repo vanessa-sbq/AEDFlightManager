@@ -1,0 +1,52 @@
+\doxysection{Flight\+Manager.\+h}
+\hypertarget{_flight_manager_8h_source}{}\label{_flight_manager_8h_source}\index{/Users/antonioabilio/CLionProjects/AEDFlightManager/src/FlightManager.h@{/Users/antonioabilio/CLionProjects/AEDFlightManager/src/FlightManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ AEDFLIGHTMANAGER\_FLIGHTMANAGER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\ \ \ \ \#define\ AEDFLIGHTMANAGER\_FLIGHTMANAGER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\ \ \ \ \#include\ <fstream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\ \ \ \ \#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\ \ \ \ \#include\ <unordered\_set>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\ \ \ \ \#include\ "{}AirportNetwork.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ \#include\ "{}Airline.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_flight_manager}{FlightManager}}\{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Constructor}}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_flight_manager}{FlightManager}}();}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Data\ parsing}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ parseData();}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Network\ statistics}}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ printGlobalNumAirports();\ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ printGlobalNumFlights();\ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ printNumFlightsOutOfAirport();\ \textcolor{comment}{//\ 2}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_flight_manager_ad6b99d3a31b9ff2cfdd01585ae8824e7}{printNumFlightsCity}}(\textcolor{keyword}{const}\ std::string\&\ cityName);\ \textcolor{comment}{//\ 3}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ printNumFlightsAirline(\textcolor{keyword}{const}\ std::string\&\ airlineName);\ \textcolor{comment}{//\ 3}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ printNumCountriesFromAirport();\ \textcolor{comment}{//\ 4}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ printNumReachableDests();\ \textcolor{comment}{//5}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ printMaxTrip();\ \textcolor{comment}{//\ 6}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ printTopKAirport();\ \textcolor{comment}{//\ 7}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ printEssentialAirports();\ \textcolor{comment}{//\ 8}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ testingCalculateDistance();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Best\ flight\ options}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ToDo}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_airport_network}{AirportNetwork}}\ airportNetwork;}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::unordered\_set<Airline,\ std::string\ ,HashFunction>\ airlines;\ //\ Add\ unordered\ set\ for\ airlines}}
+\DoxyCodeLine{00040\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Data\ parsing}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ processAirlines(std::ifstream\ \&in);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ processAirports(std::ifstream\ \&in);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ processFlights(std::ifstream\ \&in);}
+\DoxyCodeLine{00045\ \ \ \ \ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{//AEDFLIGHTMANAGER\_FLIGHTMANAGER\_H}}
+
+\end{DoxyCode}
