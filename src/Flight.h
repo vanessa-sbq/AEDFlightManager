@@ -18,6 +18,7 @@ class Flight {
 public:
     Flight(Airport *airport, double distance,  Airline &airline);
     Airport *getDest() const;
+    Airline getAirline() const;
     double getDistance() const;
     friend class Airport;
     friend class AirportNetwork;

@@ -38,6 +38,7 @@ public:
 
     const std::vector<Flight> &getDestinations() const;
     bool isVisited() const;
+    void setVisited(bool value);
     int getIndegree() const;
     int setIndegree(int indegree);
 

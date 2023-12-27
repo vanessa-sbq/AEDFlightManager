@@ -14,5 +14,9 @@ double Flight::getDistance() const {
     return distance;
 }
 
+Airline Flight::getAirline() const {
+    return airline;
+}
+
 
 

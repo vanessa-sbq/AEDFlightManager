@@ -21,7 +21,9 @@ struct PairHash {
 
 class AirportNetwork {
     std::vector<Airport*> airports;
+/*
     std::unordered_map<std::pair<std::string,std::string>, std::vector<Airport*>, PairHash> countryAirports;
+*/
 
 public:
     Airport *findAirport(const std::pair<double, double> &info) const;
@@ -34,8 +36,12 @@ public:
     bool addFlight(const Airport* origin, const Airport* destination, double distance, Airline &airline);
     double calculateDistance(const std::pair<double, double> p1, const std::pair<double, double> p2);
 
-    std::unordered_map<std::pair<std::string,std::string>, std::vector<Airport*>, PairHash> getCountryAirports() const{
+    /*std::unordered_map<std::pair<std::string,std::string>, std::vector<Airport*>, PairHash> getCountryAirports() const{
         return countryAirports;
+    }*/
+
+    std::vector<Airport*> getAirports(){
+        return airports;
     }
 };
 

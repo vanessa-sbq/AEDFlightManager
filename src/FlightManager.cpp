@@ -57,27 +57,27 @@ void FlightManager::printNumFlightsOutOfAirport(){
 
 
 // 3
-    /** @brief Print the number of flights that a city has.
+
+/*void FlightManager::printNumFlightsCity(const std::string& cityName, const std::string& coutryName){
+
+    * @brief Print the number of flights that a city has.
      *  @details The number of flights is considered to be out-degree (Flights that have this Airport as source)
      *  @details plus it's in-degree (Flights that have this Airport as destination).
      *  @details The Time Complexity should be O(1 + cityNameSize + coutryNameSize) however, if a city has more than one Airport then
      *  @details Time Complexity will be O(Number of Airports of that City + cityNameSize + coutryNameSize).
      *  @details Also, due to the use of an hashmap, in the worst case the Time Complexity can be O(n + cityNameSize + coutryNameSize)
      *  @details or even O(n + Number of Airports of that City + cityNameSize + coutryNameSize) where n is the size of the hashmap.
-    * */
-void FlightManager::printNumFlightsCity(const std::string& cityName, const std::string& coutryName){
-// Preciso de uma forma de ter um nome de uma cidade e saber os aeroportos que esta tem.
-// Uma cidade pode ter mais que um aeroporto.
+    *
 
     // All names should be lowercase to make searching easier.
     std::string cityNameDup = cityName;
-    for (char &c: cityNameDup) c = (char) std::tolower(static_cast<unsigned char>(c));
+    for (char &c: cityNameDup) c = (char) std::tolower(c);
 
     std::string coutryNameDup = coutryName;
-    for (char &c: coutryNameDup) c = (char) std::tolower(static_cast<unsigned char>(c));
+    for (char &c: coutryNameDup) c = (char) std::tolower(c);
 
     // Get the unordered map and find the city.
-        std::unordered_map<std::pair<std::string,std::string>, std::vector<Airport*>, PairHash> airports = airportNetwork.getCountryAirports();
+    std::unordered_map<std::pair<std::string,std::string>, std::vector<Airport*>, PairHash> airports = airportNetwork.getCountryAirports();
     auto foundCityAirports = airports.find({cityNameDup, coutryNameDup});
 
     // Case where there is no city with the given name was found.
@@ -94,10 +94,98 @@ void FlightManager::printNumFlightsCity(const std::string& cityName, const std::
     }
 
     std::cout << "The number of flights for " << cityName << ", " << coutryName << " is " << totalFlights << ".\n";
+}*/
+
+/** @brief Print the number of flights that a city has.
+ *  @details The number of flights is calculated using a dfs approach. We use the dfs algorithm to visit every airport
+ *  @details and check it's name and it's country. If these match then we add all outgoing flights to numberFlights
+ *  @details so that when we reach the end we have the total amount of flights that a given city has.
+ *  @details We also check if a given destination is the expected airport. If it is then we also add +1 because it also counts
+ *  @details as a flight, incoming flights (in-degree).
+ *  @details Time Complexity for this is O(V) + O(E) where V is the number of airports and E then number of edges.
+ * */
+void dfsAirport(Airport* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName);
+void FlightManager::printNumFlightsCity(const std::string& cityName, const std::string& coutryName){
+    unsigned long numberFlights = 0;
+
+    // LowerCase Names.
+    std::string cityNameDup = cityName;
+    for (char &c: cityNameDup) c = (char) std::tolower(c);
+    std::string coutryNameDup = coutryName;
+    for (char &c: coutryNameDup) c = (char) std::tolower(c);
+
+    for (Airport* airport : airportNetwork.getAirports()){
+        airport->setVisited(false);
+    }
+
+    for (Airport* airport : airportNetwork.getAirports()){
+        if (!airport->isVisited()){
+            dfsAirport(airport, numberFlights, cityName, coutryName);
+        }
+    }
+
+    std::cout << cityName << ", " << coutryName;
+    numberFlights == 0 ? std::cout << " has no flights.\n" : std::cout << " has " << numberFlights << " flights.\n";
 }
 
-void FlightManager::printNumFlightsAirline(const std::string& airlineName){
+void dfsAirport(Airport* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName){
+    airport->setVisited(true);
 
+    if (airport->getCity() == cityName && airport->getCountry() == coutryName){
+        numberFlights += airport->getDestinations().size(); // out-degree
+    }
+
+    for (const auto& flight : airport->getDestinations()){
+
+        auto destinationAirport = flight.getDest();
+
+        if (destinationAirport->getCity() == cityName && destinationAirport->getCountry() == coutryName){
+            numberFlights += 1; // in-degree
+        }
+
+        if (!destinationAirport->isVisited()){
+            dfsAirport(destinationAirport, numberFlights, cityName, coutryName);
+        }
+    }
+}
+
+/** @brief Print the number of flights that an airline has.
+ *  @details The number of flights is calculated using a dfs approach. We use the dfs algorithm to visit every airport
+ *  @details and check it's edges (Flight). From here we verify if the any flight of this airport is of the airline we are looking for.
+ *  @details If it is then we will increment the counter.
+ *  @details Time Complexity for this is O(V) + O(E) where V is the number of airports and E then number of edges.
+ * */
+void dfsNumberFlights(Airport* airport, int& numberFlights, const std::string& airlineCode);
+void FlightManager::printNumFlightsAirline(const std::string& airlineCode){
+    int numberFlights = 0;
+
+    for (Airport* airport : airportNetwork.getAirports()){
+        airport->setVisited(false);
+    }
+
+    for (Airport* airport : airportNetwork.getAirports()){
+        if (!airport->isVisited()){
+            dfsNumberFlights(airport, numberFlights, airlineCode);
+        }
+    }
+
+    std::cout << "Airline with code " << airlineCode;
+    numberFlights == 0 ? std::cout << " has no flights.\n" : std::cout << " has " << numberFlights << " flights.\n";
+}
+
+void dfsNumberFlights(Airport* airport, int& numberFlights, const std::string& airlineCode){
+    airport->setVisited(true);
+
+    for (const auto& flight : airport->getDestinations()){
+        if (flight.getAirline().getCode() == airlineCode){
+            numberFlights++;
+        }
+
+        auto destinationAirport = flight.getDest();
+        if (!destinationAirport->isVisited()){
+            dfsNumberFlights(destinationAirport, numberFlights, airlineCode);
+        }
+    }
 }
 
 

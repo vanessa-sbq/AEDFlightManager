@@ -44,6 +44,10 @@ bool Airport::isVisited() const {
     return visited;
 }
 
+void Airport::setVisited(bool value){
+    visited = value;
+}
+
 int Airport::getIndegree() const {
     return indegree;
 }
