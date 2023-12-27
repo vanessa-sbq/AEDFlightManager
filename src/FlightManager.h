@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <unordered_set>
-//#include "AirportNetwork.h" // ToDo: remove?
+#include <sstream>
 #include "Airline.h"
 #include "Graph.h"
 #include "Airport.h"
@@ -39,9 +39,13 @@ public:
     // ToDo
 
 private:
-    //AirportNetwork airportNetwork;  // ToDo: remove?
-    Graph<Airport> airportNetwork;
-    std::unordered_set<Airline ,HashFunction> airlines;
+    Graph<Airport*> airportNetwork;
+
+    std::unordered_set<Airline* ,HashFunction> airlineSet;
+    std::unordered_map<std::string, Airline*> airlineMap;
+
+    std::unordered_map<std::string, Airport*> airportMap;
+
     // Data parsing
     void processAirlines(std::ifstream &in);
     void processAirports(std::ifstream &in);

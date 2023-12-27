@@ -2,8 +2,8 @@
 
 /**@brief Starts the application.*/
 void Application::run(int processedKey) {
+    flightManager.parseData();
     L1:
-    //flightManager.testingCalculateDistance();
     clearScreen();
     while (processedKey == -1){
         clearScreen();
@@ -55,14 +55,14 @@ void Application::run(int processedKey) {
 }
 
 void Application::clearScreen() {
-    if (env == "win")
+    /*if (env == "win")
         L1:
         std::cout << "\n\n\n\n\n\n\n\n\n"
                      "\n\n\n\n\n\n\n\n\n"
                      "\n\n\n\n\n\n\n\n\n"
                      "\n\n\n\n\n\n\n\n\n";
     else if (env == "unix")
-        if ( system("clear") == -1 ) goto L1;
+        if ( system("clear") == -1 ) goto L1;*/
 }
 
 void Application::delay(long sleepMS) {
@@ -180,7 +180,7 @@ void Application::numberOfFlights() {
     }
     if (processKey(opt) == 2){
         std::string airline;
-        std::cout << "Please input Airline's name: ";
+        std::cout << "Please input Airline's code: ";
         std::cin >> airline;
         std::cout << "\n";
         delay(1000);

@@ -2,9 +2,11 @@
 
 
 void FlightManager::parseData(){
+    std::cout << "Now begin";
     std::ifstream in;
 
     // Open the file using the provided path.
+    std::cout << "Now airlines";
     in.open("../inputFiles/airlines.csv");
     if (!in.is_open()){
         std::cout << "Unable to open airlines.csv.\n";
@@ -13,6 +15,7 @@ void FlightManager::parseData(){
     processAirlines(in);
     in.close();
 
+    std::cout << "Now airports";
     in.open("../inputFiles/airports.csv");
     if (!in.is_open()){
         std::cout << "Unable to open airports.csv.\n";
@@ -21,6 +24,7 @@ void FlightManager::parseData(){
     processAirports(in);
     in.close();
 
+    std::cout << "Now flights";
     in.open("../inputFiles/flights.csv");
     if (!in.is_open()){
         std::cout << "Unable to open flights.csv.\n";
@@ -31,13 +35,88 @@ void FlightManager::parseData(){
 }
 
 void FlightManager::processAirlines(std::ifstream &in){
+    std::string line;
+    getline(in,line);
+    while(getline(in, line)) {
+        std::istringstream s(line);
+        std::string code, name, country, callsign;
+        if (std::getline(s, code, ',') && std::getline(s, name, ',') && std::getline(s, callsign, ',') && std::getline(s, country, '\r')) {
+            for (char& c : code) c = (char) tolower(c);
+            for (char& c : name) c = (char) tolower(c);
+            for (char& c : country) c = (char) tolower(c);
+            for (char& c : callsign) c = (char) tolower(c);
+            auto* airline = new Airline(code, name, country, callsign);
 
+            airlineSet.insert(airline);
+            airlineMap[code] = airline;
+
+        } else {
+            std::cerr << "Invalid line in the CSV file" << line << std::endl;
+        }
+    }
+
+    // ToDo remover
+    /*for (auto airline : airlineMap){
+        cout << "airline with name " << airline.second->getName() << std::endl;
+    }*/
 }
 void FlightManager::processAirports(std::ifstream &in){
+    std::string line;
+    getline(in,line);
+    while (getline(in, line)) {
+        std::istringstream s(line);
+        std::string code, name, city, country, lat, longit;
+        std::pair<double,double> position;
 
+        if (std::getline(s, code, ',') && std::getline(s, name, ',') && std::getline(s, city, ',') && std::getline(s, country, ',') && std::getline(s, lat, ',') && std::getline(s, longit, '\r')) {
+            position.first = std::stod(lat);
+            position.second = std::stod(longit);
+            for (char& c : code) c = (char) tolower(c);
+            for (char& c : name) c = (char) tolower(c);
+            for (char& c : city) c = (char) tolower(c);
+            for (char& c : country) c = (char) tolower(c);
+            auto* airport = new Airport(position, code, name, city, country);
+            airportMap[code] = airport;
+
+            if (!airportNetwork.addVertex(airport)){
+                std::cout << "Error while adding vertex to graph.";
+            }
+        } else {
+            std::cerr << "Invalid line in the CSV file" << line << std::endl;
+        }
+    }
+    // ToDo remover
+    /*for (auto airport : airportMap){
+        cout << "Airport with code " << airport.second->getCode() << std::endl;
+    }*/
 }
 void FlightManager::processFlights(std::ifstream &in){
+    std::string line;
+    getline(in, line);
+    while (getline(in, line)) {
+        std::istringstream s(line);
+        std::string source, target, airlineCode;
 
+        if (getline(s, source, ',') && getline(s, target, ',') && getline(s, airlineCode, '\r')) {
+            for (char& c : source) c = (char) tolower(c);
+            for (char& c : target) c = (char) tolower(c);
+            for (char& c : airlineCode) c = (char) tolower(c);
+            Airline* airline = airlineMap[airlineCode];
+            Airport* sourceAirport = airportMap[source];
+            Airport* targetAirport = airportMap[target];
+
+            // ToDo Remover cout
+            //cout << "Source is " << sourceAirport->getName() << " target is " << targetAirport->getName() << " and we are flying with " << airline->getName() << "\n";
+            double distance = airportNetwork.calculateDistance(sourceAirport->getPositionInfo(), targetAirport->getPositionInfo());
+            if (!airportNetwork.addEdge(sourceAirport, targetAirport, distance, airline)){
+                std::cout << "Error while adding edge to graph.";
+            }
+        }
+        // ToDo remover
+        /*for (auto iDontKnowAnymore : this->airportNetwork.getVertexSet()){
+            cout << "Airport with name " << iDontKnowAnymore->getInfo()->getName() << std::endl;
+        }*/
+    }
 }
 
 
@@ -104,7 +183,7 @@ void FlightManager::printNumFlightsOutOfAirport(){
  *  @details as a flight, incoming flights (in-degree).
  *  @details Time Complexity for this is O(V) + O(E) where V is the number of airports and E then number of edges.
  * */
-void dfsAirport(Vertex<Airport>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName);
+void dfsAirport(Vertex<Airport*>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName);
 void FlightManager::printNumFlightsCity(const std::string& cityName, const std::string& coutryName){
     unsigned long numberFlights = 0;
 
@@ -114,24 +193,24 @@ void FlightManager::printNumFlightsCity(const std::string& cityName, const std::
     std::string coutryNameDup = coutryName;
     for (char &c: coutryNameDup) c = (char) std::tolower(c);
 
-    for (Vertex<Airport>* airport : airportNetwork.getVertexSet()){
+    for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
         airport->setVisited(false);
     }
 
-    for (Vertex<Airport>* airport : airportNetwork.getVertexSet()){
+    for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
         if (!airport->isVisited()){
-            dfsAirport(airport, numberFlights, cityName, coutryName);
+            dfsAirport(airport, numberFlights, cityNameDup, coutryNameDup);
         }
     }
 
-    std::cout << cityName << ", " << coutryName;
+    std::cout << "The city " << cityName << " from " << coutryName;
     numberFlights == 0 ? std::cout << " has no flights.\n" : std::cout << " has " << numberFlights << " flights.\n";
 }
 
-void dfsAirport(Vertex<Airport>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName){
+void dfsAirport(Vertex<Airport*>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName){
     airport->setVisited(true);
 
-    if (airport->getInfo().getCity() == cityName && airport->getInfo().getCountry() == coutryName){
+    if (airport->getInfo()->getCity() == cityName && airport->getInfo()->getCountry() == coutryName){
         numberFlights += airport->getAdj().size(); // out-degree
     }
 
@@ -139,7 +218,7 @@ void dfsAirport(Vertex<Airport>* airport, unsigned long& numberFlights, const st
 
         auto destinationAirport = flight.getDest();
 
-        if (destinationAirport->getInfo().getCity() == cityName && destinationAirport->getInfo().getCountry() == coutryName){
+        if (destinationAirport->getInfo()->getCity() == cityName && destinationAirport->getInfo()->getCountry() == coutryName){
             numberFlights += 1; // in-degree
         }
 
@@ -155,15 +234,15 @@ void dfsAirport(Vertex<Airport>* airport, unsigned long& numberFlights, const st
  *  @details If it is then we will increment the counter.
  *  @details Time Complexity for this is O(V) + O(E) where V is the number of airports and E then number of edges.
  * */
-void dfsNumberFlights(Vertex<Airport>* airport, int& numberFlights, const std::string& airlineCode);
+void dfsNumberFlights(Vertex<Airport*>* airport, int& numberFlights, const std::string& airlineCode);
 void FlightManager::printNumFlightsAirline(const std::string& airlineCode){
     int numberFlights = 0;
 
-    for (Vertex<Airport>* airport : airportNetwork.getVertexSet()){
+    for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
         airport->setVisited(false);
     }
 
-    for (Vertex<Airport>* airport : airportNetwork.getVertexSet()){
+    for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
         if (!airport->isVisited()){
             dfsNumberFlights(airport, numberFlights, airlineCode);
         }
@@ -173,10 +252,10 @@ void FlightManager::printNumFlightsAirline(const std::string& airlineCode){
     numberFlights == 0 ? std::cout << " has no flights.\n" : std::cout << " has " << numberFlights << " flights.\n";
 }
 
-void dfsNumberFlights(Vertex<Airport>* airport, int& numberFlights, const std::string& airlineCode){
+void dfsNumberFlights(Vertex<Airport*>* airport, int& numberFlights, const std::string& airlineCode){
     airport->setVisited(true);
 
-    for (const Edge<Airport>& flight : airport->getAdj()){
+    for (const Edge<Airport*>& flight : airport->getAdj()){
         if (flight.getWeight2()->getCode() == airlineCode){
             numberFlights++;
         }
@@ -258,7 +337,7 @@ void FlightManager::printMaxTrip(){
 // 7
 void FlightManager::printTopKAirport(int k){
     // ToDo
-    for (Vertex<Airport>* airport : airportNetwork.getVertexSet()){
+    for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
         // DEBUG
         std::cout << airport->getAdj().size();
         std::cout << "AAA";

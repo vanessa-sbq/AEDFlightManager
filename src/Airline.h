@@ -29,8 +29,8 @@ public:
 };
 
 struct HashFunction {
-    size_t operator()(const Airline &airline) const {
-        return std::hash<std::string>()(airline.getCode());
+    size_t operator()(const Airline *airline) const {
+        return std::hash<std::string>()(airline->getCode());
     };
 };
 #endif //AEDFLIGHTMANAGER_AIRLINE_H
