@@ -277,11 +277,56 @@ void FlightManager::printNumCountriesFromAirport(std::string airport_name){
     // 2. print all country names of the list
 }
 
-void FlightManager::printNumDestinations(const std::string& airportName){
-    
+void FlightManager::printNumDestinations(const std::string& airportCode,  std::vector<int> filters){
+
+    string dupCode = airportCode;
+    for (char& c : dupCode) c = (char) tolower(c);
+
+    Airport* airport = this->airportMap[dupCode];
+
+    if (airport == nullptr){
+        std::cout << "No Airport with the code" << airportCode << "was found\n";
+        return;
+    }
+
+    bool containsOne = std::find(filters.begin(), filters.end(), 1) != filters.end();
+    bool containsTwo = std::find(filters.begin(), filters.end(), 2) != filters.end();
+    bool containsThree = std::find(filters.begin(), filters.end(), 3) != filters.end();
+
+    unsigned long reachableAirports = 0;
+    unsigned long reachableCountries = 0;
+    unsigned long reachableCities = 0;
+    Vertex<Airport*>* airportSource = airportNetwork.findVertex(airport);
+    vector<string> countries;
+    vector<string> cities;
+
+    for (Edge<Airport*> flight : airportSource->getAdj()){
+        Vertex<Airport*>* destination = flight.getDest();
+
+        if (!destination->isVisited()){
+            reachableAirports++;
+            if (std::find(countries.begin(), countries.end(), destination->getInfo()->getCountry()) == countries.end()){
+                countries.push_back(destination->getInfo()->getCountry());
+                reachableCountries++;
+            }
+            if (std::find(cities.begin(), cities.end(), destination->getInfo()->getCity()) == cities.end()){
+                countries.push_back(destination->getInfo()->getCity());
+                reachableCities++;
+            }
+            destination->setVisited(true);
+        }
+    }
+
+    if (containsOne){
+        std::cout << "The number of reachable Airports from Airport with code "<< airportCode << " is " << reachableAirports << ".\n";
+    }
+    if (containsTwo){
+        std::cout << "The number of reachable Countries from Airport with code "<< airportCode << " is " << reachableCountries << ".\n";
+    }
+    if (containsThree){
+        std::cout << "The number of reachable Cities from Airport with code "<< airportCode << " is " << reachableCities << ".\n";
+    }
 }
-
-
 
 // 5
 int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport &source, int x);

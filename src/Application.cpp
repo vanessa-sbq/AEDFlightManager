@@ -195,6 +195,38 @@ void Application::numberOfFlights() {
 
 }
 
+void Application::numOfDestinationsForGivenAirport(){
+    std::cout << "Please input the airport code: ";
+    std::string airportCode, opts;
+    std::cin >> airportCode;
+    L1:
+    clearScreen();
+    std::cout << "What statistics would you like to see:\n"
+    << "1 - Number of airports accessible.\n"
+    << "2 - Number of countries accessible.\n"
+    << "3 - Number of cities accessible.\n";
+    std::cout << "\n*Tip: Multiple options can be selected like this -> 1,3 *\n\n";
+    std::cout << "Input: ";
+
+    std::cin >> opts;
+    std::stringstream ss(opts);
+    std::vector<int> optsSeparated;
+    std::string opt;
+    std::cout << "\n";
+
+    while (std::getline(ss, opt, ',')) {
+        int processedKey = processKey(opt);
+        if (processedKey == -1) {
+            delay(1000);
+            goto L1;
+        }
+        optsSeparated.push_back(processedKey);
+    }
+
+    flightManager.printNumDestinations(airportCode, optsSeparated);
+
+}
+
 void Application::numberOfDestinations() {
     delay(2000);
     std::string airport_code = "RYR"; // ToDo: Change this to user input

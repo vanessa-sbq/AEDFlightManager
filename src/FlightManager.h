@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <unordered_set>
+#include <set>
 #include <sstream>
 #include "Airline.h"
 #include "Graph.h"
@@ -25,7 +26,7 @@ public:
     void printNumFlightsCity(const std::string& cityName, const std::string& coutryName); // 3
     void printNumFlightsAirline(const std::string& airlineName); // 3
 
-    void printNumDestinations(const std::string& airportName);
+    void printNumDestinations(const std::string& airportCode, std::vector<int> filters);
 
     void printNumCountriesFromAirport(std::string airport_name); // 4
     void printNumReachableDests(std::string airport_name, int x); //5
