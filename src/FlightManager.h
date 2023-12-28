@@ -49,6 +49,9 @@ private:
 
     std::unordered_map<std::string, Airport*> airportMap;
 
+    // Auxiliary functions
+    int numberOfFlights(Vertex<Airport*>* airport);  // auxiliary function
+
     // Data parsing
     void processAirlines(std::ifstream &in);
     void processAirports(std::ifstream &in);

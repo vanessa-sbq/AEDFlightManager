@@ -94,7 +94,7 @@ std::string Application::showMainMenu() {
               << "4 - Show number of destinations (airports, cities, countries)\n"
               << "    from a given airport in a maximum amount of X stops (lay-overs).\n"
               << "5 - Show maximum trips (flights with greatest number of stops).\n"
-              << "6 - Show top airports with greatest air capacity.\n" // ToDo: user can choose top-k airport
+              << "6 - Show top-k airport with greatest air traffic capacity.\n" // ToDo: user can choose top-k airport
               << "7 - Show essential airports.\n"
               << "8 - Check best flight option(s).\n" // ToDo: Users may want to travel using only some airlines
               << "10 - Show number of countries that an airport/city flies to.\n"  // ToDo: this should be number 4
@@ -295,10 +295,14 @@ void Application::flightsWithGreatestNumberOfStops() {
 }
 
 void Application::topAirportsWithGreatestAirCapacity() {
-    delay(2000);
-    int k = 2;  // ToDo: Change this to user input
+    std::cout << "Please input a number for k (number of top airport): ";
+    int k = 0;
+    std::cin >> k;
+    std::cout << "\n";
+    clearScreen();
     flightManager.printTopKAirport(k);
-    showGoBackMenu(6, "Show top airports with greatest air capacity.");
+    delay(2000);
+    showGoBackMenu(6, "Show top-k airport with greatest air traffic capacity.\n");
 }
 
 void Application::essentialAirports() {

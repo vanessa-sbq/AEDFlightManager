@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "FlightManager.h"
 
 
@@ -35,6 +36,7 @@ void FlightManager::parseData(){
 }
 
 void FlightManager::processAirlines(std::ifstream &in){
+    airlineMap.clear();
     std::string line;
     getline(in,line);
     while(getline(in, line)) {
@@ -61,6 +63,7 @@ void FlightManager::processAirlines(std::ifstream &in){
     }*/
 }
 void FlightManager::processAirports(std::ifstream &in){
+    airportMap.clear();
     std::string line;
     getline(in,line);
     while (getline(in, line)) {
@@ -91,6 +94,7 @@ void FlightManager::processAirports(std::ifstream &in){
     }*/
 }
 void FlightManager::processFlights(std::ifstream &in){
+    airportNetwork.getVertexSet().clear();
     std::string line;
     getline(in, line);
     while (getline(in, line)) {
@@ -312,7 +316,7 @@ void FlightManager::printNumReachableX(const std::string& airport_code, int x, i
     x++; // x stops means that there are x + 1 levels of destinations
     Airport* source = airportMap[airport_code];
 
-    std::set<std::string> res;
+    std::vector<std::string> res;
 
     auto vertex = airportNetwork.findVertex(source);
 
@@ -333,9 +337,9 @@ void FlightManager::printNumReachableX(const std::string& airport_code, int x, i
             auto v = q.front();
             q.pop();
             if (level <= x && level > 0) {
-                if (funcNum == 0) res.insert(v->getInfo()->getCode());
-                else if (funcNum == 1) res.insert(v->getInfo()->getCity());
-                else if (funcNum == 2) res.insert(v->getInfo()->getCountry());
+                if (funcNum == 0) res.push_back(v->getInfo()->getCode());
+                else if (funcNum == 1) res.push_back(v->getInfo()->getCity());
+                else if (funcNum == 2) res.push_back(v->getInfo()->getCountry());
             }
 
             for (auto& e : v->getAdj()){
@@ -360,17 +364,62 @@ void FlightManager::printMaxTrip(){
 
 
 // 7
+bool compPairs(const std::pair<int, Airport*>& p1, const std::pair<int, Airport*>& p2){
+    return p1.first > p2.first;
+}
+// ToDo: make this more efficient
+// ToDo: fix this function (when I run it again from the gobackmenu, the output is different! (for example, for the first time, for k = 3019 it says "k is invalid",
+// but for the second time it says "The top 3019 airport is ctl with 12 flights." and it keeps adding up and adding things to the graph
 void FlightManager::printTopKAirport(int k){
-    // ToDo
-    for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
-        // DEBUG
-        std::cout << airport->getAdj().size();
-        std::cout << "AAA";
+    int a = k;
+    std::vector<std::pair<int, Airport*>> res;
+    std::vector<std::pair<int, Airport*>> airportTraffic;
+    for (auto vertex : airportNetwork.getVertexSet()){
+        int numFlights = numberOfFlights(vertex);
+        airportTraffic.push_back(make_pair(numFlights, vertex->getInfo()));
     }
-    // algorithm:
-    // 1. k is the number of times a max is skipped
-    // 2. Find the next max until k is 0
-    // 3. print the k-th airport
+
+
+    std::sort(airportTraffic.begin(), airportTraffic.end(), compPairs);
+
+    if (a < 1 || a >= airportTraffic.size()){
+        cout << "k is invalid!";
+        return;
+    }
+    // ToDo: try to implement this correctly
+    /*if (airportTraffic.empty()) cout << "There are no airports!";
+    bool different = true;
+    std::pair<int, Airport*>& previous = airportTraffic[0];
+    k--;
+    for (auto it = airportTraffic.begin(); it != airportTraffic.end(); it++){
+        if (previous.first == it->first) different = false;
+        else different = true;
+        cout << "different: " << different << " number:" << it->first << std::endl;
+        if (k == 0) res.push_back(*it);
+
+        if (different){
+            k--;
+            if (k <= 0) break;
+        }
+        previous = *it;
+    }*/
+
+    cout << "The top " << a << " airport is " << airportTraffic[a-1].second->getCode() << " with " << airportTraffic[a-1].first << " flights.\n";
+}
+int FlightManager::numberOfFlights(Vertex<Airport*>* airport){  // auxiliary function
+    int numFlights = 0;
+
+    // number of outgoing flights
+    numFlights = airport->getAdj().size();
+
+    // number of incoming flights
+    for (auto v : airportNetwork.getVertexSet()){
+        for (auto e : v->getAdj()){
+            if (e.getDest()->getInfo()->getCode() == airport->getInfo()->getCode()) numFlights++;
+        }
+    }
+
+    return numFlights;
 }
 
 
