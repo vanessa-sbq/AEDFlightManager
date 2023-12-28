@@ -36,7 +36,6 @@ void FlightManager::parseData(){
 }
 
 void FlightManager::processAirlines(std::ifstream &in){
-    airlineMap.clear();
     std::string line;
     getline(in,line);
     while(getline(in, line)) {
@@ -63,7 +62,6 @@ void FlightManager::processAirlines(std::ifstream &in){
     }*/
 }
 void FlightManager::processAirports(std::ifstream &in){
-    airportMap.clear();
     std::string line;
     getline(in,line);
     while (getline(in, line)) {
@@ -94,7 +92,6 @@ void FlightManager::processAirports(std::ifstream &in){
     }*/
 }
 void FlightManager::processFlights(std::ifstream &in){
-    airportNetwork.getVertexSet().clear();
     std::string line;
     getline(in, line);
     while (getline(in, line)) {
