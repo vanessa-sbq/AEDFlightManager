@@ -277,6 +277,11 @@ void FlightManager::printNumCountriesFromAirport(std::string airport_name){
     // 2. print all country names of the list
 }
 
+/** @brief Print the number of airports, countries or cities from a given airport.
+ *  @details From a given airport code we will check it's neighboring vertices while also keeping track of the countries, cities and airports that
+ *  @details were visited for those cases where there are two cities with the same name or a single city has many airports.
+ *  @details Time Complexity for this is O(V) + O(E)*O(n) (lookup for vertex + iterating over edges * number of cities (or countries) that were already visited.)
+ * */
 void FlightManager::printNumDestinations(const std::string& airportCode,  std::vector<int> filters){
 
     string dupCode = airportCode;
