@@ -30,6 +30,7 @@ private:
     void globalNumberOfAvailableFlights();
     void numberOfFlightsOutOfAnAirport();
     void numberOfFlights();
+    void numberOfCountries();
     void numberOfDestinations();
     void flightsWithGreatestNumberOfStops();
     void topAirportsWithGreatestAirCapacity();

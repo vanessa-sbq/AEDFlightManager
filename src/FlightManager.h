@@ -29,8 +29,9 @@ public:
 
     void printNumDestinations(const std::string& airportName);
 
-    void printNumCountriesFromAirport(std::string airport_name); // 4
-    void printNumReachableX(std::string airport_name, int x, int funcNum); // 5
+    void printNumCountriesAirport(std::string airportCode); // 4
+    void printNumCountriesCity(std::string city); // 4
+    void printNumReachableX(const std::string& airport_name, int x, int funcNum); // 5
     void printMaxTrip(); // 6
     void printTopKAirport(int k); // 7
     void printEssentialAirports(); // 8

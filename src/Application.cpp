@@ -47,6 +47,9 @@ void Application::run(int processedKey) {
         case 9:
             std::cout << "Thank you very much and Bye-Bye.";
             break;
+        case 10:
+            numberOfCountries();
+            break;
         default:
             goto L1;
     }
@@ -73,7 +76,7 @@ void Application::delay(long sleepMS) {
 int Application::processKey(const std::string& option) {
     try {
         int intOPT = std::stoi(option);
-        if (intOPT <= 0 || option.size() != 1) throw std::invalid_argument("NegativeNumber");
+        if (intOPT <= 0 || option.size() > 2) throw std::invalid_argument("NegativeNumber");
         return intOPT;
     } catch (std::invalid_argument& argument) {
         std::cout << "\n* Error while parsing option, please input a valid numeric option. *\n";
@@ -94,6 +97,7 @@ std::string Application::showMainMenu() {
               << "6 - Show top airports with greatest air capacity.\n" // ToDo: user can choose top-k airport
               << "7 - Show essential airports.\n"
               << "8 - Check best flight option(s).\n" // ToDo: Users may want to travel using only some airlines
+              << "10 - Show number of countries that an airport/city flies to.\n"  // ToDo: this should be number 4
               << "9 - Exit.\n";
                // ToDo: 2 or more options are missing
 
@@ -193,6 +197,46 @@ void Application::numberOfFlights() {
     }
 
 
+}
+
+void Application::numberOfCountries() {
+    L1:
+    std::cout << "Choose an option:\n"
+              << "1 - Reachable countries from airport\n"
+              << "2 - Reachable countries from city\n";
+
+    std::string opt;
+    std::cout << "Input: ";
+    std::cin >> opt;
+    std::cout << "\n";
+    clearScreen();
+
+    if(processKey(opt) == 1) {
+        std::string airportCode;
+        std::cout << "Please input airport code: ";
+        std::cin >> airportCode;
+        std::cout << "\n";
+        delay(1000);
+        clearScreen();
+        flightManager.printNumCountriesAirport(airportCode);
+        delay(2000);
+        showGoBackMenu(10, "Show number of countries that an airport/city flies to"); // ToDo: not sure if this works
+    }
+    if (processKey(opt) == 2){
+        std::string city;
+        std::cout << "Please input city name: ";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear buffer
+        std::getline(std::cin, city);
+        std::cout << "\n";
+        delay(1000);
+        clearScreen();
+        flightManager.printNumCountriesCity(city);
+        delay(2000);
+        showGoBackMenu(10, "Show number of countries that an airport/city flies to"); // ToDo: not sure if this works
+    }
+    else {
+        goto L1;
+    }
 }
 
 void Application::numberOfDestinations() {

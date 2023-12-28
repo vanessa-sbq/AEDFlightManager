@@ -269,12 +269,32 @@ void dfsNumberFlights(Vertex<Airport*>* airport, int& numberFlights, const std::
 
 
 // 4
-void FlightManager::printNumCountriesFromAirport(std::string airport_name){
-    // ToDo
-    std::cout << airport_name;
-    // algorithm:
-    // 1. traverse adjacency list of airport
-    // 2. print all country names of the list
+/**
+ * @brief Prints the number of countries that an airport flies to
+ * @details Time complexity: O(V + E), where V is the number of airports and E is the number of edges of an airport
+ */
+void FlightManager::printNumCountriesAirport(std::string airportCode){
+    Airport* source = airportMap[airportCode];
+    auto vertex = airportNetwork.findVertex(source);
+    set<std::string> res;
+    for (Edge<Airport*> e : vertex->getAdj()) res.insert(e.getDest()->getInfo()->getCountry());
+    if (res.size() == 1) cout << "There are direct flights to 1 country from the airport with code " << airportCode << ".";
+    else cout << "There are direct flights to " << res.size() << " different countries from the airport with code " << airportCode << ".";
+}
+// 4
+void FlightManager::printNumCountriesCity(std::string city) {
+    set<std::string> res; // Different countries
+    vector<Airport*> airportsInCity;  // A city may have multiple airports
+    auto it = airportMap.begin();
+    for (it = airportMap.begin(); it != airportMap.end(); it++){
+        if (it->second->getCity() == city) airportsInCity.push_back(it->second);
+    }
+    for (Airport* airport : airportsInCity){
+        auto vertex = airportNetwork.findVertex(airport);
+        for (Edge<Airport*> e : vertex->getAdj()) res.insert(e.getDest()->getInfo()->getCountry());
+    }
+    if (res.size() == 1) cout << "There are direct flights to 1 country from " << city << ".";
+    else cout << "There are direct flights to " << res.size() << " different countries from " << city << ".";
 }
 
 
@@ -288,7 +308,7 @@ void FlightManager::printNumDestinations(const std::string& airportName){
  * @brief Prints the number of reachable destinations (airports, cities or countries) in a maximum number of X stops (lay-overs)
  * @details Time complexity: O(V + E)
  */
-void FlightManager::printNumReachableX(std::string airport_code, int x, int funcNum){
+void FlightManager::printNumReachableX(const std::string& airport_code, int x, int funcNum){
     x++; // x stops means that there are x + 1 levels of destinations
     Airport* source = airportMap[airport_code];
 
