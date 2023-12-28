@@ -285,14 +285,15 @@ void FlightManager::printNumDestinations(const std::string& airportName){
 
 // 5
 /**
- * @brief Prints the number of reachable airports in a maximum number of X stops (lay-overs)
+ * @brief Prints the number of reachable destinations (airports, cities or countries) in a maximum number of X stops (lay-overs)
  * @details Time complexity: O(V + E)
  */
-void FlightManager::printNumReachableAirportsX(std::string airport_code, int x){
+void FlightManager::printNumReachableX(std::string airport_code, int x, int funcNum){
     x++; // x stops means that there are x + 1 levels of destinations
     Airport* source = airportMap[airport_code];
 
-    int count = 0;
+    std::set<std::string> res;
+
     auto vertex = airportNetwork.findVertex(source);
 
     for (auto& a : airportNetwork.getVertexSet()) a->setVisited(false);
@@ -311,7 +312,11 @@ void FlightManager::printNumReachableAirportsX(std::string airport_code, int x){
         for (int i = 0; i < size; i++){
             auto v = q.front();
             q.pop();
-            if (level <= x && level > 0) count++;
+            if (level <= x && level > 0) {
+                if (funcNum == 0) res.insert(v->getInfo()->getCode());
+                else if (funcNum == 1) res.insert(v->getInfo()->getCity());
+                else if (funcNum == 2) res.insert(v->getInfo()->getCountry());
+            }
 
             for (auto& e : v->getAdj()){
                 auto w = e.getDest();
@@ -323,85 +328,10 @@ void FlightManager::printNumReachableAirportsX(std::string airport_code, int x){
         }
         level++;
     }
-    std::cout << "There are " << count << " airport destinations";
+    if (funcNum == 0) std::cout << "There are " << res.size() << " airport destinations with a maximum of " << x-1 << " layovers.";
+    else if (funcNum == 1) std::cout << "There are " << res.size() << " city destinations with a maximum of " << x-1 << " layovers.";
+    else if (funcNum == 2) std::cout << "There are " << res.size() << " country destinations with a maximum of " << x-1 << " layovers.";
 }
-// 5
-void FlightManager::printNumReachableCitiesX(std::string airport_code, int x){
-    /*x++; // x stops means that there are x + 1 levels of destinations
-    Airport* source = airportMap[airport_code];
-
-    int count = 0;
-    auto vertex = airportNetwork.findVertex(source);
-
-    for (auto& a : airportNetwork.getVertexSet()) a->setVisited(false);
-
-    if (vertex == nullptr){
-        std::cout << "The airport with the code " << airport_code << " doesn't exist.";
-        return;
-    }
-
-    std::queue<Vertex<Airport*>*> q;
-    q.push(vertex);
-    vertex->setVisited(true);
-    int level = 0;
-    while (!q.empty() && level < x + 1){
-        int size = q.size();
-        for (int i = 0; i < size; i++){
-            auto v = q.front();
-            q.pop();
-            if (level <= x && level > 0) count++;
-
-            for (auto& e : v->getAdj()){
-                auto w = e.getDest();
-                if (!w->isVisited()){
-                    w->setVisited(true);
-                    q.push(w);
-                }
-            }
-        }
-        level++;
-    }
-    std::cout << "There are " << count << " airport destinations";*/
-}
-//5
-void FlightManager::printNumReachableCountriesX(std::string airport_code, int x){
-    /*x++; // x stops means that there are x + 1 levels of destinations
-    Airport* source = airportMap[airport_code];
-
-    int count = 0;
-    auto vertex = airportNetwork.findVertex(source);
-
-    for (auto& a : airportNetwork.getVertexSet()) a->setVisited(false);
-
-    if (vertex == nullptr){
-        std::cout << "The airport with the code " << airport_code << " doesn't exist.";
-        return;
-    }
-
-    std::queue<Vertex<Airport*>*> q;
-    q.push(vertex);
-    vertex->setVisited(true);
-    int level = 0;
-    while (!q.empty() && level < x + 1){
-        int size = q.size();
-        for (int i = 0; i < size; i++){
-            auto v = q.front();
-            q.pop();
-            if (level <= x && level > 0) count++;
-
-            for (auto& e : v->getAdj()){
-                auto w = e.getDest();
-                if (!w->isVisited()){
-                    w->setVisited(true);
-                    q.push(w);
-                }
-            }
-        }
-        level++;
-    }
-    std::cout << "There are " << count << " airport destinations";*/
-}
-
 
 // 6
 void FlightManager::printMaxTrip(){

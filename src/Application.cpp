@@ -199,8 +199,8 @@ void Application::numberOfDestinations() {
     std::string airport_code;
     std::cout << "Please input Airport code: ";
     std::cin >> airport_code;
-    std::cout << "\n";
     int x = 0;
+    std::cout << "\n";
     std::cout << "Please input Number of Stops: ";
     std::cin >> x;
     std::cout << "\n";
@@ -210,7 +210,7 @@ L1:
     std::cout << "Choose an option:\n"
               << "1 - Reachable Airports\n"
               << "2 - Reachable Cities\n"
-              << "3 - Reachable Countries";
+              << "3 - Reachable Countries\n";
 
     std::string opt;
     std::cout << "Input: ";
@@ -221,22 +221,23 @@ L1:
     if(processKey(opt) == 1) {
         delay(1000);
         clearScreen();
-        flightManager.printNumReachableAirportsX(airport_code, x); // ToDo: change function
+        flightManager.printNumReachableX(airport_code, x, 0); // ToDo: change function
         delay(2000);
         showGoBackMenu(4, "Show number of destinations (airports, cities, countries) from a given airport in a maximum amount of X stops (lay-overs).");
-
     }
     if (processKey(opt) == 2){
         delay(1000);
         clearScreen();
-        flightManager.printNumReachableCitiesX(airport_code, x);   // ToDo: change function
+        //flightManager.printNumReachableCitiesX(airport_code, x,);   // ToDo: change function
+        flightManager.printNumReachableX(airport_code, x, 1); // ToDo: change function
         delay(2000);
         showGoBackMenu(4, "Show number of destinations (airports, cities, countries) from a given airport in a maximum amount of X stops (lay-overs).");
     }
     if (processKey(opt) == 3){
         delay(1000);
         clearScreen();
-        flightManager.printNumReachableCountriesX(airport_code, x);   // ToDo: change function
+        //flightManager.printNumReachableCountriesX(airport_code, x);   // ToDo: change function
+        flightManager.printNumReachableX(airport_code, x, 2); // ToDo: change function
         delay(2000);
         showGoBackMenu(4, "Show number of destinations (airports, cities, countries) from a given airport in a maximum amount of X stops (lay-overs).");
     } else {

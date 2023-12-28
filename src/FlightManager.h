@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <sstream>
+#include <set>
 #include "Airline.h"
 #include "Graph.h"
 #include "Airport.h"
@@ -29,9 +30,7 @@ public:
     void printNumDestinations(const std::string& airportName);
 
     void printNumCountriesFromAirport(std::string airport_name); // 4
-    void printNumReachableAirportsX(std::string airport_name, int x); // 5
-    void printNumReachableCitiesX(std::string airport_code, int x); // 5
-    void printNumReachableCountriesX(std::string airport_code, int x); // 5
+    void printNumReachableX(std::string airport_name, int x, int funcNum); // 5
     void printMaxTrip(); // 6
     void printTopKAirport(int k); // 7
     void printEssentialAirports(); // 8
