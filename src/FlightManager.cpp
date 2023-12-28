@@ -277,32 +277,32 @@ void FlightManager::printNumCountriesFromAirport(std::string airport_name){
     // 2. print all country names of the list
 }
 
+
 void FlightManager::printNumDestinations(const std::string& airportName){
     
 }
 
 
-
 // 5
-int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport &source, int x);
-void FlightManager::printNumReachableDests(std::string airport_code, int x){
-    // ToDo
-    std::cout << airport_code;
-    // algorithm:
-    // 1. bfs for all distances until x
-    // 2. count number of airports, cities, countries (separately)
-    // 3. print counts
-}
+/**
+ * @brief Prints the number of reachable airports in a maximum number of X stops (lay-overs)
+ * @details Time complexity: O(V + E)
+ */
+void FlightManager::printNumReachableAirportsX(std::string airport_code, int x){
+    x++; // x stops means that there are x + 1 levels of destinations
+    Airport* source = airportMap[airport_code];
 
-int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport &source, int x) {
     int count = 0;
-    auto vertex = airport_network->findVertex(source);
+    auto vertex = airportNetwork.findVertex(source);
 
-    for (auto& a : airport_network->getVertexSet()) a->setVisited(false);
+    for (auto& a : airportNetwork.getVertexSet()) a->setVisited(false);
 
-    if (vertex == nullptr) return count;
+    if (vertex == nullptr){
+        std::cout << "The airport with the code " << airport_code << " doesn't exist.";
+        return;
+    }
 
-    std::queue<Vertex<Airport>*> q;
+    std::queue<Vertex<Airport*>*> q;
     q.push(vertex);
     vertex->setVisited(true);
     int level = 0;
@@ -311,8 +311,7 @@ int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport
         for (int i = 0; i < size; i++){
             auto v = q.front();
             q.pop();
-            // ToDo: distinguish between airports, cities and countries
-            if (level <= x) count++;
+            if (level <= x && level > 0) count++;
 
             for (auto& e : v->getAdj()){
                 auto w = e.getDest();
@@ -324,7 +323,83 @@ int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport
         }
         level++;
     }
-    return count;
+    std::cout << "There are " << count << " airport destinations";
+}
+// 5
+void FlightManager::printNumReachableCitiesX(std::string airport_code, int x){
+    /*x++; // x stops means that there are x + 1 levels of destinations
+    Airport* source = airportMap[airport_code];
+
+    int count = 0;
+    auto vertex = airportNetwork.findVertex(source);
+
+    for (auto& a : airportNetwork.getVertexSet()) a->setVisited(false);
+
+    if (vertex == nullptr){
+        std::cout << "The airport with the code " << airport_code << " doesn't exist.";
+        return;
+    }
+
+    std::queue<Vertex<Airport*>*> q;
+    q.push(vertex);
+    vertex->setVisited(true);
+    int level = 0;
+    while (!q.empty() && level < x + 1){
+        int size = q.size();
+        for (int i = 0; i < size; i++){
+            auto v = q.front();
+            q.pop();
+            if (level <= x && level > 0) count++;
+
+            for (auto& e : v->getAdj()){
+                auto w = e.getDest();
+                if (!w->isVisited()){
+                    w->setVisited(true);
+                    q.push(w);
+                }
+            }
+        }
+        level++;
+    }
+    std::cout << "There are " << count << " airport destinations";*/
+}
+//5
+void FlightManager::printNumReachableCountriesX(std::string airport_code, int x){
+    /*x++; // x stops means that there are x + 1 levels of destinations
+    Airport* source = airportMap[airport_code];
+
+    int count = 0;
+    auto vertex = airportNetwork.findVertex(source);
+
+    for (auto& a : airportNetwork.getVertexSet()) a->setVisited(false);
+
+    if (vertex == nullptr){
+        std::cout << "The airport with the code " << airport_code << " doesn't exist.";
+        return;
+    }
+
+    std::queue<Vertex<Airport*>*> q;
+    q.push(vertex);
+    vertex->setVisited(true);
+    int level = 0;
+    while (!q.empty() && level < x + 1){
+        int size = q.size();
+        for (int i = 0; i < size; i++){
+            auto v = q.front();
+            q.pop();
+            if (level <= x && level > 0) count++;
+
+            for (auto& e : v->getAdj()){
+                auto w = e.getDest();
+                if (!w->isVisited()){
+                    w->setVisited(true);
+                    q.push(w);
+                }
+            }
+        }
+        level++;
+    }
+    std::cout << "There are " << count << " airport destinations";*/
 }
 
 

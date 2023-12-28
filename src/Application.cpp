@@ -196,11 +196,52 @@ void Application::numberOfFlights() {
 }
 
 void Application::numberOfDestinations() {
-    delay(2000);
-    std::string airport_code = "RYR"; // ToDo: Change this to user input
-    int x = 2;                        // ToDo: Change this to user input
-    flightManager.printNumReachableDests(airport_code, x);
-    showGoBackMenu(4, "Show number of destinations (airports, cities, countries)\nfrom a given airport in a maximum amount of X stops (lay-overs).");
+    std::string airport_code;
+    std::cout << "Please input Airport code: ";
+    std::cin >> airport_code;
+    std::cout << "\n";
+    int x = 0;
+    std::cout << "Please input Number of Stops: ";
+    std::cin >> x;
+    std::cout << "\n";
+    clearScreen();
+
+L1:
+    std::cout << "Choose an option:\n"
+              << "1 - Reachable Airports\n"
+              << "2 - Reachable Cities\n"
+              << "3 - Reachable Countries";
+
+    std::string opt;
+    std::cout << "Input: ";
+    std::cin >> opt;
+    std::cout << "\n";
+    clearScreen();
+
+    if(processKey(opt) == 1) {
+        delay(1000);
+        clearScreen();
+        flightManager.printNumReachableAirportsX(airport_code, x); // ToDo: change function
+        delay(2000);
+        showGoBackMenu(4, "Show number of destinations (airports, cities, countries) from a given airport in a maximum amount of X stops (lay-overs).");
+
+    }
+    if (processKey(opt) == 2){
+        delay(1000);
+        clearScreen();
+        flightManager.printNumReachableCitiesX(airport_code, x);   // ToDo: change function
+        delay(2000);
+        showGoBackMenu(4, "Show number of destinations (airports, cities, countries) from a given airport in a maximum amount of X stops (lay-overs).");
+    }
+    if (processKey(opt) == 3){
+        delay(1000);
+        clearScreen();
+        flightManager.printNumReachableCountriesX(airport_code, x);   // ToDo: change function
+        delay(2000);
+        showGoBackMenu(4, "Show number of destinations (airports, cities, countries) from a given airport in a maximum amount of X stops (lay-overs).");
+    } else {
+        goto L1;
+    }
 }
 
 void Application::flightsWithGreatestNumberOfStops() {
