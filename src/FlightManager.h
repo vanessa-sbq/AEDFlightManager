@@ -4,8 +4,9 @@
 #include <fstream>
 #include <iostream>
 #include <unordered_set>
-#include <set>
+#include <unordered_map>
 #include <sstream>
+#include <set>
 #include "Airline.h"
 #include "Graph.h"
 #include "Airport.h"
@@ -42,11 +43,16 @@ public:
 
     void printNumDestinations(const std::string& airportCode, std::vector<int> filters);
 
-    void printNumCountriesFromAirport(std::string airport_name); // 4
-    void printNumReachableDests(std::string airport_name, int x); //5
+    void printNumCountriesAirport(std::string airportCode); // 4
+    void printNumCountriesCity(std::string city); // 4
+    void printNumReachableX(const std::string& airport_name, int x, int funcNum); // 5
     void printMaxTrip(); // 6
     void printTopKAirport(int k); // 7
     void printEssentialAirports(); // 8
+
+
+    void printFlightOptionAirlineFiltered(const string& sourceCode, const string& destCode, const string& filteredAirlines); // 9
+    void printFlightOptionMinimalAirlines(); // 9
 
     void presentTheBestFlightOptions(const string& input1,const string& input2, const string& input3, const string& input4, const string& input5, const string& input6, const string& radius);
 
@@ -80,6 +86,9 @@ private:
 
     // Airports by cities, countries
     std::unordered_map<pair<std::string, std::string>, vector<Airport*>> airportCityMap;
+
+    // Auxiliary functions
+    int numberOfFlights(Vertex<Airport*>* airport);  // auxiliary function
 
     // Data parsing
     void processAirlines(std::ifstream &in);

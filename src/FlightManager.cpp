@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "FlightManager.h"
 
 
@@ -272,13 +273,34 @@ void dfsNumberFlights(Vertex<Airport*>* airport, int& numberFlights, const std::
 
 
 // 4
-void FlightManager::printNumCountriesFromAirport(std::string airport_name){
-    // ToDo
-    std::cout << airport_name;
-    // algorithm:
-    // 1. traverse adjacency list of airport
-    // 2. print all country names of the list
+/**
+ * @brief Prints the number of countries that an airport flies to
+ * @details Time complexity: O(V + E), where V is the number of airports and E is the number of edges of an airport
+ */
+void FlightManager::printNumCountriesAirport(std::string airportCode){
+    Airport* source = airportMap[airportCode];
+    auto vertex = airportNetwork.findVertex(source);
+    set<std::string> res;
+    for (Edge<Airport*> e : vertex->getAdj()) res.insert(e.getDest()->getInfo()->getCountry());
+    if (res.size() == 1) cout << "There are direct flights to 1 country from the airport with code " << airportCode << ".";
+    else cout << "There are direct flights to " << res.size() << " different countries from the airport with code " << airportCode << ".";
 }
+// 4
+void FlightManager::printNumCountriesCity(std::string city) {
+    set<std::string> res; // Different countries
+    vector<Airport*> airportsInCity;  // A city may have multiple airports
+    auto it = airportMap.begin();
+    for (it = airportMap.begin(); it != airportMap.end(); it++){
+        if (it->second->getCity() == city) airportsInCity.push_back(it->second);
+    }
+    for (Airport* airport : airportsInCity){
+        auto vertex = airportNetwork.findVertex(airport);
+        for (Edge<Airport*> e : vertex->getAdj()) res.insert(e.getDest()->getInfo()->getCountry());
+    }
+    if (res.size() == 1) cout << "There are direct flights to 1 country from " << city << ".";
+    else cout << "There are direct flights to " << res.size() << " different countries from " << city << ".";
+}
+
 
 /** @brief Print the number of airports, countries or cities from a given airport.
  *  @details From a given airport code we will check it's neighboring vertices while also keeping track of the countries, cities and airports that
@@ -337,25 +359,26 @@ void FlightManager::printNumDestinations(const std::string& airportCode,  std::v
 }
 
 // 5
-int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport &source, int x);
-void FlightManager::printNumReachableDests(std::string airport_code, int x){
-    // ToDo
-    std::cout << airport_code;
-    // algorithm:
-    // 1. bfs for all distances until x
-    // 2. count number of airports, cities, countries (separately)
-    // 3. print counts
-}
+/**
+ * @brief Prints the number of reachable destinations (airports, cities or countries) in a maximum number of X stops (lay-overs)
+ * @details Time complexity: O(V + E)
+ */
+void FlightManager::printNumReachableX(const std::string& airport_code, int x, int funcNum){
+    x++; // x stops means that there are x + 1 levels of destinations
+    Airport* source = airportMap[airport_code];
 
-int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport &source, int x) {
-    int count = 0;
-    auto vertex = airport_network->findVertex(source);
+    std::vector<std::string> res;
 
-    for (auto& a : airport_network->getVertexSet()) a->setVisited(false);
+    auto vertex = airportNetwork.findVertex(source);
 
-    if (vertex == nullptr) return count;
+    for (auto& a : airportNetwork.getVertexSet()) a->setVisited(false);
 
-    std::queue<Vertex<Airport>*> q;
+    if (vertex == nullptr){
+        std::cout << "The airport with the code " << airport_code << " doesn't exist.";
+        return;
+    }
+
+    std::queue<Vertex<Airport*>*> q;
     q.push(vertex);
     vertex->setVisited(true);
     int level = 0;
@@ -364,8 +387,11 @@ int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport
         for (int i = 0; i < size; i++){
             auto v = q.front();
             q.pop();
-            // ToDo: distinguish between airports, cities and countries
-            if (level <= x) count++;
+            if (level <= x && level > 0) {
+                if (funcNum == 0) res.push_back(v->getInfo()->getCode());
+                else if (funcNum == 1) res.push_back(v->getInfo()->getCity());
+                else if (funcNum == 2) res.push_back(v->getInfo()->getCountry());
+            }
 
             for (auto& e : v->getAdj()){
                 auto w = e.getDest();
@@ -377,7 +403,9 @@ int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport
         }
         level++;
     }
-    return count;
+    if (funcNum == 0) std::cout << "There are " << res.size() << " airport destinations with a maximum of " << x-1 << " layovers.";
+    else if (funcNum == 1) std::cout << "There are " << res.size() << " city destinations with a maximum of " << x-1 << " layovers.";
+    else if (funcNum == 2) std::cout << "There are " << res.size() << " country destinations with a maximum of " << x-1 << " layovers.";
 }
 
 vector<Airport*> nodesAtDistanceBFS(Vertex<Airport*>*& sourceVertex, int& level) {
@@ -465,20 +493,61 @@ void FlightManager::printMaxTrip() {
 }
 
 
-
-
 // 7
+bool compPairs(const std::pair<int, Airport*>& p1, const std::pair<int, Airport*>& p2){
+    return p1.first > p2.first;
+}
+// ToDo: make this more efficient
 void FlightManager::printTopKAirport(int k){
-    // ToDo
-    for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
-        // DEBUG
-        std::cout << airport->getAdj().size();
-        std::cout << "AAA";
+    int a = k;
+    std::vector<std::pair<int, Airport*>> res;
+    std::vector<std::pair<int, Airport*>> airportTraffic;
+    for (auto vertex : airportNetwork.getVertexSet()){
+        int numFlights = numberOfFlights(vertex);
+        airportTraffic.push_back(make_pair(numFlights, vertex->getInfo()));
     }
-    // algorithm:
-    // 1. k is the number of times a max is skipped
-    // 2. Find the next max until k is 0
-    // 3. print the k-th airport
+
+
+    std::sort(airportTraffic.begin(), airportTraffic.end(), compPairs);
+
+    if (a < 1 || a >= airportTraffic.size()){
+        cout << "k is invalid!";
+        return;
+    }
+    // ToDo: try to implement this correctly
+    /*if (airportTraffic.empty()) cout << "There are no airports!";
+    bool different = true;
+    std::pair<int, Airport*>& previous = airportTraffic[0];
+    k--;
+    for (auto it = airportTraffic.begin(); it != airportTraffic.end(); it++){
+        if (previous.first == it->first) different = false;
+        else different = true;
+        cout << "different: " << different << " number:" << it->first << std::endl;
+        if (k == 0) res.push_back(*it);
+
+        if (different){
+            k--;
+            if (k <= 0) break;
+        }
+        previous = *it;
+    }*/
+
+    cout << "The top " << a << " airport is " << airportTraffic[a-1].second->getCode() << " with " << airportTraffic[a-1].first << " flights.\n";
+}
+int FlightManager::numberOfFlights(Vertex<Airport*>* airport){  // auxiliary function
+    int numFlights = 0;
+
+    // number of outgoing flights
+    numFlights = airport->getAdj().size();
+
+    // number of incoming flights
+    for (auto v : airportNetwork.getVertexSet()){
+        for (auto e : v->getAdj()){
+            if (e.getDest()->getInfo()->getCode() == airport->getInfo()->getCode()) numFlights++;
+        }
+    }
+
+    return numFlights;
 }
 
 
@@ -486,6 +555,139 @@ void FlightManager::printTopKAirport(int k){
 void FlightManager::printEssentialAirports(){
     // ToDo
 }
+
+
+// 9
+vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline *>& airlines);
+void FlightManager::printFlightOptionAirlineFiltered(const string& sourceCode, const string& destCode, const string& filteredAirlines) {
+    // Extract the airline codes from the user input
+    vector<string> airlineCodes;
+    string airlineCode;
+    istringstream ss(filteredAirlines);
+    while (std::getline(ss, airlineCode, ',')) {
+        airlineCode.erase(std::remove(airlineCode.begin(), airlineCode.end(), ' '), airlineCode.end());
+        airlineCodes.push_back(airlineCode);
+    }
+    vector<Airline *> airlines;
+    for (string airlineCode: airlineCodes) {      // Find the airlines
+        try {
+            airlines.push_back(airlineMap.at(airlineCode));
+        } catch(const std::out_of_range& e) {
+            continue;   // Invalid airlines are ignored
+        }
+    }
+
+    // Find the source and destination airports
+    Airport* source;
+    Airport* dest;
+    try{
+        source = airportMap.at(sourceCode);
+        dest = airportMap.at(destCode);
+    } catch (const std::out_of_range& e) {
+        cout << "The source or destination airports don't exist!\n";
+        return;
+    }
+    Vertex<Airport*>* vertexSource = airportNetwork.findVertex(source);
+    Vertex<Airport*>* vertexDest = airportNetwork.findVertex(dest);
+    if (vertexSource == nullptr || vertexDest == nullptr) {
+        std::cout << "The source or destination airports don't exist!\n";
+        return;
+    }
+
+    // Set all nodes to unvisited
+    for (auto v : airportNetwork.getVertexSet()) v->setVisited(false);
+
+    vector<vector<Airport*>> shortest = shortestPath(vertexSource, vertexDest, airlines);
+    if (shortest.size() == 0) {
+        cout << "The destination is not reachable with this configuration!";
+        return;
+    }
+
+    vector<vector<Airport*>> uniquePaths;
+    int min = shortest[0].size();
+    for (int i = 1; i < shortest.size(); i++){
+        if (shortest[i].size() < min) min = shortest[i].size();
+    }
+    for (const vector<Airport*>& path : shortest) {
+        bool isDuplicate = false;
+        if (path.size() != min) continue;
+        for (const vector<Airport*>& uniquePath : uniquePaths) {
+            if (path.size() != uniquePath.size()) continue;
+            isDuplicate = true;
+            for (size_t i = 0; i < path.size(); ++i) {
+                if (path[i]->getCode() != uniquePath[i]->getCode()) {
+                    isDuplicate = false;
+                    break;
+                }
+            }
+            if (isDuplicate) break;
+        }
+        if (!isDuplicate) uniquePaths.push_back(path);
+    }
+
+    for (int i = 0; i < uniquePaths.size(); i++){
+        for (int j = 0; j < uniquePaths[i].size() - 1; j++) {
+            cout << uniquePaths[i][j]->getCode() << " -> ";
+        }
+        cout << uniquePaths[i][uniquePaths[i].size() - 1]->getCode();
+        cout << endl;
+    }
+}
+bool airlineInFilter(Edge<Airport*> edge, vector<Airline*> filteredAirlines){
+    for (Airline* airline : filteredAirlines){
+        if (edge.getWeight2()->getCode() == airline->getCode()) return true;
+    }
+    return false;
+}
+vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline*>& airlines) {
+    vector<vector<Airport*>> res;
+    queue<vector<Vertex<Airport*>*>> q;
+
+    // Start BFS
+    q.push({start});
+
+    // BFS Iteration
+    while (!q.empty()) {
+        vector<Vertex<Airport*>*> path = q.front();
+        q.pop();
+
+        Vertex<Airport*>* current = path.back();
+
+        // Mark the current node as visited
+        current->setVisited(true);
+
+        if (current == end) {
+            vector<Airport*> airports;
+            for (Vertex<Airport*>* vertex : path) {
+                airports.push_back(vertex->getInfo());
+            }
+            res.push_back(airports);
+        }
+
+        for (Edge<Airport*> edge : current->getAdj()) {
+            if (airlineInFilter(edge, airlines)) {  // Ignore airlines that are not in filter
+                Vertex<Airport *> *neighbor = edge.getDest();
+
+                // Only add neighbor to queue if it's not visited
+                if (!neighbor->isVisited()) {
+                    vector<Vertex<Airport*>*> newPath(path);
+                    newPath.push_back(neighbor);
+                    q.push(newPath);
+                }
+            }
+        }
+    }
+
+    // If the destination is not reachable from the start
+    return res;
+}
+
+
+// 9
+void FlightManager::printFlightOptionMinimalAirlines(){
+
+}
+
 
 /*vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end) {
     vector<vector<Airport*>> res;
