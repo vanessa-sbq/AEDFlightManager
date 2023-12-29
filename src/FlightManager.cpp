@@ -433,7 +433,6 @@ void FlightManager::printFlightOptionAirlineFiltered(const string& sourceCode, c
     istringstream ss(filteredAirlines);
     while (std::getline(ss, airlineCode, ',')) {
         airlineCode.erase(std::remove(airlineCode.begin(), airlineCode.end(), ' '), airlineCode.end());
-        cout << airlineCode << endl;
         airlineCodes.push_back(airlineCode);
     }
     vector<Airline *> airlines;
@@ -470,11 +469,36 @@ void FlightManager::printFlightOptionAirlineFiltered(const string& sourceCode, c
         cout << "The destination is not reachable with this configuration!";
         return;
     }
-    for (int i = 0; i < shortest.size(); i++){
-        for (int j = 0; j < shortest[i].size(); j++)
-        cout << shortest[i][j]->getCode() << " -> ";
+
+    vector<vector<Airport*>> uniquePaths;
+    int min = shortest[0].size();
+    for (int i = 1; i < shortest.size(); i++){
+        if (shortest[i].size() < min) min = shortest[i].size();
     }
-    //cout << shortest[shortest.size() - 1]->getCode();
+    for (const vector<Airport*>& path : shortest) {
+        bool isDuplicate = false;
+        if (path.size() != min) continue;
+        for (const vector<Airport*>& uniquePath : uniquePaths) {
+            if (path.size() != uniquePath.size()) continue;
+            isDuplicate = true;
+            for (size_t i = 0; i < path.size(); ++i) {
+                if (path[i]->getCode() != uniquePath[i]->getCode()) {
+                    isDuplicate = false;
+                    break;
+                }
+            }
+            if (isDuplicate) break;
+        }
+        if (!isDuplicate) uniquePaths.push_back(path);
+    }
+
+    for (int i = 0; i < uniquePaths.size(); i++){
+        for (int j = 0; j < uniquePaths[i].size() - 1; j++) {
+            cout << uniquePaths[i][j]->getCode() << " -> ";
+        }
+        cout << uniquePaths[i][uniquePaths[i].size() - 1]->getCode();
+        cout << endl;
+    }
 }
 bool airlineInFilter(Edge<Airport*> edge, vector<Airline*> filteredAirlines){
     for (Airline* airline : filteredAirlines){
@@ -484,41 +508,38 @@ bool airlineInFilter(Edge<Airport*> edge, vector<Airline*> filteredAirlines){
 }
 vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline*>& airlines) {
     vector<vector<Airport*>> res;
-    queue<Vertex<Airport*>*> q;
-    unordered_set<Airport*> visited;
-    unordered_map<Vertex<Airport*>*, Vertex<Airport*>*> parent;
+    queue<vector<Vertex<Airport*>*>> q;
 
     // Start BFS
-    q.push(start);
-    visited.insert(start->getInfo());
+    q.push({start});
 
     // BFS Iteration
     while (!q.empty()) {
-        Vertex<Airport*>* current = q.front();
+        vector<Vertex<Airport*>*> path = q.front();
         q.pop();
+
+        Vertex<Airport*>* current = path.back();
+
+        // Mark the current node as visited
+        current->setVisited(true);
+
+        if (current == end) {
+            vector<Airport*> airports;
+            for (Vertex<Airport*>* vertex : path) {
+                airports.push_back(vertex->getInfo());
+            }
+            res.push_back(airports);
+        }
 
         for (Edge<Airport*> edge : current->getAdj()) {
             if (airlineInFilter(edge, airlines)) {  // Ignore airlines that are not in filter
                 Vertex<Airport *> *neighbor = edge.getDest();
-                Airport *neighborInfo = neighbor->getInfo();
-                if (visited.find(neighborInfo) == visited.end()) {
-                    q.push(neighbor);
-                    visited.insert(neighborInfo);
-                    parent[neighbor] = current;
 
-                    // Finish BFS if the destination is reached
-                    if (neighbor == end) {
-                        // Reconstruct Shortest Path
-                        vector<Airport *> path;
-                        while (parent.find(neighbor) != parent.end()) {
-                            path.push_back(neighbor->getInfo());
-                            neighbor = parent[neighbor];
-                        }
-                        path.push_back(start->getInfo());
-                        reverse(path.begin(), path.end());
-                        res.push_back(path);
-                        //return path;
-                    }
+                // Only add neighbor to queue if it's not visited
+                if (!neighbor->isVisited()) {
+                    vector<Vertex<Airport*>*> newPath(path);
+                    newPath.push_back(neighbor);
+                    q.push(newPath);
                 }
             }
         }
