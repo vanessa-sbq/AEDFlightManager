@@ -391,11 +391,27 @@ void FlightManager::printTopKAirport(int k){
     // 3. print the k-th airport
 }
 
-
 // 8
 void FlightManager::printEssentialAirports(){
-    // ToDo
+    unordered_set<Airport*> res;
+
+    for (auto vertex : airportNetwork.getVertexSet()){
+        vertex->setVisited(false);
+        vertex->setProcessing(false);
+    }
+
+    stack<Airport*> s;
+    int index = 1;
+    for (auto v : airportNetwork.getVertexSet()){
+        if (!v->isVisited()){
+            airportNetwork.dfs_art(v, s, res, index);
+        }
+    }
+
+    std::cout << "there are " << res.size() << " essential airports.\n";
+
 }
+
 
 void FlightManager::testingCalculateDistance() {
     double lat1,lat2,long1,long2;

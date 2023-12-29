@@ -37,3 +37,7 @@ const std::string &Airport::getCountry() const {
 bool Airport::operator == (const Airport &p2) const {
     return (code==p2.code);
 }
+
+bool Airport::operator<(const Airport &p2) const {
+    return code < p2.code;
+}

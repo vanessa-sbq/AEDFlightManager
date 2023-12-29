@@ -26,6 +26,8 @@ public:
     const std::string &getCountry() const;
 
     bool operator == (const Airport &p2) const;
+    bool operator < (const Airport &p2) const;
+
 };
 
 

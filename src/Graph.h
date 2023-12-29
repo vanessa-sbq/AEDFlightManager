@@ -84,6 +84,7 @@ class Graph {
     list<list<T>> _list_sccs_;        // auxiliary field
 
     void dfsVisit(Vertex<T> *v,  vector<T> & res) const;
+    void dfsVisit(Vertex<T> *v) const;
     bool dfsIsDAG(Vertex<T> *v) const;
 public:
     Vertex<T> *findVertex(const T &in) const;
@@ -97,7 +98,13 @@ public:
     vector<T> dfs() const;
     vector<T> dfs(const T & source) const;
     vector<T> bfs(const T &source) const;
-};
+    int numCC() const;
+    int numCC(Vertex<T>* excludedVertex) const;
+
+    void dfs_art(Vertex<T> *v, stack<T> &s, unordered_set<T> &l, int &i);
+    };
+
+
 
 /****************** Provided constructors and functions ********************/
 
@@ -419,6 +426,36 @@ double Graph<T>::calculateDistance(const std::pair<double, double> p1, const std
     double c = 2 * asin(sqrt(a));
 
     return rad * c;
+}
+
+template<class T>
+void Graph<T>::dfs_art(Vertex<T> *v, stack<T> &s, unordered_set<T> &l, int &i) {
+    v->setNum(i);
+    v->setLow(i);
+    v->setVisited(true);
+    v->setProcessing(true);
+    i++;
+    s.push(v->getInfo());
+
+    // Traverse edges of v
+    int children = 0;
+    for (auto& e : v->getAdj()) {
+        Vertex<T>* w = e.getDest();
+        if (!w->isVisited()) {
+            dfs_art( w, s, l, i);
+            v->setLow(min(v->getLow(), w->getLow()));
+            if (v->getNum() <= w->getLow() && v->getNum() != 1) {
+                l.insert(v->getInfo());
+            }
+            ++children;
+        } else if (w->isProcessing()) {
+            v->setLow(min(v->getLow(), w->getNum()));
+        }
+    }
+    if(v->getNum() == 1 && children > 1) {
+        l.insert(v->getInfo());
+    }
+    s.pop();
 }
 
 #endif /* GRAPH_H_ */

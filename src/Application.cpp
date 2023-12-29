@@ -219,6 +219,7 @@ void Application::topAirportsWithGreatestAirCapacity() {
 
 void Application::essentialAirports() {
     delay(2000);
+    flightManager.printEssentialAirports();
     showGoBackMenu(7, "Show essential airports.");
 }
 
