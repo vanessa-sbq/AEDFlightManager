@@ -77,6 +77,9 @@ void FlightManager::processAirports(std::ifstream &in){
             for (char& c : country) c = (char) tolower(c);
             auto* airport = new Airport(position, code, name, city, country);
             airportMap[code] = airport;
+            airportNameMap[name] = airport;
+            pair<string, string> stringPair =std::make_pair(city, country);
+            airportCityMap[stringPair].push_back(airport);
 
             if (!airportNetwork.addVertex(airport)){
                 std::cout << "Error while adding vertex to graph.";
@@ -377,11 +380,91 @@ int numAirportsReachableBFS(const Graph<Airport> *airport_network, const Airport
     return count;
 }
 
+vector<Airport*> nodesAtDistanceBFS(Vertex<Airport*>*& sourceVertex, int& level) {
+    vector<Airport*> targetAirports; // This is where we will store the reached airports
+    queue<Vertex<Airport*>*> vertexQueue; // Queue for the vertexes that we have to process
+
+    vertexQueue.push(sourceVertex); // Push the initial (source) vertex.
+    sourceVertex->setVisited(true);
+    level = 0; // Level starts at zero.
+
+    while (!vertexQueue.empty()){
+
+        level++; // We are on a new level.
+        targetAirports.clear(); // All the airports that were stored no longer are valid because there exists a higher level.
+        unsigned long size = vertexQueue.size();
+
+        // Process all elements of vertexQueue.
+        // Note: We are limited by the size of the original vertexQueue -> size. This allows us to add even more
+        // elements to the queue while still using it to finish the processing of the current level.
+        for (unsigned long i = 0; i < size; i++){
+            auto nextAirport = vertexQueue.front();
+
+            targetAirports.push_back(nextAirport->getInfo()); // Add the element to the list
+            vertexQueue.pop(); // Processing is still going to be done, but we can now remove it from the queue.
+
+            // Get the flights from the current Airport.
+            for (auto& flight : nextAirport->getAdj()){
+                auto destinationAirport = flight.getDest();
+
+                if (!destinationAirport->isVisited()){
+                    destinationAirport->setVisited(true);
+                    vertexQueue.push(destinationAirport);
+                }
+
+            }
+        }
+    }
+    // The bfs stops when we reach the maximum depth which corresponds to the maximum distance from a certain node.
+    return targetAirports;
+}
 
 // 6
-void FlightManager::printMaxTrip(){
-    // ToDo
+void FlightManager::printMaxTrip() {
+
+    // This allows us to store the values for the source Airport and for the target Airports.
+    unordered_map<string, vector<Airport*>> airportsLeveled;
+
+    int maxLevel = 0;
+
+    // Iterate through every single airport to find the ones that have the longer connections.
+    for (auto& airportSource : airportNetwork.getVertexSet()){
+
+        // Set all vertexes to unvisited
+        for (auto& unvistVertex : airportNetwork.getVertexSet()){
+            unvistVertex->setVisited(false);
+        }
+
+        // Reference to compare the level to check max(level, maxLevel)
+        int level;
+        // Get the final destinations
+        vector<Airport*> finalDestinations = nodesAtDistanceBFS(airportSource, level);
+
+        if (level > maxLevel){
+            // ToDo Remove std::cout << "Clearing airportsLeveled. Level: " << level << ", Max Level: " << maxLevel << "\n";
+            airportsLeveled.clear();
+            airportsLeveled[airportSource->getInfo()->getCode()] = finalDestinations;
+            maxLevel = level;
+        } else {
+            if (level == maxLevel){
+                // ToDo Remove std::cout << "Not clearing. Level: " << level << ", Max Level: " << maxLevel << "\n";
+                airportsLeveled[airportSource->getInfo()->getCode()] = finalDestinations;
+            }
+        }
+
+    }
+
+    // Print the results.
+    cout << "The flights that have the most amount of stops are:\n";
+    for (const auto& iter : airportsLeveled) {
+        for (Airport* airport : iter.second){
+            cout << "From " << iter.first << " to "<< airport->getCode() << ".\n";
+        }
+    }
+
 }
+
+
 
 
 // 7
@@ -402,6 +485,162 @@ void FlightManager::printTopKAirport(int k){
 // 8
 void FlightManager::printEssentialAirports(){
     // ToDo
+}
+
+/*vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end) {
+    vector<vector<Airport*>> res;
+    queue<vector<Vertex<Airport*>*>> q;
+
+    // Start BFS
+    q.push({start});
+
+    // BFS Iteration
+    while (!q.empty()) {
+        vector<Vertex<Airport*>*> path = q.front();
+        q.pop();
+
+        Vertex<Airport*>* current = path.back();
+
+        // Mark the current node as visited
+        current->setVisited(true);
+
+        if (current == end) {
+            vector<Airport*> airports;
+            for (Vertex<Airport*>* vertex : path) {
+                airports.push_back(vertex->getInfo());
+            }
+            res.push_back(airports);
+        }
+
+        for (Edge<Airport*> edge : current->getAdj()) {
+            Vertex<Airport *> *neighbor = edge.getDest();
+
+            // Only add neighbor to queue if it's not visited
+            if (!neighbor->isVisited()) {
+                vector<Vertex<Airport*>*> newPath(path);
+                newPath.push_back(neighbor);
+                q.push(newPath);
+            }
+        }
+    }
+
+    // If the destination is not reachable from the start
+    return res;
+}*/
+
+void FlightManager::presentTheBestFlightOptions(const string& input1, const string& input2, const string& input3, const string& input4, const string& input5, const string& input6, const string& radius){
+    vector<Airport*> sourceAirports;
+    vector<Airport*> targetAirports;
+    string input1Dup = input1;
+    string input3Dup = input3;
+    string input5Dup = input5;
+    string input6Dup = input6;
+    int rad = 0;
+    double latSource;
+    double lonSource;
+    double latTarget;
+    double lonTarget;
+    if (radius != "ignore") {
+        try {
+            rad = stoi(radius);
+        } catch (std::invalid_argument &iv) {
+            cout << "\nError while converting radius\n";
+            return;
+        }
+    }
+
+    for (char& c : input1Dup) c = (char) tolower(c);
+    for (char& c : input5Dup) c = (char) tolower(c);
+    for (char& c : input6Dup) c = (char) tolower(c);
+
+    try {
+        if (input2 == "cityName") {
+            sourceAirports = airportCityMap.at({input1Dup, input5Dup});
+        } else if (input2 == "airportName") {
+            sourceAirports.push_back(airportNameMap.at(input1Dup));
+        } else if (input2 == "airportCode") {
+            sourceAirports.push_back(airportMap.at(input1Dup));
+        } else {
+            try {
+                latSource = stod(input1);
+                lonSource = stod(input2);
+            } catch (std::invalid_argument& inv) {
+                cout << "\nError while converting coordinates for source airport.\n";
+                return;
+            }
+
+            for (const auto& airport : airportMap){
+                double calculatedDistance = airportNetwork.calculateDistance(airport.second->getPositionInfo(), {latSource, lonSource});
+                if (calculatedDistance <= rad){
+                    sourceAirports.push_back(airport.second);
+                }
+            }
+
+            if (sourceAirports.empty()){
+                cout << "\nNo source airports found.\n";
+                return;
+            }
+
+        }
+    } catch (std::out_of_range& ofr) {
+        std::cout << "\nNo source airport with specified input value -> " << input1 << " <- was found.\n";
+        return;
+    }
+
+    for (char& c : input3Dup) c = (char) tolower(c);
+
+    try {
+        if (input4 == "cityName") {
+            targetAirports = airportCityMap.at({input3Dup, input6Dup});
+        } else if (input4 == "airportName") {
+            targetAirports.push_back(airportNameMap.at(input3Dup));
+        } else if (input4 == "airportCode"){
+            targetAirports.push_back(airportMap.at(input3Dup)); // code used
+        } else {
+            try {
+                latTarget = stod(input3);
+                lonTarget = stod(input4);
+            } catch (std::invalid_argument& inv) {
+                cout << "\nError while converting coordinates for target airport.\n";
+                return;
+            }
+
+            for (const auto& airport : airportMap){
+                double calculatedDistance = airportNetwork.calculateDistance(airport.second->getPositionInfo(), {latTarget, lonTarget});
+                if (calculatedDistance <= rad){
+                    targetAirports.push_back(airport.second);
+                }
+            }
+
+            if (targetAirports.empty()){
+                cout << "\nNo target airports found.\n";
+                return;
+            }
+        }
+    } catch (std::out_of_range& ofr){
+        std::cout << "\nNo target airport with specified input value -> " << input3 << " <- was found.\n";
+        return;
+    }
+
+    vector<vector<Airport*>> voyages;
+
+    for (Airport* source : sourceAirports){
+        for (Airport* target : targetAirports){
+            Vertex<Airport*>* sourceVertex = airportNetwork.findVertex(source);
+            Vertex<Airport*>* targetVertex = airportNetwork.findVertex(target);
+
+            //voyages = shortestPath(sourceVertex, targetVertex);
+        }
+    }
+
+    /*unsigned long smallestSize = ULONG_MAX;
+    for (auto& smallVoyage : voyages) {
+        for (auto& airport : smallVoyage){
+            smallestSize = min(smallestSize, )
+        }
+        cout << "\n";
+    }*/
+
 }
 
 void FlightManager::testingCalculateDistance() {

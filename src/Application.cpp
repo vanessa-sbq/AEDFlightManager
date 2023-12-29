@@ -3,6 +3,7 @@
 /**@brief Starts the application.*/
 void Application::run(int processedKey) {
     flightManager.parseData();
+    //flightManager.debugging(); // ToDo Remove
     L1:
     clearScreen();
     while (processedKey == -1){
@@ -29,7 +30,8 @@ void Application::run(int processedKey) {
             std::cout << 4;
             break;
         case 5:
-            flightsWithGreatestNumberOfStops(); // ToDo
+            //flightsWithGreatestNumberOfStops(); // ToDo
+            bestbestflightopts();
             std::cout << 5;
             break;
         case 6:
@@ -164,10 +166,10 @@ void Application::numberOfFlights() {
         std::string city;
         std::string country;
         std::cout << "Please input city's name: ";
-        std::cin >> city;
+        std::getline(std::cin >> std::ws, city); // Use std::ws to consume whitespaces
         std::cout << "\n";
         std::cout << "Please input country's name: ";
-        std::cin >> country;
+        std::getline(std::cin >> std::ws, country); // Use std::ws to consume whitespaces
         std::cout << "\n";
         delay(1000);
         clearScreen();
@@ -236,8 +238,134 @@ void Application::numberOfDestinations() {
 }
 
 void Application::flightsWithGreatestNumberOfStops() {
+    std::string sourceAirport, targetAirport;
+    std::cout << "Please input source Airport code: ";
+    std::cin >> sourceAirport;
+    std::cout << "\n";
+    std::cout << "Please input target Airport code: ";
+    std::cin >> targetAirport;
+    std::cout << "\n";
+    flightManager.printMaxTrip();
+
     delay(2000);
     showGoBackMenu(5, "Show maximum trips (flights with greatest number of stops).");
+}
+
+void Application::bestbestflightopts() {
+    std::string input1, input2, input3, input4, input5, input6, sourceOpt, targetOpt;
+    std::string radius = "ignore";
+
+
+beginSourceAirport:
+    clearScreen();
+    std::cout << "How would you like to search for the source Airport ?\n"
+    << "1 - Using it's code.\n"
+    << "2 - Using it's name.\n"
+    << "3 - Using the cities name (all airports considered).\n"
+    << "4 - Using coordinates.\n"
+    << "Input: ";
+    std::cin >> sourceOpt;
+    delay(500);
+
+    clearScreen();
+    switch (processKey(sourceOpt)) {
+        case 1:
+            std::cout << "Please input the source Airport's code: ";
+            std::cin >> input1;
+            input2 = "airportCode";
+            break;
+        case 2:
+            std::cout << "Please input the source Airport's name: ";
+            std::getline(std::cin >> std::ws, input1); // Use std::ws to consume whitespaces
+            input2 = "airportName";
+            break;
+        case 3:
+            std::cout << "Please input the source City's name: ";
+            std::getline(std::cin >> std::ws, input1); // Use std::ws to consume whitespaces
+            std::cout << "\n";
+            std::cout << "Please input Country's name: ";
+            std::getline(std::cin >> std::ws, input5); // Use std::ws to consume whitespaces
+            std::cout << "\n";
+            input2 = "cityName";
+            break;
+        case 4:
+
+            if (radius == "ignore"){
+                std::cout << "\nnote: You will need to specify a radius (int and in km).\nThis will apply to both source and destination (If destination is provided by coordinates.)\nPlease specify it now: ";
+                std::cin >> radius;
+            }
+
+            std::cout << "Please input the target latitude: ";
+            std::cin >> input1;
+            std::cout << "Please input the target longitude: ";
+            std::cin >> input2;
+            break;
+        default:
+            goto beginSourceAirport;
+    }
+
+beginTargetAirport:
+    clearScreen();
+    std::cout << "How would you like to search for the target Airport ?\n"
+              << "1 - Using it's code.\n"
+              << "2 - Using it's name.\n"
+              << "3 - Using the cities name (all airports considered).\n"
+              << "4 - Using coordinates.\n"
+              << "Input: ";
+    std::cin >> targetOpt;
+    delay(500);
+
+    switch (processKey(targetOpt)) {
+        case 1:
+            std::cout << "Please input the target Airport's code: ";
+            std::cin >> input3;
+            input4 = "airportCode";
+            break;
+        case 2:
+            std::cout << "Please input the target Airport's name: ";
+            std::getline(std::cin >> std::ws, input3); // Use std::ws to consume whitespaces
+            input4 = "airportName";
+            break;
+        case 3:
+            std::cout << "Please input the target City's name: ";
+            std::getline(std::cin >> std::ws, input3); // Use std::ws to consume whitespaces
+            std::cout << "\n";
+            std::cout << "Please input Country's name: ";
+            std::getline(std::cin >> std::ws, input6); // Use std::ws to consume whitespaces
+            std::cout << "\n";
+            input4 = "cityName";
+            break;
+        case 4:
+            if (radius == "ignore"){
+                std::cout << "\nnote: You will need to specify a radius (int and in km).\nPlease specify it now: ";
+                std::cin >> radius;
+            } else {
+                L1:
+                std::cout << "\nnote: Radius already specified as " << radius << " km.\nWould you like to change it (Y/n)? ";
+                string opt;
+                cin >> opt;
+                for (char& c : opt) c = (char) tolower(c);
+                if (opt.size() > 1 || opt != "y" && opt != "n") goto L1;
+                if (opt == "y"){
+                    std::cout << "\n What value should the radius be: ";
+                    std::cin >> radius;
+                }
+            }
+
+            std::cout << "Please input the target latitude: ";
+            std::cin >> input3;
+            std::cout << "Please input the target longitude: ";
+            std::cin >> input4;
+            break;
+        default:
+            goto beginTargetAirport;
+    }
+
+    flightManager.presentTheBestFlightOptions(input1, input2, input3, input4, input5, input6, radius);
+
+
+    delay(2000);
+    showGoBackMenu(5, "turip");
 }
 
 void Application::topAirportsWithGreatestAirCapacity() {
