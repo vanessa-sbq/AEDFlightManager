@@ -13,6 +13,7 @@
 class Application{
 public:
     Application(std::string env){
+        flightManager.parseData();
         this->env = env;
     }
 
@@ -30,6 +31,8 @@ private:
     void globalNumberOfAvailableFlights();
     void numberOfFlightsOutOfAnAirport();
     void numberOfFlights();
+    void numberOfCountries();
+    void numOfDestinationsForGivenAirport();
     void numberOfDestinations();
     void flightsWithGreatestNumberOfStops();
     void topAirportsWithGreatestAirCapacity();
