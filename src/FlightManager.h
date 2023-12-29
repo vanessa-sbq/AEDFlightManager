@@ -35,6 +35,8 @@ public:
     void printMaxTrip(); // 6
     void printTopKAirport(int k); // 7
     void printEssentialAirports(); // 8
+    void printFlightOptionAirlineFiltered(const string& sourceCode, const string& destCode, const string& filteredAirlines); // 9
+    void printFlightOptionMinimalAirlines(); // 9
 
     void testingCalculateDistance();
 

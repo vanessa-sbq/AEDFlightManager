@@ -311,8 +311,47 @@ void Application::essentialAirports() {
 }
 
 void Application::checkBestFlightOptions() {
-    delay(2000);
-    showGoBackMenu(8, "Check best flight option(s).");
+    L1:
+    std::cout << "Choose an option:\n"
+              << "1 - Search without filters.\n"
+              << "2 - Filter by airlines.\n"
+              << "3 - Filter by least amount of different airlines.\n";
+
+    std::string opt;
+    std::cout << "Input: ";
+    std::cin >> opt;
+    std::cout << "\n";
+    clearScreen();
+
+    if(processKey(opt) == 1) {
+        // ToDo
+    }
+    if (processKey(opt) == 2){
+        std::string sourceCode;
+        std::cout << "Please input the source airport code: ";
+        std::getline(std::cin >> std::ws, sourceCode); // Use std::ws to consume whitespaces
+        std::cout << "\n";
+
+        std::string destCode;
+        std::cout << "Please input the destination airport code: ";
+        std::getline(std::cin >> std::ws, destCode); // Use std::ws to consume whitespaces
+        std::cout << "\n";
+
+        std::string filteredAirlines;
+        std::cout << "Please input preferred airline codes (comma separated): ";
+        std::getline(std::cin >> std::ws, filteredAirlines); // Use std::ws to consume whitespaces
+        std::cout << "\n";
+        clearScreen();
+        flightManager.printFlightOptionAirlineFiltered(sourceCode, destCode, filteredAirlines);
+        delay(2000);
+        showGoBackMenu(8, "Check best flight option(s)."); // ToDo: not sure if this works
+    }
+    if(processKey(opt) == 3) {
+        // ToDo
+    }
+    else {
+        goto L1;
+    }
 }
 
 

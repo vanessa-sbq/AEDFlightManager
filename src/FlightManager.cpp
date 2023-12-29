@@ -365,8 +365,6 @@ bool compPairs(const std::pair<int, Airport*>& p1, const std::pair<int, Airport*
     return p1.first > p2.first;
 }
 // ToDo: make this more efficient
-// ToDo: fix this function (when I run it again from the gobackmenu, the output is different! (for example, for the first time, for k = 3019 it says "k is invalid",
-// but for the second time it says "The top 3019 airport is ctl with 12 flights." and it keeps adding up and adding things to the graph
 void FlightManager::printTopKAirport(int k){
     int a = k;
     std::vector<std::pair<int, Airport*>> res;
@@ -424,6 +422,115 @@ int FlightManager::numberOfFlights(Vertex<Airport*>* airport){  // auxiliary fun
 void FlightManager::printEssentialAirports(){
     // ToDo
 }
+
+
+// 9
+vector<Airport*> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline *>& airlines);
+void FlightManager::printFlightOptionAirlineFiltered(const string& sourceCode, const string& destCode, const string& filteredAirlines) {
+    // Extract the airline codes from the user input
+    vector<string> airlineCodes;
+    string airlineCode;
+    istringstream ss(filteredAirlines);
+    while (std::getline(ss, airlineCode, ',')) {
+        airlineCode.erase(std::remove(airlineCode.begin(), airlineCode.end(), ' '), airlineCode.end());
+        cout << airlineCode << endl;
+        airlineCodes.push_back(airlineCode);
+    }
+    vector<Airline *> airlines;
+    for (string airlineCode: airlineCodes) {      // Find the airlines
+        try {
+            airlines.push_back(airlineMap.at(airlineCode));
+        } catch(const std::out_of_range& e) {
+            continue;   // Invalid airlines are ignored
+        }
+    }
+
+    // Find the source and destination airports
+    Airport* source;
+    Airport* dest;
+    try{
+        source = airportMap.at(sourceCode);
+        dest = airportMap.at(destCode);
+    } catch (const std::out_of_range& e) {
+        cout << "The source or destination airports don't exist!\n";
+        return;
+    }
+    Vertex<Airport*>* vertexSource = airportNetwork.findVertex(source);
+    Vertex<Airport*>* vertexDest = airportNetwork.findVertex(dest);
+    if (vertexSource == nullptr || vertexDest == nullptr) {
+        std::cout << "The source or destination airports don't exist!\n";
+        return;
+    }
+
+    // Set all nodes to unvisited
+    for (auto v : airportNetwork.getVertexSet()) v->setVisited(false);
+
+    vector<Airport*> shortest = shortestPath(vertexSource, vertexDest, airlines);
+    if (shortest.size() == 0) {
+        cout << "The destination is not reachable with this configuration!";
+        return;
+    }
+    for (int i = 0; i < shortest.size() - 1; i++){
+        cout << shortest[i]->getCode() << " -> ";
+    }
+    cout << shortest[shortest.size() - 1]->getCode();
+}
+bool airlineInFilter(Edge<Airport*> edge, vector<Airline*> filteredAirlines){
+    for (Airline* airline : filteredAirlines){
+        if (edge.getWeight2()->getCode() == airline->getCode()) return true;
+    }
+    return false;
+}
+vector<Airport*> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline*>& airlines) {
+    queue<Vertex<Airport*>*> q;
+    unordered_set<Airport*> visited;
+    unordered_map<Vertex<Airport*>*, Vertex<Airport*>*> parent;
+
+    // Start BFS
+    q.push(start);
+    visited.insert(start->getInfo());
+
+    // BFS Iteration
+    while (!q.empty()) {
+        Vertex<Airport*>* current = q.front();
+        q.pop();
+
+        for (Edge<Airport*> edge : current->getAdj()) {
+            if (airlineInFilter(edge, airlines)) {  // Ignore airlines that are not in filter
+                Vertex<Airport *> *neighbor = edge.getDest();
+                Airport *neighborInfo = neighbor->getInfo();
+                if (visited.find(neighborInfo) == visited.end()) {
+                    q.push(neighbor);
+                    visited.insert(neighborInfo);
+                    parent[neighbor] = current;
+
+                    // Finish BFS if the destination is reached
+                    if (neighbor == end) {
+                        // Reconstruct Shortest Path
+                        vector<Airport *> path;
+                        while (parent.find(neighbor) != parent.end()) {
+                            path.push_back(neighbor->getInfo());
+                            neighbor = parent[neighbor];
+                        }
+                        path.push_back(start->getInfo());
+                        reverse(path.begin(), path.end());
+                        return path;
+                    }
+                }
+            }
+        }
+    }
+
+    // If the destination is not reachable from the start
+    return vector<Airport*>();
+}
+
+
+// 9
+void FlightManager::printFlightOptionMinimalAirlines(){
+
+}
+
 
 void FlightManager::testingCalculateDistance() {
     double lat1,lat2,long1,long2;
