@@ -13,6 +13,7 @@
 class Application{
 public:
     Application(std::string env){
+        flightManager.parseData();
         this->env = env;
     }
 

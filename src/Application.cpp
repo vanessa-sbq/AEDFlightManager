@@ -2,7 +2,6 @@
 
 /**@brief Starts the application.*/
 void Application::run(int processedKey) {
-    flightManager.parseData();
 L1:
     clearScreen();
     while (processedKey == -1){

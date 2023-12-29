@@ -17,11 +17,11 @@ int main() {
         env = "unix";
     }
 
+    Application app = Application(env);
     int nextRun = -1;
 
     goBack:
         try {
-            Application app = Application(env);
             app.run(nextRun);
         } catch (std::invalid_argument& invalid_argument){
             nextRun = std::stoi(invalid_argument.what());
