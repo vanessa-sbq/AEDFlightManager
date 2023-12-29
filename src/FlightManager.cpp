@@ -425,7 +425,7 @@ void FlightManager::printEssentialAirports(){
 
 
 // 9
-vector<Airport*> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline *>& airlines);
+vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline *>& airlines);
 void FlightManager::printFlightOptionAirlineFiltered(const string& sourceCode, const string& destCode, const string& filteredAirlines) {
     // Extract the airline codes from the user input
     vector<string> airlineCodes;
@@ -465,15 +465,16 @@ void FlightManager::printFlightOptionAirlineFiltered(const string& sourceCode, c
     // Set all nodes to unvisited
     for (auto v : airportNetwork.getVertexSet()) v->setVisited(false);
 
-    vector<Airport*> shortest = shortestPath(vertexSource, vertexDest, airlines);
+    vector<vector<Airport*>> shortest = shortestPath(vertexSource, vertexDest, airlines);
     if (shortest.size() == 0) {
         cout << "The destination is not reachable with this configuration!";
         return;
     }
-    for (int i = 0; i < shortest.size() - 1; i++){
-        cout << shortest[i]->getCode() << " -> ";
+    for (int i = 0; i < shortest.size(); i++){
+        for (int j = 0; j < shortest[i].size(); j++)
+        cout << shortest[i][j]->getCode() << " -> ";
     }
-    cout << shortest[shortest.size() - 1]->getCode();
+    //cout << shortest[shortest.size() - 1]->getCode();
 }
 bool airlineInFilter(Edge<Airport*> edge, vector<Airline*> filteredAirlines){
     for (Airline* airline : filteredAirlines){
@@ -481,7 +482,8 @@ bool airlineInFilter(Edge<Airport*> edge, vector<Airline*> filteredAirlines){
     }
     return false;
 }
-vector<Airport*> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline*>& airlines) {
+vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline*>& airlines) {
+    vector<vector<Airport*>> res;
     queue<Vertex<Airport*>*> q;
     unordered_set<Airport*> visited;
     unordered_map<Vertex<Airport*>*, Vertex<Airport*>*> parent;
@@ -514,7 +516,8 @@ vector<Airport*> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, co
                         }
                         path.push_back(start->getInfo());
                         reverse(path.begin(), path.end());
-                        return path;
+                        res.push_back(path);
+                        //return path;
                     }
                 }
             }
@@ -522,7 +525,7 @@ vector<Airport*> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, co
     }
 
     // If the destination is not reachable from the start
-    return vector<Airport*>();
+    return res;
 }
 
 
