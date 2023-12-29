@@ -43,29 +43,19 @@ public:
 
     void printNumDestinations(const std::string& airportCode, std::vector<int> filters);
 
-    void printNumCountriesAirport(std::string airportCode); // 4
-    void printNumCountriesCity(std::string city); // 4
+    void printNumCountriesAirport(const std::string& airportCode); // 4
+    void printNumCountriesCity(const std::string& city); // 4
     void printNumReachableX(const std::string& airport_name, int x, int funcNum); // 5
     void printMaxTrip(); // 6
     void printTopKAirport(int k); // 7
     void printEssentialAirports(); // 8
-
-
-    void printFlightOptionAirlineFiltered(const string& sourceCode, const string& destCode, const string& filteredAirlines); // 9
     void printFlightOptionMinimalAirlines(); // 9
 
-    void presentTheBestFlightOptions(const string& input1,const string& input2, const string& input3, const string& input4, const string& input5, const string& input6, const string& radius);
+
+    void printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest, const string& filteredAirlines, bool ignoreFilter); // 9
 
 
-    /*void debugging(){
-        for (auto iter : airportCityMap){
-            std::cout << "The city with name " << iter.first << " has a total of " << iter.second.size() << " airports which are: ";
-            for (auto a : iter.second){
-                cout << " " << a->getCode() << " ";
-            }
-            cout << "\n";
-        }
-    }*/
+    pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> getConvertedVertexesFromUser(const string& input1,const string& input2, const string& input3, const string& input4, const string& input5, const string& input6, const string& radius);
 
     void testingCalculateDistance();
 

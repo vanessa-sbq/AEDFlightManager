@@ -38,7 +38,6 @@ private:
     void essentialAirports();
     void checkBestFlightOptions();
     // ToDo
-    void bestbestflightopts();
 
     // Attributes
     std::string env; // System environment variable
