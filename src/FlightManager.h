@@ -41,7 +41,7 @@ public:
     void printNumFlightsCity(const std::string& cityName, const std::string& coutryName); // 3
     void printNumFlightsAirline(const std::string& airlineName); // 3
 
-    void printNumDestinations(const std::string& airportCode, std::vector<int> filters);
+    void printNumDestinationsForGivenAirport(const std::string& airportCode, std::vector<int> filters);
 
     void printNumCountriesAirport(const std::string& airportCode); // 4
     void printNumCountriesCity(const std::string& city, const std::string & country); // 4
