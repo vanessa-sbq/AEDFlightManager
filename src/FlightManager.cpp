@@ -292,6 +292,10 @@ void FlightManager::printNumCountriesAirport(const std::string& airportCode){
 }
 
 // 4
+/**
+ * @brief Prints the number of countries that the airports in a city fly to
+ * @details Time complexity: O(m * k), where m is the number of airports in the city and k is the average number of adjacent airports for each airport
+ */
 void FlightManager::printNumCountriesCity(const std::string& city, const std::string& country) {
 
     std::string cityDup = city;
@@ -385,19 +389,20 @@ void FlightManager::printNumDestinations(const std::string& airportCode,  std::v
  */
 void FlightManager::printNumReachableX(const std::string& airport_code, int x, int funcNum){
     x++; // x stops means that there are x + 1 levels of destinations
-    Airport* source = airportMap[airport_code];
-
+    Airport* source;
+    try {
+        source = airportMap.at(airport_code);
+    } catch (std::out_of_range& ofr) {
+        std::cout << "No airport with code " << airport_code << " was found\n";
+        return;
+    }
     std::vector<std::string> res;
-
     auto vertex = airportNetwork.findVertex(source);
-
     for (auto& a : airportNetwork.getVertexSet()) a->setVisited(false);
-
     if (vertex == nullptr){
         std::cout << "The airport with the code " << airport_code << " doesn't exist.";
         return;
     }
-
     std::queue<Vertex<Airport*>*> q;
     q.push(vertex);
     vertex->setVisited(true);
@@ -511,12 +516,11 @@ void FlightManager::printMaxTrip() {
 }
 
 // 7
-bool compPairs(const std::pair<int, Airport*>& p1, const std::pair<int, Airport*>& p2){
-    return p1.first > p2.first;
-}
-// ToDo: make this more efficient
+/**
+ * @brief Prints the top-k airport with the greatest air traffic capacity, that is, with the greatest number of flights
+ * @details Time complexity: O(V), where V is the number of vertices in the graph
+ */
 void FlightManager::printTopKAirport(int k){
-    int a = k;
     std::vector<std::pair<int, Airport*>> res;
 
     std::map< int, std::vector<Airport*> > airportTraffic;
@@ -528,16 +532,22 @@ void FlightManager::printTopKAirport(int k){
         airportTraffic[numFlights].push_back(vertex->getInfo());
     }
 
-    if (a < 1 || a >= airportTraffic.size()){
+    if (k < 1 || k > airportTraffic.size()){
         cout << "k is invalid!";
         return;
     }
 
     auto iter = std::next(airportTraffic.begin(), airportTraffic.size() - k);
 
-    for (auto airopp : iter->second){
-        cout << "The top " << a << " airport is " << airopp->getCode() << " with " << iter->first << " flights.\n";
+    if (iter->second.size() == 1) {
+        cout << "The top " << k << " airport is " << iter->second[0]->getCode() << " with " << iter->first << " flights.\n";
+        return;
     }
+    cout << "The top " << k << " airports are:\n";
+    for (auto airopp : iter->second){
+       cout << airopp->getCode() << endl;
+    }
+    cout << "with " << iter->first << " flights.\n";
 }
 
 // 8
@@ -565,6 +575,10 @@ void FlightManager::printEssentialAirports(){
 
 // 9
 vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline *>& airlines, bool ignoreFilter);
+/**
+ * @brief Prints the best flights option with an optional airline filter
+ * @details Time complexity: O(m * n * (V + E)), where m is the number of source vertices, n is the number of destination vertices and V + E is the complexity of the shortestPath function
+ */
 void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest, const string& filteredAirlines, bool ignoreFilter) {
 
     std::string filteredAirlinesDup = filteredAirlines;
@@ -662,6 +676,11 @@ bool airlineInFilter(Edge<Airport*> edge, const vector<Airline*>& filteredAirlin
     return false;
 }
 
+/**
+ * @brief BFS to compute the shortest path(s) between two vertices
+ * @details Time complexity: O(V + E), where V is the number of vertices and E the number of edges
+ * @return vector containing all the paths as vectors
+ */
 vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline*>& airlines, bool ignoreFilter) {
     vector<vector<Airport*>> res;
     queue<vector<Vertex<Airport*>*>> q;
