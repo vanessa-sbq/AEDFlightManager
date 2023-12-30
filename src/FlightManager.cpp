@@ -35,6 +35,12 @@ void FlightManager::parseData(){
     }
     processFlights(in);
     in.close();
+
+    for (auto vertex : airportNetwork.getVertexSet()){
+        for (auto edge : vertex->getAdj()) {
+            edge.getDest()->setIndegree(edge.getDest()->getIndegree()+1);
+        }
+    }
 }
 
 void FlightManager::processAirlines(std::ifstream &in){
@@ -172,24 +178,35 @@ void FlightManager::printNumFlightsOutOfAirport(){
 
 // 3
 /** @brief Print the number of flights that a city has.
- *  @details The number of flights is calculated using a dfs approach. We use the dfs algorithm to visit every airport
- *  @details and check it's name and it's country. If these match then we add all outgoing flights to numberFlights
- *  @details so that when we reach the end we have the total amount of flights that a given city has.
- *  @details We also check if a given destination is the expected airport. If it is then we also add +1 because it also counts
- *  @details as a flight, incoming flights (in-degree).
- *  @details Time Complexity for this is O(V) + O(E) where V is the number of airports and E then number of edges.
+ *  @details We visit every airport of the city and add it's in-degree plus it's out-degree.
+ *  @details Time Complexity for this is (O(V) + O(E))*O(x) where V is the number of airports, E then number of edges
+ *  @details and x is the number of airports of the city.
  * */
+/*
 void dfsAirport(Vertex<Airport*>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName);
+*/
 void FlightManager::printNumFlightsCity(const std::string& cityName, const std::string& coutryName){
-    unsigned long numberFlights = 0;
-
     // LowerCase Names.
     std::string cityNameDup = cityName;
     for (char &c: cityNameDup) c = (char) std::tolower(c);
     std::string coutryNameDup = coutryName;
     for (char &c: coutryNameDup) c = (char) std::tolower(c);
 
-    for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
+    vector<Airport*> ap;
+    try {
+        ap = airportCityMap.at({cityNameDup, coutryNameDup});
+    } catch (std::out_of_range& ofr) {
+        std::cout << "No city name " << cityName << " from country " << coutryName << "was found\n";
+        return;
+    }
+
+    unsigned long numberFlights = 0;
+    for (auto airports : ap){
+        Vertex<Airport*>* vertexAirport = airportNetwork.findVertex(airports);
+        numberFlights += vertexAirport->getIndegree();
+        numberFlights += vertexAirport->getAdj().size();
+    }
+    /*for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
         airport->setVisited(false);
     }
 
@@ -197,13 +214,13 @@ void FlightManager::printNumFlightsCity(const std::string& cityName, const std::
         if (!airport->isVisited()){
             dfsAirport(airport, numberFlights, cityNameDup, coutryNameDup);
         }
-    }
+    }*/
 
     std::cout << "The city " << cityName << " from " << coutryName;
     numberFlights == 0 ? std::cout << " has no flights.\n" : std::cout << " has " << numberFlights << " flights.\n";
 }
 
-void dfsAirport(Vertex<Airport*>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName){
+/*void dfsAirport(Vertex<Airport*>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName){
     airport->setVisited(true);
     if (airport->getInfo()->getCity() == cityName && airport->getInfo()->getCountry() == coutryName){
         numberFlights += airport->getAdj().size(); // out-degree
@@ -217,7 +234,7 @@ void dfsAirport(Vertex<Airport*>* airport, unsigned long& numberFlights, const s
             dfsAirport(destinationAirport, numberFlights, cityName, coutryName);
         }
     }
-}
+}*/
 
 /** @brief Print the number of flights that an airline has.
  *  @details The number of flights is calculated using a dfs approach. We use the dfs algorithm to visit every airport
@@ -493,21 +510,6 @@ void FlightManager::printMaxTrip() {
 
 }
 
-void dfsAirport2(Vertex<Airport*>* airport, unsigned long& numberFlights, const std::string& airportCode){
-    airport->setVisited(true);
-
-    for (const auto& flight : airport->getAdj()){
-        auto destinationAirport = flight.getDest();
-        if (destinationAirport->getInfo()->getCode() == airportCode){
-            //std::cout << "aaaaa\n";
-            numberFlights += 1; // in-degree
-        }
-        if (!destinationAirport->isVisited()){
-            dfsAirport2(destinationAirport, numberFlights, airportCode);
-        }
-    }
-}
-
 // 7
 bool compPairs(const std::pair<int, Airport*>& p1, const std::pair<int, Airport*>& p2){
     return p1.first > p2.first;
@@ -519,20 +521,11 @@ void FlightManager::printTopKAirport(int k){
 
     std::map< int, std::vector<Airport*> > airportTraffic;
 
-    /*if (airport->getInfo()->getCode() == airportCode){
-        numberFlights += ; // out-degree
-    }*/
-
-
-
     for (auto vertex : airportNetwork.getVertexSet()){
-        for (auto vertex : airportNetwork.getVertexSet()) vertex->setVisited(false);
-        //int numFlights = numberOfFlights(vertex);
         unsigned long numFlights = 0;
         numFlights += vertex->getAdj().size();
-        dfsAirport2(vertex, numFlights, vertex->getInfo()->getCode());
+        numFlights += vertex->getIndegree();
         airportTraffic[numFlights].push_back(vertex->getInfo());
-
     }
 
     if (a < 1 || a >= airportTraffic.size()){
@@ -546,22 +539,6 @@ void FlightManager::printTopKAirport(int k){
         cout << "The top " << a << " airport is " << airopp->getCode() << " with " << iter->first << " flights.\n";
     }
 }
-
-/*int FlightManager::numberOfFlights(Vertex<Airport*>* airport){  // auxiliary function
-
-
-    // number of outgoing flights
-    numFlights = (int) airport->getAdj().size();
-
-    // number of incoming flights
-    for (auto v : airportNetwork.getVertexSet()){
-        for (auto e : v->getAdj()){
-            if (e.getDest()->getInfo()->getCode() == airport->getInfo()->getCode()) numFlights++;
-        }
-    }
-
-    return numFlights;
-}*/
 
 // 8
 void FlightManager::printEssentialAirports(){
