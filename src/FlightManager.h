@@ -44,7 +44,7 @@ public:
     void printNumDestinations(const std::string& airportCode, std::vector<int> filters);
 
     void printNumCountriesAirport(const std::string& airportCode); // 4
-    void printNumCountriesCity(const std::string& city); // 4
+    void printNumCountriesCity(const std::string& city, const std::string & country); // 4
     void printNumReachableX(const std::string& airport_name, int x, int funcNum); // 5
     void printMaxTrip(); // 6
     void printTopKAirport(int k); // 7

@@ -60,14 +60,14 @@ L1:
 }
 
 void Application::clearScreen() {
-    /*if (env == "win")
+    if (env == "win")
         L1:
         std::cout << "\n\n\n\n\n\n\n\n\n"
                      "\n\n\n\n\n\n\n\n\n"
                      "\n\n\n\n\n\n\n\n\n"
                      "\n\n\n\n\n\n\n\n\n";
     else if (env == "unix")
-        if ( system("clear") == -1 ) goto L1;*/
+        if ( system("clear") == -1 ) goto L1;
 }
 
 void Application::delay(long sleepMS) {
@@ -122,6 +122,11 @@ std::string Application::showMainMenu() {
 
 void Application::showGoBackMenu(int functionNumber, const std::string& functionName) {
     L1:
+    std::cout << "\nPress enter to continue";
+    std::string a;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, a); // Use std::ws to consume whitespaces
     clearScreen();
     std::cout << "\n\nWhat would you like to do next:\n"
     << "1 - Return to main menu.\n"
@@ -148,21 +153,21 @@ void Application::showGoBackMenu(int functionNumber, const std::string& function
             throw std::invalid_argument(std::to_string(functionNumber));
         default:
             std::cout << "\n* Error while parsing option, please input a valid numeric option. *\n";
-            delay(2000);
+            //delay(2000);
             goto L1;
     }
 }
 
 void Application::globalNumberOfAvailableFlights() {
-    delay(2000);
     flightManager.printGlobalNumAirports();
     flightManager.printGlobalNumFlights();
+    //delay(2000);
     showGoBackMenu(1, "Show global number of available flights.");
 }
 
 void Application::numberOfFlightsOutOfAnAirport() {
-    delay(2000);
     flightManager.printNumFlightsOutOfAirport();
+    //delay(2000);
     showGoBackMenu(2, "Show number of flights out of an airport.");
 }
 
@@ -190,7 +195,7 @@ L1:
             std::cout << "Please input country's name: ";
             std::getline(std::cin >> std::ws, country); // Use std::ws to consume whitespaces
             std::cout << "\n";
-            delay(500);
+            //delay(500);
             clearScreen();
             flightManager.printNumFlightsCity(city, country);
             break;
@@ -198,14 +203,14 @@ L1:
             std::cout << "Please input Airline's code: ";
             std::cin >> airline;
             std::cout << "\n";
-            delay(500);
+            //delay(500);
             clearScreen();
             flightManager.printNumFlightsAirline(airline);
             break;
         default:
             goto L1;
     }
-    delay(2000);
+    //delay(2000);
     showGoBackMenu(3, "Show number of flights per city/airline.");
 }
 
@@ -231,14 +236,14 @@ void Application::numOfDestinationsForGivenAirport(){
     while (std::getline(ss, opt, ',')) {
         int processedKey = processKey(opt);
         if (processedKey == -1) {
-            delay(1000);
+            //delay(1000);
             goto L1;
         }
         optsSeparated.push_back(processedKey);
     }
 
     flightManager.printNumDestinations(airportCode, optsSeparated);
-    delay(2000);
+    //delay(2000);
     showGoBackMenu(5, "Show number of destinations for a given airport.");
 
 }
@@ -257,28 +262,33 @@ void Application::numberOfCountries() {
 
     std::string airportCode;
     std::string city;
+    std::string country;
     switch (processKey(opt)){
         case 1:
             std::cout << "Please input airport code: ";
             std::cin >> airportCode;
             std::cout << "\n";
-            delay(500);
+            //delay(500);
             clearScreen();
             flightManager.printNumCountriesAirport(airportCode);
             break;
         case 2:
-            std::cout << "Please input city name: ";
+            std::cout << "Please input City's name: ";
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear buffer
             std::getline(std::cin, city);
             std::cout << "\n";
-            delay(500);
+
+            std::cout << "Please input Country's name: ";
+            std::cin >> country;
+            std::cout << "\n";
+            //delay(500);
             clearScreen();
-            flightManager.printNumCountriesCity(city);
+            flightManager.printNumCountriesCity(city, country);
             break;
         default:
             goto L1;
     }
-    delay(2000);
+    //delay(2000);
     showGoBackMenu(4, "Show number of countries that an airport/city flies to"); // ToDo: not sure if this works
 }
 
@@ -307,18 +317,18 @@ L1:
 
     switch(processKey(opt)){
         case 1:
-            delay(500);
+            //delay(500);
             clearScreen();
             flightManager.printNumReachableX(airport_code, x, 0); // ToDo: change function
             break;
         case 2:
-            delay(500);
+            //delay(500);
             clearScreen();
             //flightManager.printNumReachableCitiesX(airport_code, x,);   // ToDo: change function
             flightManager.printNumReachableX(airport_code, x, 1); // ToDo: change function
             break;
         case 3:
-            delay(500);
+            //delay(500);
             clearScreen();
             //flightManager.printNumReachableCountriesX(airport_code, x);   // ToDo: change function
             flightManager.printNumReachableX(airport_code, x, 2); // ToDo: change function
@@ -326,7 +336,7 @@ L1:
         default:
             goto L1;
     }
-    delay(2000);
+    //delay(2000);
     showGoBackMenu(6, "Show number of destinations (airports, cities, countries) from a given airport in a maximum amount of X stops (lay-overs).");
 }
 
@@ -340,7 +350,7 @@ void Application::flightsWithGreatestNumberOfStops() {
     std::cout << "\n";*/
     flightManager.printMaxTrip();
 
-    delay(2000);
+    //delay(2000);
     showGoBackMenu(7, "Show maximum trips (flights with greatest number of stops).");
 }
 
@@ -349,14 +359,13 @@ void Application::topAirportsWithGreatestAirCapacity() {
     int k = 0;
     std::cin >> k;
     std::cout << "\n";
-    clearScreen();
     flightManager.printTopKAirport(k);
-    delay(2000);
+    //delay(2000);
     showGoBackMenu(8, "Show top-k airport with greatest air traffic capacity.\n");
 }
 
 void Application::essentialAirports() {
-    delay(2000);
+    //delay(2000);
     flightManager.printEssentialAirports();
     showGoBackMenu(9, "Show essential airports.");
 }
@@ -367,29 +376,32 @@ void Application::checkBestFlightOptions() {
 
     beginSourceAirport:
     clearScreen();
-    std::cout << "How would you like to search for the source Airport ?\n"
+    std::cout << "\nHow would you like to search for the source Airport ?\n"
               << "1 - Using it's code.\n"
               << "2 - Using it's name.\n"
               << "3 - Using the cities name (all airports considered).\n"
               << "4 - Using coordinates.\n"
               << "Input: ";
     std::cin >> sourceOpt;
-    delay(500);
+    //delay(500);
 
     clearScreen();
 
     switch (processKey(sourceOpt)) {
         case 1:
+            std::cout << "\n";
             std::cout << "Please input the source Airport's code: ";
             std::cin >> input1;
             input2 = "airportCode";
             break;
         case 2:
+            std::cout << "\n";
             std::cout << "Please input the source Airport's name: ";
             std::getline(std::cin >> std::ws, input1); // Use std::ws to consume whitespaces
             input2 = "airportName";
             break;
         case 3:
+            std::cout << "\n";
             std::cout << "Please input the source City's name: ";
             std::getline(std::cin >> std::ws, input1); // Use std::ws to consume whitespaces
             std::cout << "\n";
@@ -405,10 +417,13 @@ void Application::checkBestFlightOptions() {
                 std::cin >> radius;
             }
 
+            std::cout << "\n";
             std::cout << "Please input the target latitude: ";
             std::cin >> input1;
+            std::cout << "\n";
             std::cout << "Please input the target longitude: ";
             std::cin >> input2;
+            std::cout << "\n";
             break;
         default:
             goto beginSourceAirport;
@@ -416,27 +431,30 @@ void Application::checkBestFlightOptions() {
 
     beginTargetAirport:
     clearScreen();
-    std::cout << "How would you like to search for the target Airport ?\n"
+    std::cout << "\nHow would you like to search for the target Airport ?\n"
               << "1 - Using it's code.\n"
               << "2 - Using it's name.\n"
               << "3 - Using the cities name (all airports considered).\n"
               << "4 - Using coordinates.\n"
               << "Input: ";
     std::cin >> targetOpt;
-    delay(500);
+    //delay(500);
 
     switch (processKey(targetOpt)) {
         case 1:
+            std::cout << "\n";
             std::cout << "Please input the target Airport's code: ";
             std::cin >> input3;
             input4 = "airportCode";
             break;
         case 2:
+            std::cout << "\n";
             std::cout << "Please input the target Airport's name: ";
             std::getline(std::cin >> std::ws, input3); // Use std::ws to consume whitespaces
             input4 = "airportName";
             break;
         case 3:
+            std::cout << "\n";
             std::cout << "Please input the target City's name: ";
             std::getline(std::cin >> std::ws, input3); // Use std::ws to consume whitespaces
             std::cout << "\n";
@@ -449,11 +467,13 @@ void Application::checkBestFlightOptions() {
             if (radius == "ignore"){
                 std::cout << "\nnote: You will need to specify a radius (int and in km).\nPlease specify it now: ";
                 std::cin >> radius;
+                std::cout << "\n";
             } else {
                 radRed:
                 std::cout << "\nnote: Radius already specified as " << radius << " km.\nWould you like to change it (Y/n)? ";
                 string opt;
                 cin >> opt;
+                std::cout << "\n";
                 for (char& c : opt) c = (char) tolower(c);
                 if (opt.size() > 1 || opt != "y" && opt != "n") goto radRed;
                 if (opt == "y"){
@@ -462,6 +482,7 @@ void Application::checkBestFlightOptions() {
                 }
             }
 
+            std::cout << "\n";
             std::cout << "Please input the target latitude: ";
             std::cin >> input3;
             std::cout << "Please input the target longitude: ";
@@ -521,6 +542,6 @@ L1:
             goto L1;
     }
 
-    delay(2000);
+    //delay(2000);
     showGoBackMenu(10, "Check best flight option(s)."); // ToDo: not sure if this works
 }

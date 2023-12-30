@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <map>
 #include "FlightManager.h"
 #include <set>
 
@@ -261,21 +262,35 @@ void dfsNumberFlights(Vertex<Airport*>* airport, int& numberFlights, const std::
  * @details Time complexity: O(V + E), where V is the number of airports and E is the number of edges of an airport
  */
 void FlightManager::printNumCountriesAirport(const std::string& airportCode){
-    Airport* source = airportMap[airportCode];
+
+    std::string airportCodeDup = airportCode;
+    for (char& c : airportCodeDup) c = (char) tolower(c);
+
+    Airport* source = airportMap[airportCodeDup];
     auto vertex = airportNetwork.findVertex(source);
     set<std::string> res;
     for (Edge<Airport*> e : vertex->getAdj()) res.insert(e.getDest()->getInfo()->getCountry());
     if (res.size() == 1) cout << "There are direct flights to 1 country from the airport with code " << airportCode << ".";
     else cout << "There are direct flights to " << res.size() << " different countries from the airport with code " << airportCode << ".";
 }
+
 // 4
-void FlightManager::printNumCountriesCity(const std::string& city) {
+void FlightManager::printNumCountriesCity(const std::string& city, const std::string& country) {
+
+    std::string cityDup = city;
+    std::string countryDup = country;
     set<std::string> res; // Different countries
     vector<Airport*> airportsInCity;  // A city may have multiple airports
-    auto it = airportMap.begin();
-    for (it = airportMap.begin(); it != airportMap.end(); it++){
-        if (it->second->getCity() == city) airportsInCity.push_back(it->second);
+
+    for (char& c : cityDup) c = (char) tolower(c);
+    for (char& c : countryDup) c = (char) tolower(c);
+
+    try {
+        airportsInCity = airportCityMap[{cityDup, countryDup}];
+    } catch (std::out_of_range& ofr){
+        cout << "No city with name " << city << " from " << country << " was found\n";
     }
+
     for (Airport* airport : airportsInCity){
         auto vertex = airportNetwork.findVertex(airport);
         for (Edge<Airport*> e : vertex->getAdj()) res.insert(e.getDest()->getInfo()->getCountry());
@@ -312,6 +327,11 @@ void FlightManager::printNumDestinations(const std::string& airportCode,  std::v
     Vertex<Airport*>* airportSource = airportNetwork.findVertex(airport);
     vector<string> countries;
     vector<string> cities;
+
+    for (Edge<Airport*> flight : airportSource->getAdj()){
+        Vertex<Airport*>* destination = flight.getDest();
+        destination->setVisited(false);
+    }
 
     for (Edge<Airport*> flight : airportSource->getAdj()){
         Vertex<Airport*>* destination = flight.getDest();
@@ -473,6 +493,20 @@ void FlightManager::printMaxTrip() {
 
 }
 
+void dfsAirport2(Vertex<Airport*>* airport, unsigned long& numberFlights, const std::string& airportCode){
+    airport->setVisited(true);
+
+    for (const auto& flight : airport->getAdj()){
+        auto destinationAirport = flight.getDest();
+        if (destinationAirport->getInfo()->getCode() == airportCode){
+            //std::cout << "aaaaa\n";
+            numberFlights += 1; // in-degree
+        }
+        if (!destinationAirport->isVisited()){
+            dfsAirport2(destinationAirport, numberFlights, airportCode);
+        }
+    }
+}
 
 // 7
 bool compPairs(const std::pair<int, Airport*>& p1, const std::pair<int, Airport*>& p2){
@@ -482,41 +516,39 @@ bool compPairs(const std::pair<int, Airport*>& p1, const std::pair<int, Airport*
 void FlightManager::printTopKAirport(int k){
     int a = k;
     std::vector<std::pair<int, Airport*>> res;
-    std::vector<std::pair<int, Airport*>> airportTraffic;
+
+    std::map< int, std::vector<Airport*> > airportTraffic;
+
+    /*if (airport->getInfo()->getCode() == airportCode){
+        numberFlights += ; // out-degree
+    }*/
+
+
+
     for (auto vertex : airportNetwork.getVertexSet()){
-        int numFlights = numberOfFlights(vertex);
-        airportTraffic.push_back(make_pair(numFlights, vertex->getInfo()));
+        for (auto vertex : airportNetwork.getVertexSet()) vertex->setVisited(false);
+        //int numFlights = numberOfFlights(vertex);
+        unsigned long numFlights = 0;
+        numFlights += vertex->getAdj().size();
+        dfsAirport2(vertex, numFlights, vertex->getInfo()->getCode());
+        airportTraffic[numFlights].push_back(vertex->getInfo());
+
     }
-
-
-    std::sort(airportTraffic.begin(), airportTraffic.end(), compPairs);
 
     if (a < 1 || a >= airportTraffic.size()){
         cout << "k is invalid!";
         return;
     }
-    // ToDo: try to implement this correctly
-    /*if (airportTraffic.empty()) cout << "There are no airports!";
-    bool different = true;
-    std::pair<int, Airport*>& previous = airportTraffic[0];
-    k--;
-    for (auto it = airportTraffic.begin(); it != airportTraffic.end(); it++){
-        if (previous.first == it->first) different = false;
-        else different = true;
-        cout << "different: " << different << " number:" << it->first << std::endl;
-        if (k == 0) res.push_back(*it);
 
-        if (different){
-            k--;
-            if (k <= 0) break;
-        }
-        previous = *it;
-    }*/
+    auto iter = std::next(airportTraffic.begin(), airportTraffic.size() - k);
 
-    cout << "The top " << a << " airport is " << airportTraffic[a-1].second->getCode() << " with " << airportTraffic[a-1].first << " flights.\n";
+    for (auto airopp : iter->second){
+        cout << "The top " << a << " airport is " << airopp->getCode() << " with " << iter->first << " flights.\n";
+    }
 }
-int FlightManager::numberOfFlights(Vertex<Airport*>* airport){  // auxiliary function
-    int numFlights = 0;
+
+/*int FlightManager::numberOfFlights(Vertex<Airport*>* airport){  // auxiliary function
+
 
     // number of outgoing flights
     numFlights = (int) airport->getAdj().size();
@@ -529,7 +561,7 @@ int FlightManager::numberOfFlights(Vertex<Airport*>* airport){  // auxiliary fun
     }
 
     return numFlights;
-}
+}*/
 
 // 8
 void FlightManager::printEssentialAirports(){
@@ -548,7 +580,7 @@ void FlightManager::printEssentialAirports(){
         }
     }
 
-    std::cout << "there are " << res.size() << " essential airports.\n";
+    std::cout << "There are " << res.size() << " essential airports.\n";
 
 }
 
