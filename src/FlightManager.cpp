@@ -28,6 +28,14 @@ void FlightManager::parseData(){
     processAirports(in);
     in.close();
 
+    for (auto a : airportCityMap) {
+        if (a.first.first == "london" && a.first.second == "united kingdom") {
+            for (auto b : a.second) {
+                cout << b->getCode() << '\n';
+            }
+        }
+    }
+
     //std::cout << "Now flights";
     in.open("../inputFiles/flights.csv");
     if (!in.is_open()){
@@ -625,10 +633,13 @@ void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> s
     }
 
     vector<vector<Airport*>> uniquePaths;
+    uniquePaths = shortest;
+    /*
     int min = shortest[0].size();
     for (int i = 1; i < shortest.size(); i++){
         if (shortest[i].size() < min) min = shortest[i].size();
     }
+
     for (const vector<Airport*>& path : shortest) {
         bool isDuplicate = false;
         if (path.size() != min) continue;
@@ -646,6 +657,7 @@ void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> s
         if (!isDuplicate) uniquePaths.push_back(path);
     }
 
+
     for (auto & uniquePath : uniquePaths){
         for (int j = 0; j < uniquePath.size() - 1; j++) {
             cout << uniquePath[j]->getCode() << " -> ";
@@ -653,6 +665,16 @@ void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> s
         cout << uniquePath[uniquePath.size() - 1]->getCode();
         cout << endl;
     }
+     */
+
+    for (auto & uniquePath : uniquePaths) {
+        for (int j = 0; j < uniquePath.size() - 1; j++) {
+            cout << uniquePath[j]->getCode() << " -> ";
+        }
+        cout << uniquePath[uniquePath.size() - 1]->getCode();
+        cout << endl;
+    }
+
 }
 
 
@@ -753,23 +775,19 @@ vector<bfsPath> bfsMinimalAirports(Vertex<Airport*> *v , Vertex<Airport*> *targe
 
 // 9
 void FlightManager::printFlightOptionMinimalAirlines(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest){
-    /*
-    // set indegreee for each vertex
-    for (Vertex<Airport*> *vertex : airportNetwork.getVertexSet()) {
-        vertex->setIndegree(0);
-    }
-    for (Vertex<Airport*> *vertex : airportNetwork.getVertexSet()) {
-        for (Edge<Airport*> e : vertex->getAdj()) {
-            e.getDest()->setIndegree(e.getDest()->getIndegree()+1);
-        }
-    }
-     */
-
     bfsPath best;
     best.numAirlines = INT_MAX;
 
     for (auto s : source) {
         for (auto d : dest) {
+            for (Vertex<Airport*> *vertex : airportNetwork.getVertexSet()) {
+                vertex->setIndegree(0);
+            }
+            for (Vertex<Airport*> *vertex : airportNetwork.getVertexSet()) {
+                for (Edge<Airport*> e : vertex->getAdj()) {
+                    e.getDest()->setIndegree(e.getDest()->getIndegree()+1);
+                }
+            }
             for (const bfsPath& p : bfsMinimalAirports(s, d)) {
                 if (p.numAirlines < best.numAirlines) best = p;
             }
@@ -778,10 +796,9 @@ void FlightManager::printFlightOptionMinimalAirlines(vector<Vertex<Airport*>*> s
 
     std::cout << "This is the minimum amount of different airlines = " << best.numAirlines << "\n ROUTE ";
     for (Vertex<Airport*> *v : best.path) {
-        std:cout << "|" << v->getInfo()->getCode();
+        std::cout << "|" << v->getInfo()->getCode();
     }
     std::cout << '\n';
-
 }
 
 pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> FlightManager::getConvertedVertexesFromUser(const string& input1, const string& input2, const string& input3, const string& input4, const string& input5, const string& input6, const string& radius){
