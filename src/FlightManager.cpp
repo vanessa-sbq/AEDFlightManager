@@ -706,44 +706,82 @@ vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>*
     return res;
 }
 
+struct bfsPath {
+    std::vector<Vertex<Airport*>*> path;
+    std::unordered_set<Airline*> airlines;
+    int numAirlines = 0;
+};
 
-void dfsMinimalAirports(Vertex<Airport*> *v , Vertex<Airport*> *target,  vector<Airline*> &airlines, vector<Airport*> &airports) {
-    v->setVisited(true);
-    airports.push_back(v->getInfo());
-    for (const Edge<Airport*> &e : v->getAdj()) {
-        Vertex<Airport*> *w = e.getDest();
-        if (w == target) {
-            return;
-        } else if (!w->isVisited()) {
-            dfsMinimalAirports(w, target, airlines, airports);
+vector<bfsPath> bfsMinimalAirports(Vertex<Airport*> *v , Vertex<Airport*> *target) {
+    std::queue<bfsPath> q;
+    vector<bfsPath> res;
+
+    bfsPath start;
+    start.path.push_back(v);
+    q.push(start);
+
+    while (!q.empty()) {
+        bfsPath currPath = q.front();
+        q.pop();
+
+        Vertex<Airport*> *currVertex = currPath.path.back();
+        currVertex->setIndegree(currVertex->getIndegree()-1);
+
+        if (currVertex == target) {
+            res.push_back(currPath);
+            if (currVertex->getIndegree() == 0) break;
+            continue;
         }
-    }
-}
 
-// 9
-void FlightManager::printFlightOptionMinimalAirlines(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest){
-    for (auto v : airportNetwork.getVertexSet()) {
-        v->setVisited(false);
-    }
+        for (Edge<Airport*> e : currVertex->getAdj()) {
+            Vertex<Airport*> *dest = e.getDest();
+            if (dest->getIndegree() > 0) {
+                bfsPath newPath(currPath);
 
-    vector<Airline*> airlines;
-    vector<Airport*> airports;
-    int minAirline = INT_MAX;
-    for (auto s : source) {
-        for (auto d : dest) {
-            vector<Airline*> airlinesDFS;
-            vector<Airport*> airportsDFS;
-            dfsMinimalAirports(s, d, airlinesDFS, airportsDFS);
+                newPath.airlines.insert(e.getWeight2());
+                if (currPath.airlines.size() != newPath.airlines.size()) newPath.numAirlines++;
 
-            if (airlinesDFS.size() < minAirline) {
-                airlines = airlinesDFS;
-                airports = airportsDFS;
-                minAirline = airlinesDFS.size();
+                newPath.path.push_back(dest);
+
+                q.push(newPath);
             }
         }
     }
 
-    std::cout << "MIN AIRLINES = " << minAirline << '\n';
+    return res;
+}
+
+// 9
+void FlightManager::printFlightOptionMinimalAirlines(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest){
+    /*
+    // set indegreee for each vertex
+    for (Vertex<Airport*> *vertex : airportNetwork.getVertexSet()) {
+        vertex->setIndegree(0);
+    }
+    for (Vertex<Airport*> *vertex : airportNetwork.getVertexSet()) {
+        for (Edge<Airport*> e : vertex->getAdj()) {
+            e.getDest()->setIndegree(e.getDest()->getIndegree()+1);
+        }
+    }
+     */
+
+    bfsPath best;
+    best.numAirlines = INT_MAX;
+
+    for (auto s : source) {
+        for (auto d : dest) {
+            for (const bfsPath& p : bfsMinimalAirports(s, d)) {
+                if (p.numAirlines < best.numAirlines) best = p;
+            }
+        }
+    }
+
+    std::cout << "This is the minimum amount of different airlines = " << best.numAirlines << "\n ROUTE ";
+    for (Vertex<Airport*> *v : best.path) {
+        std:cout << "|" << v->getInfo()->getCode();
+    }
+    std::cout << '\n';
+
 }
 
 pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> FlightManager::getConvertedVertexesFromUser(const string& input1, const string& input2, const string& input3, const string& input4, const string& input5, const string& input6, const string& radius){
