@@ -22,10 +22,6 @@ const std::string &Airport::getCode() const {
     return code;
 }
 
-const std::string &Airport::getName() const {
-    return name;
-}
-
 const std::string &Airport::getCity() const {
     return city;
 }

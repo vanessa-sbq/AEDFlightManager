@@ -38,11 +38,9 @@ private:
     void topAirportsWithGreatestAirCapacity();
     void essentialAirports();
     void checkBestFlightOptions();
-    // ToDo
 
     // Attributes
     std::string env; // System environment variable
-    int option;
 };
 
 

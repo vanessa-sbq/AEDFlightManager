@@ -22,14 +22,11 @@ public:
 
     const std::pair<double, double> &getPositionInfo() const;
     const std::string &getCode() const;
-    const std::string &getName() const;
     const std::string &getCity() const;
     const std::string &getCountry() const;
 
     bool operator == (const Airport &p2) const;
     bool operator < (const Airport &p2) const;
-
 };
-
 
 #endif //AEDFLIGHTMANAGER_AIRPORT_H

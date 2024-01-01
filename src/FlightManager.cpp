@@ -6,11 +6,9 @@
 
 
 void FlightManager::parseData(){
-    //std::cout << "Now begin";
     std::ifstream in;
 
     // Open the file using the provided path.
-    //std::cout << "Now airlines";
     in.open("../inputFiles/airlines.csv");
     if (!in.is_open()){
         std::cout << "Unable to open airlines.csv.\n";
@@ -19,7 +17,6 @@ void FlightManager::parseData(){
     processAirlines(in);
     in.close();
 
-    //std::cout << "Now airports";
     in.open("../inputFiles/airports.csv");
     if (!in.is_open()){
         std::cout << "Unable to open airports.csv.\n";
@@ -28,16 +25,6 @@ void FlightManager::parseData(){
     processAirports(in);
     in.close();
 
-    // ToDo remove
-    /*for (auto a : airportCityMap) {
-        if (a.first.first == "london" && a.first.second == "united kingdom") {
-            for (auto b : a.second) {
-                cout << b->getCode() << '\n';
-            }
-        }
-    }*/
-
-    //std::cout << "Now flights";
     in.open("../inputFiles/flights.csv");
     if (!in.is_open()){
         std::cout << "Unable to open flights.csv.\n";
@@ -185,16 +172,12 @@ void FlightManager::printNumFlightsOutOfAirport(){
     std::cout << "Number of airlines flying out of " << airport << ": " << airlines.size() << '\n';
 }
 
-
 // 3
 /** @brief Print the number of flights that a city has.
  *  @details We visit every airport of the city and add it's in-degree plus it's out-degree.
  *  @details Time Complexity for this is (O(V) + O(E))*O(x) where V is the number of airports, E then number of edges
  *  @details and x is the number of airports of the city.
  * */
-/*
-void dfsAirport(Vertex<Airport*>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName);
-*/
 void FlightManager::printNumFlightsCity(const std::string& cityName, const std::string& coutryName){
     // LowerCase Names.
     std::string cityNameDup = cityName;
@@ -216,35 +199,10 @@ void FlightManager::printNumFlightsCity(const std::string& cityName, const std::
         numberFlights += vertexAirport->getIndegree();
         numberFlights += vertexAirport->getAdj().size();
     }
-    /*for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
-        airport->setVisited(false);
-    }
-
-    for (Vertex<Airport*>* airport : airportNetwork.getVertexSet()){
-        if (!airport->isVisited()){
-            dfsAirport(airport, numberFlights, cityNameDup, coutryNameDup);
-        }
-    }*/
 
     std::cout << "The city " << cityName << " from " << coutryName;
     numberFlights == 0 ? std::cout << " has no flights.\n" : std::cout << " has " << numberFlights << " flights.\n";
 }
-
-/*void dfsAirport(Vertex<Airport*>* airport, unsigned long& numberFlights, const std::string& cityName, const std::string& coutryName){
-    airport->setVisited(true);
-    if (airport->getInfo()->getCity() == cityName && airport->getInfo()->getCountry() == coutryName){
-        numberFlights += airport->getAdj().size(); // out-degree
-    }
-    for (const auto& flight : airport->getAdj()){
-        auto destinationAirport = flight.getDest();
-        if (destinationAirport->getInfo()->getCity() == cityName && destinationAirport->getInfo()->getCountry() == coutryName){
-            numberFlights += 1; // in-degree
-        }
-        if (!destinationAirport->isVisited()){
-            dfsAirport(destinationAirport, numberFlights, cityName, coutryName);
-        }
-    }
-}*/
 
 /** @brief Print the number of flights that an airline has.
  *  @details The number of flights is calculated using a dfs approach. We use the dfs algorithm to visit every airport
@@ -266,7 +224,6 @@ void FlightManager::printNumFlightsAirline(const std::string& airlineCode){
     std::cout << "Airline with code " << airlineCode;
     numberFlights == 0 ? std::cout << " has no flights.\n" : std::cout << " has " << numberFlights << " flights.\n";
 }
-
 void dfsNumberFlights(Vertex<Airport*>* airport, int& numberFlights, const std::string& airlineCode){
     airport->setVisited(true);
 
@@ -282,14 +239,12 @@ void dfsNumberFlights(Vertex<Airport*>* airport, int& numberFlights, const std::
     }
 }
 
-
 // 4
 /**
  * @brief Prints the number of countries that an airport flies to
  * @details Time complexity: O(V + E), where V is the number of airports and E is the number of edges of an airport
  */
 void FlightManager::printNumCountriesAirport(const std::string& airportCode){
-
     std::string airportCodeDup = airportCode;
     for (char& c : airportCodeDup) c = (char) tolower(c);
 
@@ -307,7 +262,6 @@ void FlightManager::printNumCountriesAirport(const std::string& airportCode){
  * @details Time complexity: O(m * k), where m is the number of airports in the city and k is the average number of adjacent airports for each airport
  */
 void FlightManager::printNumCountriesCity(const std::string& city, const std::string& country) {
-
     std::string cityDup = city;
     std::string countryDup = country;
     set<std::string> res; // Different countries
@@ -330,14 +284,12 @@ void FlightManager::printNumCountriesCity(const std::string& city, const std::st
     else cout << "There are direct flights to " << res.size() << " different countries from " << city << ".";
 }
 
-
 /** @brief Print the number of airports, countries or cities from a given airport.
  *  @details From a given airport code we will check it's neighboring vertices while also keeping track of the countries, cities and airports that
  *  @details were visited for those cases where there are two cities with the same name or a single city has many airports.
  *  @details Time Complexity for this is O(V) + O(E)*O(n) (lookup for vertex + iterating over edges * number of cities (or countries) that were already visited.)
  * */
 void FlightManager::printNumDestinationsForGivenAirport(const std::string& airportCode,  std::vector<int> filters){
-
     string dupCode = airportCode;
     for (char& c : dupCode) c = (char) tolower(c);
 
@@ -442,7 +394,6 @@ void FlightManager::printNumReachableX(const std::string& airport_code, int x, i
     else if (funcNum == 1) std::cout << "There are " << res.size() << " city destinations with a maximum of " << x-1 << " layovers.";
     else if (funcNum == 2) std::cout << "There are " << res.size() << " country destinations with a maximum of " << x-1 << " layovers.";
 }
-
 vector<Airport*> nodesAtDistanceBFS(Vertex<Airport*>*& sourceVertex, int& level) {
     vector<Airport*> targetAirports; // This is where we will store the reached airports
     queue<Vertex<Airport*>*> vertexQueue; // Queue for the vertexes that we have to process
@@ -587,7 +538,6 @@ void FlightManager::printEssentialAirports(){
     }
 
     std::cout << "There are " << res.size() << " essential airports.\n";
-
 }
 
 
@@ -619,14 +569,12 @@ vector<vector<Airport*>> elimDups(const vector<vector<Airport*>>& paths){
     return uniquePaths;
 
 }
-
 vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline *>& airlines, bool ignoreFilter);
 /**
  * @brief Prints the best flights option with an optional airline filter
  * @details Time complexity: O(m * n * (V + E)), where m is the number of source vertices, n is the number of destination vertices and V + E is the complexity of the shortestPath function
  */
 void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest, const string& filteredAirlines, bool ignoreFilter) {
-
     std::string filteredAirlinesDup = filteredAirlines;
     for (char& c : filteredAirlinesDup) c = (char) tolower(c);
 
@@ -649,8 +597,6 @@ void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> s
             }
         }
     }
-
-    // Set all nodes to unvisited
 
     vector<vector<vector<Airport*>>> allShortest;
     for (Vertex<Airport*>* airportVertexSource : source){
@@ -697,18 +643,13 @@ void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> s
     } else {
         cout << "No options found.\n";
     }
-
-
 }
-
-
 bool airlineInFilter(Edge<Airport*> edge, const vector<Airline*>& filteredAirlines){
     for (Airline* airline : filteredAirlines){
         if (edge.getWeight2()->getCode() == airline->getCode()) return true;
     }
     return false;
 }
-
 /**
  * @brief BFS to compute the shortest path(s) between two vertices
  * @details Time complexity: O(V + E), where V is the number of vertices and E the number of edges
@@ -762,7 +703,6 @@ struct bfsPath {
     std::unordered_set<Airline*> airlines;
     int numAirlines = 0;
 };
-
 vector<bfsPath> bfsMinimalAirports(Vertex<Airport*> *v , Vertex<Airport*> *target) {
     std::queue<bfsPath> q;
     vector<bfsPath> res;
@@ -945,17 +885,6 @@ pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> FlightManager::getCon
 
     return {sourceVertex, targetVertex};
 
-}
-
-void FlightManager::testingCalculateDistance() {
-    double lat1,lat2,long1,long2;
-    std::cout << "lat 1 = "; std::cin >> lat1;
-    std::cout << "lat 2 = "; std::cin >> lat2;
-    std::cout << "long 1 = "; std::cin >> long1;
-    std::cout << "long 2 = "; std::cin >> long2;
-
-    double res = airportNetwork.calculateDistance(std::pair<double, double>(lat1, long1), std::pair<double, double>(lat2, long2));
-    std::cout << "distance = " << res;
 }
 
 FlightManager::FlightManager() = default;
