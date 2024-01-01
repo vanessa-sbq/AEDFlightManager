@@ -537,6 +537,8 @@ L1:
             flightManager.printFlightOptionAirlineFiltered(converted.first, converted.second, filteredAirlines, false);
             break;
         case 3:
+            clearScreen();
+            flightManager.printFlightOptionMinimalAirlines(converted.first, converted.second);
             break;
         default:
             goto L1;
