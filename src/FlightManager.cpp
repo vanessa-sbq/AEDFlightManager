@@ -453,7 +453,7 @@ vector<Airport*> nodesAtDistanceBFS(Vertex<Airport*>*& sourceVertex, int& level)
 
     while (!vertexQueue.empty()){
 
-        level++; // We are on a new level.
+
         targetAirports.clear(); // All the airports that were stored no longer are valid because there exists a higher level.
         unsigned long size = vertexQueue.size();
 
@@ -477,6 +477,7 @@ vector<Airport*> nodesAtDistanceBFS(Vertex<Airport*>*& sourceVertex, int& level)
 
             }
         }
+        if (!vertexQueue.empty()) level++; // We are on a new level.
     }
     // The bfs stops when we reach the maximum depth which corresponds to the maximum distance from a certain node.
     return targetAirports;
@@ -526,9 +527,10 @@ void FlightManager::printMaxTrip() {
     cout << "The flights that have the most amount of stops are:\n";
     for (const auto& iter : airportsLeveled) {
         for (Airport* airport : iter.second){
-            cout << "From " << iter.first << " to "<< airport->getCode() << ".\n";
+            cout << "   From " << iter.first << " to "<< airport->getCode() << ".\n";
         }
     }
+    cout << "Maximum distance: " << maxLevel << std::endl;
 
 }
 
