@@ -326,7 +326,7 @@ void FlightManager::printNumCountriesCity(const std::string& city, const std::st
  *  @details were visited for those cases where there are two cities with the same name or a single city has many airports.
  *  @details Time Complexity for this is O(V) + O(E)*O(n) (lookup for vertex + iterating over edges * number of cities (or countries) that were already visited.)
  * */
-void FlightManager::printNumDestinations(const std::string& airportCode,  std::vector<int> filters){
+void FlightManager::printNumDestinationsForGivenAirport(const std::string& airportCode,  std::vector<int> filters){
 
     string dupCode = airportCode;
     for (char& c : dupCode) c = (char) tolower(c);
@@ -473,6 +473,13 @@ vector<Airport*> nodesAtDistanceBFS(Vertex<Airport*>*& sourceVertex, int& level)
 }
 
 // 6
+/**
+ * @brief Prints the flights (source and destination) that have the most amount of stops.
+ * @details Using a bfs approach we check for every single vertex what it's max depth is. In the case where the depth
+ * @details is greater than the previous one we store the maximum depth as well as the source(s) and the destination(s) airports.
+ * @details Time complexity: O(V * ( 2 * V + E)) where V is the number of vertexes (Airports) that the graph has and E
+ * @details is the number of edges (flights) that an airport has.
+ */
 void FlightManager::printMaxTrip() {
 
     // This allows us to store the values for the source Airport and for the target Airports.
@@ -730,6 +737,13 @@ void FlightManager::printFlightOptionMinimalAirlines(){
 
 }
 
+/**
+ * @brief Helper function.
+ * @details It allows the user to input either an airport name, airport code, city name or
+ * @details even geographical coordinates.
+ * @details It's time complexity depends on what the combination the user chooses to use but assuming the worst possible
+ * @details combination then it's O(4n).
+ **/
 pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> FlightManager::getConvertedVertexesFromUser(const string& input1, const string& input2, const string& input3, const string& input4, const string& input5, const string& input6, const string& radius){
     vector<Airport*> sourceAirports;
     vector<Airport*> targetAirports;

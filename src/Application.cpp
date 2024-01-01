@@ -242,7 +242,7 @@ void Application::numOfDestinationsForGivenAirport(){
         optsSeparated.push_back(processedKey);
     }
 
-    flightManager.printNumDestinations(airportCode, optsSeparated);
+    flightManager.printNumDestinationsForGivenAirport(airportCode, optsSeparated);
     //delay(2000);
     showGoBackMenu(5, "Show number of destinations for a given airport.");
 
