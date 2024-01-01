@@ -2,7 +2,7 @@
 #include <map>
 #include "FlightManager.h"
 #include <set>
-#include <limits.h>
+#include <climits>
 
 
 void FlightManager::parseData(){
@@ -119,6 +119,7 @@ void FlightManager::printGlobalNumAirports(){
 
 void FlightManager::printGlobalNumFlights(){
     int numFlights = 0;
+    for (auto v : airportNetwork.getVertexSet()) v->setVisited(false);
 
     for (auto v : airportNetwork.getVertexSet()) {
         if (!v->isVisited()) {
@@ -154,7 +155,15 @@ void FlightManager::printNumFlightsOutOfAirport(){
 
     for (char &c : airport) c = char(tolower(c));
 
-    auto v = airportNetwork.findVertex(airportMap[airport]);
+    Airport* air;
+    try {
+        air = airportMap.at(airport);
+    } catch (std::out_of_range& ofr){
+        std::cout << "Invalid airport code" << '\n';
+        return;
+    }
+
+    auto v = airportNetwork.findVertex(air);
     if (v == NULL) {
         std::cout << "Invalid airport code" << '\n';
         return;
@@ -187,7 +196,7 @@ void FlightManager::printNumFlightsCity(const std::string& cityName, const std::
     try {
         ap = airportCityMap.at({cityNameDup, coutryNameDup});
     } catch (std::out_of_range& ofr) {
-        std::cout << "No city name " << cityName << " from country " << coutryName << "was found\n";
+        std::cout << "No city name " << cityName << " from country " << coutryName << " was found\n";
         return;
     }
 
@@ -269,7 +278,7 @@ void FlightManager::printNumCountriesCity(const std::string& city, const std::st
     for (char& c : countryDup) c = (char) tolower(c);
 
     try {
-        airportsInCity = airportCityMap[{cityDup, countryDup}];
+        airportsInCity = airportCityMap.at({cityDup, countryDup});
     } catch (std::out_of_range& ofr){
         cout << "No city with name " << city << " from " << country << " was found\n";
     }
@@ -291,7 +300,13 @@ void FlightManager::printNumDestinationsForGivenAirport(const std::string& airpo
     string dupCode = airportCode;
     for (char& c : dupCode) c = (char) tolower(c);
 
-    Airport* airport = this->airportMap[dupCode];
+    Airport* airport;
+    try {
+        airport = this->airportMap[dupCode];
+    } catch (out_of_range& ofr){
+        std::cout << "No Airport with the code" << airportCode << "was found\n";
+        return;
+    }
 
     if (airport == nullptr){
         std::cout << "No Airport with the code" << airportCode << "was found\n";
@@ -309,9 +324,8 @@ void FlightManager::printNumDestinationsForGivenAirport(const std::string& airpo
     vector<string> countries;
     vector<string> cities;
 
-    for (Edge<Airport*> flight : airportSource->getAdj()){
-        Vertex<Airport*>* destination = flight.getDest();
-        destination->setVisited(false);
+    for (Vertex<Airport*>* airports: airportNetwork.getVertexSet()){
+        airports->setVisited(false);
     }
 
     for (Edge<Airport*> flight : airportSource->getAdj()){

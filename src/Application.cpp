@@ -76,7 +76,7 @@ void Application::delay(long sleepMS) {
 int Application::processKey(const std::string& option) {
     try {
         int intOPT = std::stoi(option);
-        if (intOPT <= 0 || option.size() > 2) throw std::invalid_argument("NegativeNumber");
+        if (intOPT <= 0 || option.size() > 2 || intOPT >= 12) throw std::invalid_argument("NegativeNumber");
         return intOPT;
     } catch (std::invalid_argument& argument) {
         std::cout << "\n* Error while parsing option, please input a valid numeric option. *\n";
@@ -190,7 +190,6 @@ L1:
             std::cout << "Please input country's name: ";
             std::getline(std::cin >> std::ws, country); // Use std::ws to consume whitespaces
             std::cout << "\n";
-            //delay(500);
             clearScreen();
             flightManager.printNumFlightsCity(city, country);
             break;
@@ -198,7 +197,6 @@ L1:
             std::cout << "Please input Airline's code: ";
             std::cin >> airline;
             std::cout << "\n";
-            //delay(500);
             clearScreen();
             flightManager.printNumFlightsAirline(airline);
             break;
@@ -207,7 +205,6 @@ L1:
         default:
             goto L1;
     }
-    //delay(2000);
     showGoBackMenu(3, "Show number of flights per city/airline.");
 }
 
@@ -277,7 +274,6 @@ void Application::numberOfCountries() {
             std::cout << "Please input Country's name: ";
             std::cin >> country;
             std::cout << "\n";
-            //delay(500);
             clearScreen();
             flightManager.printNumCountriesCity(city, country);
             break;
@@ -507,17 +503,6 @@ void Application::checkBestFlightOptions() {
             flightManager.printFlightOptionAirlineFiltered(converted.first, converted.second, filteredAirlines, true);
             break;
         case 2:
-
-            /* std::cout << "Please input the source airport code: ";
-             std::getline(std::cin >> std::ws, sourceCode); // Use std::ws to consume whitespaces
-             std::cout << "\n";
-
-
-             std::cout << "Please input the destination airport code: ";
-             std::getline(std::cin >> std::ws, destCode); // Use std::ws to consume whitespaces
-             std::cout << "\n";
- */
-
             std::cout << "Please input preferred airline codes (comma separated): ";
             std::getline(std::cin >> std::ws, filteredAirlines);
             std::cout << "\n";
