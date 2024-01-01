@@ -1,7 +1,3 @@
-//
-// Created by vascocosta on 12/26/23.
-//
-
 #ifndef AEDFLIGHTMANAGER_AIRLINE_H
 #define AEDFLIGHTMANAGER_AIRLINE_H
 
@@ -9,6 +5,7 @@
 
 #include <string>
 
+/**@brief Represents an airline.*/
 class Airline {
     std::string code;
     std::string name;

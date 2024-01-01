@@ -1,7 +1,3 @@
-//
-// Created by vascocosta on 12/26/23.
-//
-
 #include "Airline.h"
 
 Airline::Airline(std::string code, std::string name, std::string country, std::string callsign)

@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+/**@brief Represents an airport.*/
 class Airport {
     // airport info:
     std::pair<double, double> positionInfo;
