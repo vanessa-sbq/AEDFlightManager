@@ -52,8 +52,6 @@ void FlightManager::processAirlines(std::ifstream &in){
             for (char& c : country) c = (char) tolower(c);
             for (char& c : callsign) c = (char) tolower(c);
             auto* airline = new Airline(code, name, country, callsign);
-
-            airlineSet.insert(airline);
             airlineMap[code] = airline;
 
         } else {

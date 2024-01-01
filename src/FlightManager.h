@@ -56,7 +56,6 @@ public:
 private:
     Graph<Airport*> airportNetwork;
 
-    std::unordered_set<Airline* ,HashFunction> airlineSet;
     std::unordered_map<std::string, Airline*> airlineMap;
 
     // Airports by code
