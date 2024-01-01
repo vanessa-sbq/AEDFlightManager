@@ -40,27 +40,18 @@ public:
     void printNumFlightsOutOfAirport(); // 2
     void printNumFlightsCity(const std::string& cityName, const std::string& coutryName); // 3
     void printNumFlightsAirline(const std::string& airlineName); // 3
-
     void printNumDestinationsForGivenAirport(const std::string& airportCode, std::vector<int> filters);
-
     void printNumCountriesAirport(const std::string& airportCode); // 4
     void printNumCountriesCity(const std::string& city, const std::string & country); // 4
     void printNumReachableX(const std::string& airport_name, int x, int funcNum); // 5
     void printMaxTrip(); // 6
     void printTopKAirport(int k); // 7
     void printEssentialAirports(); // 8
-    void printFlightOptionMinimalAirlines(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest); // 9
-
-
-    void printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest, const string& filteredAirlines, bool ignoreFilter); // 9
-
-
-    pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> getConvertedVertexesFromUser(const string& input1,const string& input2, const string& input3, const string& input4, const string& input5, const string& input6, const string& radius);
-
-    void testingCalculateDistance();
 
     // Best flight options
-    // ToDo
+    void printFlightOptionMinimalAirlines(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest); // 9
+    void printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest, const string& filteredAirlines, bool ignoreFilter); // 9
+    pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> getConvertedVertexesFromUser(const string& input1,const string& input2, const string& input3, const string& input4, const string& input5, const string& input6, const string& radius);
 
 private:
     Graph<Airport*> airportNetwork;
@@ -76,9 +67,6 @@ private:
 
     // Airports by cities, countries
     std::unordered_map<pair<std::string, std::string>, vector<Airport*>> airportCityMap;
-
-    // Auxiliary functions
-    int numberOfFlights(Vertex<Airport*>* airport);  // auxiliary function
 
     // Data parsing
     void processAirlines(std::ifstream &in);
