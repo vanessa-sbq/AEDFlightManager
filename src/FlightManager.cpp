@@ -2,6 +2,7 @@
 #include <map>
 #include "FlightManager.h"
 #include <set>
+#include <limits.h>
 
 
 void FlightManager::parseData(){
@@ -26,6 +27,14 @@ void FlightManager::parseData(){
     }
     processAirports(in);
     in.close();
+
+    for (auto a : airportCityMap) {
+        if (a.first.first == "london" && a.first.second == "united kingdom") {
+            for (auto b : a.second) {
+                cout << b->getCode() << '\n';
+            }
+        }
+    }
 
     //std::cout << "Now flights";
     in.open("../inputFiles/flights.csv");
@@ -645,10 +654,13 @@ void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> s
     }
 
     vector<vector<Airport*>> uniquePaths;
+    uniquePaths = shortest;
+    /*
     int min = shortest[0].size();
     for (int i = 1; i < shortest.size(); i++){
         if (shortest[i].size() < min) min = shortest[i].size();
     }
+
     for (const vector<Airport*>& path : shortest) {
         bool isDuplicate = false;
         if (path.size() != min) continue;
@@ -666,6 +678,7 @@ void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> s
         if (!isDuplicate) uniquePaths.push_back(path);
     }
 
+
     for (auto & uniquePath : uniquePaths){
         for (int j = 0; j < uniquePath.size() - 1; j++) {
             cout << uniquePath[j]->getCode() << " -> ";
@@ -673,6 +686,16 @@ void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> s
         cout << uniquePath[uniquePath.size() - 1]->getCode();
         cout << endl;
     }
+     */
+
+    for (auto & uniquePath : uniquePaths) {
+        for (int j = 0; j < uniquePath.size() - 1; j++) {
+            cout << uniquePath[j]->getCode() << " -> ";
+        }
+        cout << uniquePath[uniquePath.size() - 1]->getCode();
+        cout << endl;
+    }
+
 }
 
 
@@ -731,10 +754,77 @@ vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>*
     return res;
 }
 
+struct bfsPath {
+    std::vector<Vertex<Airport*>*> path;
+    std::unordered_set<Airline*> airlines;
+    int numAirlines = 0;
+};
+
+vector<bfsPath> bfsMinimalAirports(Vertex<Airport*> *v , Vertex<Airport*> *target) {
+    std::queue<bfsPath> q;
+    vector<bfsPath> res;
+
+    bfsPath start;
+    start.path.push_back(v);
+    q.push(start);
+
+    while (!q.empty()) {
+        bfsPath currPath = q.front();
+        q.pop();
+
+        Vertex<Airport*> *currVertex = currPath.path.back();
+        currVertex->setIndegree(currVertex->getIndegree()-1);
+
+        if (currVertex == target) {
+            res.push_back(currPath);
+            if (currVertex->getIndegree() == 0) break;
+            continue;
+        }
+
+        for (Edge<Airport*> e : currVertex->getAdj()) {
+            Vertex<Airport*> *dest = e.getDest();
+            if (dest->getIndegree() > 0) {
+                bfsPath newPath(currPath);
+
+                newPath.airlines.insert(e.getWeight2());
+                if (currPath.airlines.size() != newPath.airlines.size()) newPath.numAirlines++;
+
+                newPath.path.push_back(dest);
+
+                q.push(newPath);
+            }
+        }
+    }
+
+    return res;
+}
 
 // 9
-void FlightManager::printFlightOptionMinimalAirlines(){
+void FlightManager::printFlightOptionMinimalAirlines(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest){
+    bfsPath best;
+    best.numAirlines = INT_MAX;
 
+    for (auto s : source) {
+        for (auto d : dest) {
+            for (Vertex<Airport*> *vertex : airportNetwork.getVertexSet()) {
+                vertex->setIndegree(0);
+            }
+            for (Vertex<Airport*> *vertex : airportNetwork.getVertexSet()) {
+                for (Edge<Airport*> e : vertex->getAdj()) {
+                    e.getDest()->setIndegree(e.getDest()->getIndegree()+1);
+                }
+            }
+            for (const bfsPath& p : bfsMinimalAirports(s, d)) {
+                if (p.numAirlines < best.numAirlines) best = p;
+            }
+        }
+    }
+
+    std::cout << "This is the minimum amount of different airlines = " << best.numAirlines << "\n ROUTE ";
+    for (Vertex<Airport*> *v : best.path) {
+        std::cout << "|" << v->getInfo()->getCode();
+    }
+    std::cout << '\n';
 }
 
 /**
