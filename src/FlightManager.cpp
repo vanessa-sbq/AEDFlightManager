@@ -28,13 +28,14 @@ void FlightManager::parseData(){
     processAirports(in);
     in.close();
 
-    for (auto a : airportCityMap) {
+    // ToDo remove
+    /*for (auto a : airportCityMap) {
         if (a.first.first == "london" && a.first.second == "united kingdom") {
             for (auto b : a.second) {
                 cout << b->getCode() << '\n';
             }
         }
-    }
+    }*/
 
     //std::cout << "Now flights";
     in.open("../inputFiles/flights.csv");
@@ -588,8 +589,35 @@ void FlightManager::printEssentialAirports(){
 }
 
 
+vector<vector<Airport*>> elimDups(const vector<vector<Airport*>>& paths){
+    vector<vector<Airport*>> uniquePaths;
 
-// 9
+    int min = paths[0].size();
+
+    for (int i = 0; i < paths.size(); i++){
+        if (paths[i].size() <= min) min = paths[i].size();
+    }
+
+    for (const vector<Airport*>& path : paths) {
+        bool isDuplicate = false;
+        if (path.size() != min) continue;
+        for (const vector<Airport*>& uniquePath : uniquePaths) {
+            if (path.size() != uniquePath.size()) continue;
+            isDuplicate = true;
+            for (size_t i = 0; i < path.size(); ++i) {
+                if (path[i]->getCode() != uniquePath[i]->getCode()) {
+                    isDuplicate = false;
+                    break;
+                }
+            }
+            if (isDuplicate) break;
+        }
+        if (!isDuplicate) uniquePaths.push_back(path);
+    }
+    return uniquePaths;
+
+}
+
 vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>* end, const vector<Airline *>& airlines, bool ignoreFilter);
 /**
  * @brief Prints the best flights option with an optional airline filter
@@ -620,81 +648,54 @@ void FlightManager::printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> s
         }
     }
 
-    /*// Find the source and destination airports
-    Airport* source;
-    Airport* dest;
-    try{
-        source = airportMap.at(sourceCode);
-        dest = airportMap.at(destCode);
-    } catch (const std::out_of_range& e) {
-        cout << "The source or destination airports don't exist!\n";
-        return;
-    }
-    Vertex<Airport*>* vertexSource = airportNetwork.findVertex(source);
-    Vertex<Airport*>* vertexDest = airportNetwork.findVertex(dest);
-    if (vertexSource == nullptr || vertexDest == nullptr) {
-        std::cout << "The source or destination airports don't exist!\n";
-        return;
-    }*/
-
     // Set all nodes to unvisited
 
-
-    vector<vector<Airport*>> shortest;
+    vector<vector<vector<Airport*>>> allShortest;
     for (Vertex<Airport*>* airportVertexSource : source){
         for (Vertex<Airport*>* airportVertexTarget : dest){
             for (auto v : airportNetwork.getVertexSet()) v->setVisited(false);
-            shortest = shortestPath(airportVertexSource, airportVertexTarget, airlines, ignoreFilter);
+            allShortest.push_back(shortestPath(airportVertexSource, airportVertexTarget, airlines, ignoreFilter));
         }
     }
 
-    if (shortest.size() == 0) {
+    if (allShortest.size() == 0) {
         cout << "The destination is not reachable with this configuration!";
         return;
     }
 
-    vector<vector<Airport*>> uniquePaths;
-    uniquePaths = shortest;
-    /*
-    int min = shortest[0].size();
-    for (int i = 1; i < shortest.size(); i++){
-        if (shortest[i].size() < min) min = shortest[i].size();
+    vector<vector<vector<Airport*>>> allUniquePaths;
+    for (vector<vector<Airport*>>& shortPaths : allShortest){
+        vector<vector<Airport*>> uniquePaths = elimDups(shortPaths);
+        allUniquePaths.push_back(uniquePaths);
     }
 
-    for (const vector<Airport*>& path : shortest) {
-        bool isDuplicate = false;
-        if (path.size() != min) continue;
-        for (const vector<Airport*>& uniquePath : uniquePaths) {
-            if (path.size() != uniquePath.size()) continue;
-            isDuplicate = true;
-            for (size_t i = 0; i < path.size(); ++i) {
-                if (path[i]->getCode() != uniquePath[i]->getCode()) {
-                    isDuplicate = false;
-                    break;
+
+    if (allUniquePaths.size() != 0){
+        cout << "The following options were found: \n";
+        for (auto & allUniquePath : allUniquePaths){
+
+            bool printHeader = true;
+
+            for (auto& path : allUniquePath){
+
+                if (printHeader){
+                    cout << "\nDeparture from " << path.front()->getCode() << " to " << path.back()->getCode() << " includes the following flights:\n";
+                    printHeader = false;
                 }
+
+                cout << "   ";
+                for (int j = 0; j < path.size() - 1; j++) {
+                    cout << path[j]->getCode() << " -> ";
+                }
+                cout << path[path.size() - 1]->getCode();
+                cout << endl;
             }
-            if (isDuplicate) break;
+
         }
-        if (!isDuplicate) uniquePaths.push_back(path);
+    } else {
+        cout << "No options found.\n";
     }
 
-
-    for (auto & uniquePath : uniquePaths){
-        for (int j = 0; j < uniquePath.size() - 1; j++) {
-            cout << uniquePath[j]->getCode() << " -> ";
-        }
-        cout << uniquePath[uniquePath.size() - 1]->getCode();
-        cout << endl;
-    }
-     */
-
-    for (auto & uniquePath : uniquePaths) {
-        for (int j = 0; j < uniquePath.size() - 1; j++) {
-            cout << uniquePath[j]->getCode() << " -> ";
-        }
-        cout << uniquePath[uniquePath.size() - 1]->getCode();
-        cout << endl;
-    }
 
 }
 
