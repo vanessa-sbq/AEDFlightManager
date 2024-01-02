@@ -164,6 +164,7 @@ void FlightManager::printNumFlightsOutOfAirport(){
     std::string airport;
     std::cout << "Airport code:";
     std::cin >> airport;
+    std::cout << '\n';
 
     for (char &c : airport) c = char(tolower(c));
 
@@ -280,28 +281,28 @@ void FlightManager::printNumCountriesAirport(const std::string& airportCode){
  * @brief Prints the number of countries that the airports in a city fly to
  * @details Time complexity: O(m * k), where m is the number of airports in the city and k is the average number of adjacent airports for each airport
  */
-void FlightManager::printNumCountriesCity(const std::string& city, const std::string& country) {
-    std::string cityDup = city;
-    std::string countryDup = country;
-    set<std::string> res; // Different countries
-    vector<Airport*> airportsInCity;  // A city may have multiple airports
+    void FlightManager::printNumCountriesCity(const std::string& city, const std::string& country) {
+        std::string cityDup = city;
+        std::string countryDup = country;
+        set<std::string> res; // Different countries
+        vector<Airport*> airportsInCity;  // A city may have multiple airports
 
-    for (char& c : cityDup) c = (char) tolower(c);
-    for (char& c : countryDup) c = (char) tolower(c);
+        for (char& c : cityDup) c = (char) tolower(c);
+        for (char& c : countryDup) c = (char) tolower(c);
 
-    try {
-        airportsInCity = airportCityMap.at({cityDup, countryDup});
-    } catch (std::out_of_range& ofr){
-        cout << "No city with name " << city << " from " << country << " was found\n";
+        try {
+            airportsInCity = airportCityMap.at({cityDup, countryDup});
+        } catch (std::out_of_range& ofr){
+            cout << "No city with name " << city << " from " << country << " was found\n";
+        }
+
+        for (Airport* airport : airportsInCity){
+            auto vertex = airportNetwork.findVertex(airport);
+            for (Edge<Airport*> e : vertex->getAdj()) res.insert(e.getDest()->getInfo()->getCountry());
+        }
+        if (res.size() == 1) cout << "There are direct flights to 1 country from " << city << ".";
+        else cout << "There are direct flights to " << res.size() << " different countries from " << city << ".";
     }
-
-    for (Airport* airport : airportsInCity){
-        auto vertex = airportNetwork.findVertex(airport);
-        for (Edge<Airport*> e : vertex->getAdj()) res.insert(e.getDest()->getInfo()->getCountry());
-    }
-    if (res.size() == 1) cout << "There are direct flights to 1 country from " << city << ".";
-    else cout << "There are direct flights to " << res.size() << " different countries from " << city << ".";
-}
 
 bool checkCity(vector<pair<string, string>> cities, string vcountry, string vcity){
     pair<string, string> v = make_pair(vcountry, vcity);
