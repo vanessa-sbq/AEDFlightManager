@@ -12,88 +12,329 @@ Class that does operations on the data.
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_flight_manager_a399eac8dc20dfad684223547717950d7}\label{class_flight_manager_a399eac8dc20dfad684223547717950d7} 
-void {\bfseries parse\+Data} ()
+\mbox{\hyperlink{class_flight_manager_a7599ce64e8b61d288a731293cba2569c}{Flight\+Manager}} ()
 \item 
-\Hypertarget{class_flight_manager_a88c9221312df604cd44c5279220893fb}\label{class_flight_manager_a88c9221312df604cd44c5279220893fb} 
-void {\bfseries print\+Global\+Num\+Airports} ()
+void \mbox{\hyperlink{class_flight_manager_a399eac8dc20dfad684223547717950d7}{parse\+Data}} ()
 \item 
-\Hypertarget{class_flight_manager_ae4c1be97835361dfcb66eb6df99aa85a}\label{class_flight_manager_ae4c1be97835361dfcb66eb6df99aa85a} 
-void {\bfseries print\+Global\+Num\+Flights} ()
-\item 
-\Hypertarget{class_flight_manager_ac05d785d237adb8ac85f187e3a4d76cd}\label{class_flight_manager_ac05d785d237adb8ac85f187e3a4d76cd} 
-void {\bfseries print\+Num\+Flights\+Out\+Of\+Airport} ()
-\item 
-void \mbox{\hyperlink{class_flight_manager_ad6b99d3a31b9ff2cfdd01585ae8824e7}{print\+Num\+Flights\+City}} (const std\+::string \&city\+Name)
+void \mbox{\hyperlink{class_flight_manager_a88c9221312df604cd44c5279220893fb}{print\+Global\+Num\+Airports}} ()
+\begin{DoxyCompactList}\small\item\em Prints the number of airports available. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_ae4c1be97835361dfcb66eb6df99aa85a}{print\+Global\+Num\+Flights}} ()
+\begin{DoxyCompactList}\small\item\em Prints the number of flights. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_ac05d785d237adb8ac85f187e3a4d76cd}{print\+Num\+Flights\+Out\+Of\+Airport}} ()
+\begin{DoxyCompactList}\small\item\em Prints the number flights out of an airport. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_af929058e390362094478ee3d19cd0894}{print\+Num\+Flights\+City}} (const std\+::string \&city\+Name, const std\+::string \&coutry\+Name)
 \begin{DoxyCompactList}\small\item\em Print the number of flights that a city has. \end{DoxyCompactList}\item 
-\Hypertarget{class_flight_manager_a5c2e29e632b814d44b312b9d1354d106}\label{class_flight_manager_a5c2e29e632b814d44b312b9d1354d106} 
-void {\bfseries print\+Num\+Flights\+Airline} (const std\+::string \&airline\+Name)
+void \mbox{\hyperlink{class_flight_manager_a5c2e29e632b814d44b312b9d1354d106}{print\+Num\+Flights\+Airline}} (const std\+::string \&airline\+Name)
 \item 
-\Hypertarget{class_flight_manager_aa3e16b7fc83c082e10a992f9cc311fa2}\label{class_flight_manager_aa3e16b7fc83c082e10a992f9cc311fa2} 
-void {\bfseries print\+Num\+Countries\+From\+Airport} ()
+void \mbox{\hyperlink{class_flight_manager_ab9e2c876446c2fdb1a174c55b40526c1}{print\+Num\+Destinations\+For\+Given\+Airport}} (const std\+::string \&airport\+Code, std\+::vector$<$ int $>$ filters)
+\begin{DoxyCompactList}\small\item\em Print the number of airports, countries or cities from a given airport. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_add9158ac7e51cfe8468308d231337cda}{print\+Num\+Countries\+Airport}} (const std\+::string \&airport\+Code)
+\begin{DoxyCompactList}\small\item\em Prints the number of countries that an airport flies to. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_a46d7691cc6deb1bf4228816fa2c7134c}{print\+Num\+Countries\+City}} (const std\+::string \&city, const std\+::string \&country)
+\begin{DoxyCompactList}\small\item\em Prints the number of countries that the airports in a city fly to. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_a2cb4e96ede433ffc6b917836e1620225}{print\+Num\+ReachableX}} (const std\+::string \&airport\+\_\+name, int x, int func\+Num)
+\begin{DoxyCompactList}\small\item\em Prints the number of reachable destinations (airports, cities or countries) in a maximum number of X stops (lay-\/overs) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_a1e56d0d44e9037c6b52f63f5ebafa5a2}{print\+Max\+Trip}} ()
+\begin{DoxyCompactList}\small\item\em Prints the flights (source and destination) that have the most amount of stops. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_ad3ed5dfdcb938da12c515f5952f3f561}{print\+Top\+KAirport}} (int k)
+\begin{DoxyCompactList}\small\item\em Prints the top-\/k airport with the greatest air traffic capacity, that is, with the greatest number of flights. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_a00395fd3b9bbdc4c2d70910b637c3d52}{print\+Essential\+Airports}} ()
 \item 
-\Hypertarget{class_flight_manager_a0c8e0307221b6f5bbf8da7444f4de8f6}\label{class_flight_manager_a0c8e0307221b6f5bbf8da7444f4de8f6} 
-void {\bfseries print\+Num\+Reachable\+Dests} ()
-\item 
-\Hypertarget{class_flight_manager_a1e56d0d44e9037c6b52f63f5ebafa5a2}\label{class_flight_manager_a1e56d0d44e9037c6b52f63f5ebafa5a2} 
-void {\bfseries print\+Max\+Trip} ()
-\item 
-\Hypertarget{class_flight_manager_a6f5f5804eea30b9b82159d8f281bc917}\label{class_flight_manager_a6f5f5804eea30b9b82159d8f281bc917} 
-void {\bfseries print\+Top\+KAirport} ()
-\item 
-\Hypertarget{class_flight_manager_a00395fd3b9bbdc4c2d70910b637c3d52}\label{class_flight_manager_a00395fd3b9bbdc4c2d70910b637c3d52} 
-void {\bfseries print\+Essential\+Airports} ()
-\item 
-\Hypertarget{class_flight_manager_ab0c7e1f03f2358642d1dbe926c33dc32}\label{class_flight_manager_ab0c7e1f03f2358642d1dbe926c33dc32} 
-void {\bfseries testing\+Calculate\+Distance} ()
+void \mbox{\hyperlink{class_flight_manager_a7b41e6d1aaf78707cf557ca953d12591}{print\+Flight\+Option\+Minimal\+Airlines}} (vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$ source, vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$ dest)
+\begin{DoxyCompactList}\small\item\em Prints the flight from source to destination vertices using the least different airlines possible. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_ac1a6e5d8da564e716306de9528b37a0a}{print\+Flight\+Option\+Airline\+Filtered}} (vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$ source, vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$ dest, const string \&filtered\+Airlines, bool ignore\+Filter)
+\begin{DoxyCompactList}\small\item\em Prints the best flights option with an optional airline filter. \end{DoxyCompactList}\item 
+pair$<$ vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$, vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$ $>$ \mbox{\hyperlink{class_flight_manager_a68373ab4f2725face0916a9fa2dc9f62}{get\+Converted\+Vertexes\+From\+User}} (const string \&input1, const string \&input2, const string \&input3, const string \&input4, const string \&input5, const string \&input6, const string \&radius)
+\begin{DoxyCompactList}\small\item\em Helper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_ab0c7e1f03f2358642d1dbe926c33dc32}{testing\+Calculate\+Distance}} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_flight_manager_a62d0b55f1bb098481d54590442c22c37}\label{class_flight_manager_a62d0b55f1bb098481d54590442c22c37} 
-void {\bfseries process\+Airlines} (std\+::ifstream \&in)
+int \mbox{\hyperlink{class_flight_manager_a3c53ab61d3ff9cd728a58516f4b478d5}{number\+Of\+Flights}} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}airport)
 \item 
-\Hypertarget{class_flight_manager_a289c730da2913dbf45e041b4b6103a9f}\label{class_flight_manager_a289c730da2913dbf45e041b4b6103a9f} 
-void {\bfseries process\+Airports} (std\+::ifstream \&in)
+void \mbox{\hyperlink{class_flight_manager_a62d0b55f1bb098481d54590442c22c37}{process\+Airlines}} (std\+::ifstream \&in)
 \item 
-\Hypertarget{class_flight_manager_a83f2295040b89bb779a67dcd9c7d9f85}\label{class_flight_manager_a83f2295040b89bb779a67dcd9c7d9f85} 
-void {\bfseries process\+Flights} (std\+::ifstream \&in)
+void \mbox{\hyperlink{class_flight_manager_a289c730da2913dbf45e041b4b6103a9f}{process\+Airports}} (std\+::ifstream \&in)
+\item 
+void \mbox{\hyperlink{class_flight_manager_a83f2295040b89bb779a67dcd9c7d9f85}{process\+Flights}} (std\+::ifstream \&in)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_flight_manager_a4fe67defe2059f6113e19d2d2345191d}\label{class_flight_manager_a4fe67defe2059f6113e19d2d2345191d} 
-\mbox{\hyperlink{class_airport_network}{Airport\+Network}} {\bfseries airport\+Network}
+\mbox{\hyperlink{class_graph}{Graph}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_flight_manager_ad2434350a9fe895bdf1e7884d2969347}{airport\+Network}}
+\item 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*},\mbox{\hyperlink{struct_hash_function}{Hash\+Function}} $>$ \mbox{\hyperlink{class_flight_manager_a9c16e87641804e9a5c9aa231be146f17}{airline\+Set}}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_flight_manager_af223e44014e09f92f508cf926d9263fd}{airline\+Map}}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_flight_manager_aa738adf778a36494f74530b7131f3f08}{airport\+Map}}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_flight_manager_ae1e1368403b742a865b12072e29c78f4}{airport\+Name\+Map}}
+\item 
+std\+::unordered\+\_\+map$<$ pair$<$ std\+::string, std\+::string $>$, vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ $>$ \mbox{\hyperlink{class_flight_manager_a1d6b07381f7179f7520689952f0d9a5b}{airport\+City\+Map}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Class that does operations on the data. 
 
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_flight_manager_a7599ce64e8b61d288a731293cba2569c}\label{class_flight_manager_a7599ce64e8b61d288a731293cba2569c} 
+\index{FlightManager@{FlightManager}!FlightManager@{FlightManager}}
+\index{FlightManager@{FlightManager}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{FlightManager()}{FlightManager()}}
+{\footnotesize\ttfamily Flight\+Manager\+::\+Flight\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
 \doxysubsection{Member Function Documentation}
-\Hypertarget{class_flight_manager_ad6b99d3a31b9ff2cfdd01585ae8824e7}\label{class_flight_manager_ad6b99d3a31b9ff2cfdd01585ae8824e7} 
+\Hypertarget{class_flight_manager_a68373ab4f2725face0916a9fa2dc9f62}\label{class_flight_manager_a68373ab4f2725face0916a9fa2dc9f62} 
+\index{FlightManager@{FlightManager}!getConvertedVertexesFromUser@{getConvertedVertexesFromUser}}
+\index{getConvertedVertexesFromUser@{getConvertedVertexesFromUser}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{getConvertedVertexesFromUser()}{getConvertedVertexesFromUser()}}
+{\footnotesize\ttfamily pair$<$ vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$, vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$ $>$ Flight\+Manager\+::get\+Converted\+Vertexes\+From\+User (\begin{DoxyParamCaption}\item[{const string \&}]{input1,  }\item[{const string \&}]{input2,  }\item[{const string \&}]{input3,  }\item[{const string \&}]{input4,  }\item[{const string \&}]{input5,  }\item[{const string \&}]{input6,  }\item[{const string \&}]{radius }\end{DoxyParamCaption})}
+
+
+
+Helper function. 
+
+It allows the user to input either an airport name, airport code, city name or
+
+even geographical coordinates.
+
+It\textquotesingle{}s time complexity depends on what the combination the user chooses to use but assuming the worst possible
+
+combination then it\textquotesingle{}s O(4n). \Hypertarget{class_flight_manager_a3c53ab61d3ff9cd728a58516f4b478d5}\label{class_flight_manager_a3c53ab61d3ff9cd728a58516f4b478d5} 
+\index{FlightManager@{FlightManager}!numberOfFlights@{numberOfFlights}}
+\index{numberOfFlights@{numberOfFlights}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{numberOfFlights()}{numberOfFlights()}}
+{\footnotesize\ttfamily int Flight\+Manager\+::number\+Of\+Flights (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}}]{airport }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_flight_manager_a399eac8dc20dfad684223547717950d7}\label{class_flight_manager_a399eac8dc20dfad684223547717950d7} 
+\index{FlightManager@{FlightManager}!parseData@{parseData}}
+\index{parseData@{parseData}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{parseData()}{parseData()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::parse\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{class_flight_manager_a00395fd3b9bbdc4c2d70910b637c3d52}\label{class_flight_manager_a00395fd3b9bbdc4c2d70910b637c3d52} 
+\index{FlightManager@{FlightManager}!printEssentialAirports@{printEssentialAirports}}
+\index{printEssentialAirports@{printEssentialAirports}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printEssentialAirports()}{printEssentialAirports()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Essential\+Airports (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{class_flight_manager_ac1a6e5d8da564e716306de9528b37a0a}\label{class_flight_manager_ac1a6e5d8da564e716306de9528b37a0a} 
+\index{FlightManager@{FlightManager}!printFlightOptionAirlineFiltered@{printFlightOptionAirlineFiltered}}
+\index{printFlightOptionAirlineFiltered@{printFlightOptionAirlineFiltered}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printFlightOptionAirlineFiltered()}{printFlightOptionAirlineFiltered()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Flight\+Option\+Airline\+Filtered (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$}]{source,  }\item[{vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$}]{dest,  }\item[{const string \&}]{filtered\+Airlines,  }\item[{bool}]{ignore\+Filter }\end{DoxyParamCaption})}
+
+
+
+Prints the best flights option with an optional airline filter. 
+
+Time complexity\+: O(m \texorpdfstring{$\ast$}{*} n \texorpdfstring{$\ast$}{*} (V + E)), where m is the number of source vertices, n is the number of destination vertices and V + E is the complexity of the shortest\+Path function \Hypertarget{class_flight_manager_a7b41e6d1aaf78707cf557ca953d12591}\label{class_flight_manager_a7b41e6d1aaf78707cf557ca953d12591} 
+\index{FlightManager@{FlightManager}!printFlightOptionMinimalAirlines@{printFlightOptionMinimalAirlines}}
+\index{printFlightOptionMinimalAirlines@{printFlightOptionMinimalAirlines}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printFlightOptionMinimalAirlines()}{printFlightOptionMinimalAirlines()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Flight\+Option\+Minimal\+Airlines (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$}]{source,  }\item[{vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$}]{dest }\end{DoxyParamCaption})}
+
+
+
+Prints the flight from source to destination vertices using the least different airlines possible. 
+
+This function iterates through each combination of source and destination airports to find the path using the minimum number of different airlines, perfoming a series of operations on the graph (airport\+Network). First, resets the indegrees of each vertex ensuring accurate traversal by the \texorpdfstring{$^\wedge$}{\string^}bfs\+Minimal\+Airports\texorpdfstring{$^\wedge$}{\string^} function and then compares each path found to find the desired path.
+
+Time Complexity\+: O(n\texorpdfstring{$^\wedge$}{\string^}2 \texorpdfstring{$\ast$}{*} V + E), where n is both the worst case size of source and destination vectors. \Hypertarget{class_flight_manager_a88c9221312df604cd44c5279220893fb}\label{class_flight_manager_a88c9221312df604cd44c5279220893fb} 
+\index{FlightManager@{FlightManager}!printGlobalNumAirports@{printGlobalNumAirports}}
+\index{printGlobalNumAirports@{printGlobalNumAirports}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printGlobalNumAirports()}{printGlobalNumAirports()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Global\+Num\+Airports (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints the number of airports available. 
+
+\Hypertarget{class_flight_manager_ae4c1be97835361dfcb66eb6df99aa85a}\label{class_flight_manager_ae4c1be97835361dfcb66eb6df99aa85a} 
+\index{FlightManager@{FlightManager}!printGlobalNumFlights@{printGlobalNumFlights}}
+\index{printGlobalNumFlights@{printGlobalNumFlights}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printGlobalNumFlights()}{printGlobalNumFlights()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Global\+Num\+Flights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints the number of flights. 
+
+Performs a BFS algorithm to find the number of available flights on the airport\+Network.
+
+Time Complexity\+: O(V + E), where V is the number of vertices and E the number of edges. \Hypertarget{class_flight_manager_a1e56d0d44e9037c6b52f63f5ebafa5a2}\label{class_flight_manager_a1e56d0d44e9037c6b52f63f5ebafa5a2} 
+\index{FlightManager@{FlightManager}!printMaxTrip@{printMaxTrip}}
+\index{printMaxTrip@{printMaxTrip}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printMaxTrip()}{printMaxTrip()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Max\+Trip (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints the flights (source and destination) that have the most amount of stops. 
+
+Using a bfs approach we check for every single vertex what it\textquotesingle{}s max depth is. In the case where the depth
+
+is greater than the previous one we store the maximum depth as well as the source(s) and the destination(s) airports.
+
+Time complexity\+: O(V \texorpdfstring{$\ast$}{*} ( 2 \texorpdfstring{$\ast$}{*} V + E)) where V is the number of vertexes (Airports) that the graph has and E
+
+is the number of edges (flights) that an airport has. \Hypertarget{class_flight_manager_add9158ac7e51cfe8468308d231337cda}\label{class_flight_manager_add9158ac7e51cfe8468308d231337cda} 
+\index{FlightManager@{FlightManager}!printNumCountriesAirport@{printNumCountriesAirport}}
+\index{printNumCountriesAirport@{printNumCountriesAirport}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printNumCountriesAirport()}{printNumCountriesAirport()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Num\+Countries\+Airport (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{airport\+Code }\end{DoxyParamCaption})}
+
+
+
+Prints the number of countries that an airport flies to. 
+
+Time complexity\+: O(V + E), where V is the number of airports and E is the number of edges of an airport \Hypertarget{class_flight_manager_a46d7691cc6deb1bf4228816fa2c7134c}\label{class_flight_manager_a46d7691cc6deb1bf4228816fa2c7134c} 
+\index{FlightManager@{FlightManager}!printNumCountriesCity@{printNumCountriesCity}}
+\index{printNumCountriesCity@{printNumCountriesCity}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printNumCountriesCity()}{printNumCountriesCity()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Num\+Countries\+City (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{city,  }\item[{const std\+::string \&}]{country }\end{DoxyParamCaption})}
+
+
+
+Prints the number of countries that the airports in a city fly to. 
+
+Time complexity\+: O(m \texorpdfstring{$\ast$}{*} k), where m is the number of airports in the city and k is the average number of adjacent airports for each airport \Hypertarget{class_flight_manager_ab9e2c876446c2fdb1a174c55b40526c1}\label{class_flight_manager_ab9e2c876446c2fdb1a174c55b40526c1} 
+\index{FlightManager@{FlightManager}!printNumDestinationsForGivenAirport@{printNumDestinationsForGivenAirport}}
+\index{printNumDestinationsForGivenAirport@{printNumDestinationsForGivenAirport}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printNumDestinationsForGivenAirport()}{printNumDestinationsForGivenAirport()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Num\+Destinations\+For\+Given\+Airport (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{airport\+Code,  }\item[{std\+::vector$<$ int $>$}]{filters }\end{DoxyParamCaption})}
+
+
+
+Print the number of airports, countries or cities from a given airport. 
+
+From a given airport code we will check it\textquotesingle{}s neighboring vertices while also keeping track of the countries, cities and airports that
+
+were visited for those cases where there are two cities with the same name or a single city has many airports.
+
+Time Complexity for this is O(\+V) + O(\+E)\texorpdfstring{$\ast$}{*}O(n) (lookup for vertex + iterating over edges \texorpdfstring{$\ast$}{*} number of cities (or countries) that were already visited.) \Hypertarget{class_flight_manager_a5c2e29e632b814d44b312b9d1354d106}\label{class_flight_manager_a5c2e29e632b814d44b312b9d1354d106} 
+\index{FlightManager@{FlightManager}!printNumFlightsAirline@{printNumFlightsAirline}}
+\index{printNumFlightsAirline@{printNumFlightsAirline}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printNumFlightsAirline()}{printNumFlightsAirline()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Num\+Flights\+Airline (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{airline\+Name }\end{DoxyParamCaption})}
+
+\Hypertarget{class_flight_manager_af929058e390362094478ee3d19cd0894}\label{class_flight_manager_af929058e390362094478ee3d19cd0894} 
 \index{FlightManager@{FlightManager}!printNumFlightsCity@{printNumFlightsCity}}
 \index{printNumFlightsCity@{printNumFlightsCity}!FlightManager@{FlightManager}}
 \doxysubsubsection{\texorpdfstring{printNumFlightsCity()}{printNumFlightsCity()}}
-{\footnotesize\ttfamily void Flight\+Manager\+::print\+Num\+Flights\+City (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{city\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Num\+Flights\+City (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{city\+Name,  }\item[{const std\+::string \&}]{coutry\+Name }\end{DoxyParamCaption})}
 
 
 
 Print the number of flights that a city has. 
 
-The number of flights is considered to be out-\/degree (Flights that have this \doxylink{class_airport}{Airport} as source)
+We visit every airport of the city and add it\textquotesingle{}s in-\/degree plus it\textquotesingle{}s out-\/degree.
 
-plus it\textquotesingle{}s in-\/degree (Flights that have this \doxylink{class_airport}{Airport} as destination).
+Time Complexity for this is (O(\+V) + O(\+E))\texorpdfstring{$\ast$}{*}O(x) where V is the number of airports, E then number of edges
 
-The Time Complexity should be O(1) however, if a city has more than one \doxylink{class_airport}{Airport} then Time Complexity
+and x is the number of airports of the city. \Hypertarget{class_flight_manager_ac05d785d237adb8ac85f187e3a4d76cd}\label{class_flight_manager_ac05d785d237adb8ac85f187e3a4d76cd} 
+\index{FlightManager@{FlightManager}!printNumFlightsOutOfAirport@{printNumFlightsOutOfAirport}}
+\index{printNumFlightsOutOfAirport@{printNumFlightsOutOfAirport}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printNumFlightsOutOfAirport()}{printNumFlightsOutOfAirport()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Num\+Flights\+Out\+Of\+Airport (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-will be O(\+Number of Airports of that City). Also, due to the use of an hashmap, in the worst case
 
-the time complexity can be O(n) or even O(n + Number of Airports of that City) where n is the
 
-size of the hashmap. 
+Prints the number flights out of an airport. 
+
+This function prompts the user for an airport code, searches for the corresponding vertex in the airport network, and then prints the number of flights and unique airlines departing from the specified airport.
+
+Time Complexity\+: O(\+V), where V is the number of vertices. \Hypertarget{class_flight_manager_a2cb4e96ede433ffc6b917836e1620225}\label{class_flight_manager_a2cb4e96ede433ffc6b917836e1620225} 
+\index{FlightManager@{FlightManager}!printNumReachableX@{printNumReachableX}}
+\index{printNumReachableX@{printNumReachableX}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printNumReachableX()}{printNumReachableX()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Num\+ReachableX (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{airport\+\_\+code,  }\item[{int}]{x,  }\item[{int}]{func\+Num }\end{DoxyParamCaption})}
+
+
+
+Prints the number of reachable destinations (airports, cities or countries) in a maximum number of X stops (lay-\/overs) 
+
+Time complexity\+: O(V + E) \Hypertarget{class_flight_manager_ad3ed5dfdcb938da12c515f5952f3f561}\label{class_flight_manager_ad3ed5dfdcb938da12c515f5952f3f561} 
+\index{FlightManager@{FlightManager}!printTopKAirport@{printTopKAirport}}
+\index{printTopKAirport@{printTopKAirport}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printTopKAirport()}{printTopKAirport()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Top\+KAirport (\begin{DoxyParamCaption}\item[{int}]{k }\end{DoxyParamCaption})}
+
+
+
+Prints the top-\/k airport with the greatest air traffic capacity, that is, with the greatest number of flights. 
+
+Time complexity\+: O(\+V), where V is the number of vertices in the graph \Hypertarget{class_flight_manager_a62d0b55f1bb098481d54590442c22c37}\label{class_flight_manager_a62d0b55f1bb098481d54590442c22c37} 
+\index{FlightManager@{FlightManager}!processAirlines@{processAirlines}}
+\index{processAirlines@{processAirlines}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{processAirlines()}{processAirlines()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::process\+Airlines (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_flight_manager_a289c730da2913dbf45e041b4b6103a9f}\label{class_flight_manager_a289c730da2913dbf45e041b4b6103a9f} 
+\index{FlightManager@{FlightManager}!processAirports@{processAirports}}
+\index{processAirports@{processAirports}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{processAirports()}{processAirports()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::process\+Airports (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_flight_manager_a83f2295040b89bb779a67dcd9c7d9f85}\label{class_flight_manager_a83f2295040b89bb779a67dcd9c7d9f85} 
+\index{FlightManager@{FlightManager}!processFlights@{processFlights}}
+\index{processFlights@{processFlights}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{processFlights()}{processFlights()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::process\+Flights (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_flight_manager_ab0c7e1f03f2358642d1dbe926c33dc32}\label{class_flight_manager_ab0c7e1f03f2358642d1dbe926c33dc32} 
+\index{FlightManager@{FlightManager}!testingCalculateDistance@{testingCalculateDistance}}
+\index{testingCalculateDistance@{testingCalculateDistance}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{testingCalculateDistance()}{testingCalculateDistance()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::testing\+Calculate\+Distance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_flight_manager_af223e44014e09f92f508cf926d9263fd}\label{class_flight_manager_af223e44014e09f92f508cf926d9263fd} 
+\index{FlightManager@{FlightManager}!airlineMap@{airlineMap}}
+\index{airlineMap@{airlineMap}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{airlineMap}{airlineMap}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{class_airline}{Airline}}\texorpdfstring{$\ast$}{*}$>$ Flight\+Manager\+::airline\+Map\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_flight_manager_a9c16e87641804e9a5c9aa231be146f17}\label{class_flight_manager_a9c16e87641804e9a5c9aa231be146f17} 
+\index{FlightManager@{FlightManager}!airlineSet@{airlineSet}}
+\index{airlineSet@{airlineSet}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{airlineSet}{airlineSet}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+set$<$\mbox{\hyperlink{class_airline}{Airline}}\texorpdfstring{$\ast$}{*} ,\mbox{\hyperlink{struct_hash_function}{Hash\+Function}}$>$ Flight\+Manager\+::airline\+Set\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_flight_manager_a1d6b07381f7179f7520689952f0d9a5b}\label{class_flight_manager_a1d6b07381f7179f7520689952f0d9a5b} 
+\index{FlightManager@{FlightManager}!airportCityMap@{airportCityMap}}
+\index{airportCityMap@{airportCityMap}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{airportCityMap}{airportCityMap}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$pair$<$std\+::string, std\+::string$>$, vector$<$\mbox{\hyperlink{class_airport}{Airport}}\texorpdfstring{$\ast$}{*}$>$ $>$ Flight\+Manager\+::airport\+City\+Map\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_flight_manager_aa738adf778a36494f74530b7131f3f08}\label{class_flight_manager_aa738adf778a36494f74530b7131f3f08} 
+\index{FlightManager@{FlightManager}!airportMap@{airportMap}}
+\index{airportMap@{airportMap}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{airportMap}{airportMap}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{class_airport}{Airport}}\texorpdfstring{$\ast$}{*}$>$ Flight\+Manager\+::airport\+Map\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_flight_manager_ae1e1368403b742a865b12072e29c78f4}\label{class_flight_manager_ae1e1368403b742a865b12072e29c78f4} 
+\index{FlightManager@{FlightManager}!airportNameMap@{airportNameMap}}
+\index{airportNameMap@{airportNameMap}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{airportNameMap}{airportNameMap}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{class_airport}{Airport}}\texorpdfstring{$\ast$}{*}$>$ Flight\+Manager\+::airport\+Name\+Map\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_flight_manager_ad2434350a9fe895bdf1e7884d2969347}\label{class_flight_manager_ad2434350a9fe895bdf1e7884d2969347} 
+\index{FlightManager@{FlightManager}!airportNetwork@{airportNetwork}}
+\index{airportNetwork@{airportNetwork}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{airportNetwork}{airportNetwork}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_graph}{Graph}}$<$\mbox{\hyperlink{class_airport}{Airport}}\texorpdfstring{$\ast$}{*}$>$ Flight\+Manager\+::airport\+Network\hspace{0.3cm}{\ttfamily [private]}}
+
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/Flight\+Manager.\+h\item 
-/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/Flight\+Manager.\+cpp\end{DoxyCompactItemize}
+/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_flight_manager_8h}{Flight\+Manager.\+h}}\item 
+/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_flight_manager_8cpp}{Flight\+Manager.\+cpp}}\end{DoxyCompactItemize}

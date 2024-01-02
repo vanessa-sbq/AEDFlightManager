@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['flight_0',['Flight',['../class_flight.html',1,'']]],
-  ['flightmanager_1',['FlightManager',['../class_flight_manager.html',1,'']]]
+  ['edge_0',['Edge',['../class_edge.html',1,'']]]
 ];

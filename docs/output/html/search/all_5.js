@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['printnumflightscity_0',['printNumFlightsCity',['../class_flight_manager.html#ad6b99d3a31b9ff2cfdd01585ae8824e7',1,'FlightManager']]],
-  ['processkey_1',['processKey',['../class_application.html#a6889e8e33946b8931ccff6f419630331',1,'Application']]]
+  ['edge_0',['edge',['../class_edge.html',1,'Edge&lt; T &gt;'],['../class_edge.html#aae60850ca9441ca701804af0a91e7575',1,'Edge::Edge()']]],
+  ['elimdups_1',['elimDups',['../_flight_manager_8cpp.html#aed3e6ca6b2b80afde51858ee5aef7a86',1,'FlightManager.cpp']]],
+  ['env_2',['env',['../class_application.html#ab7b151fe7350dc2a7d17ea76972ecc56',1,'Application']]],
+  ['essentialairports_3',['essentialAirports',['../class_application.html#aba1a28d6689d2311b0f2990e6a530840',1,'Application']]]
 ];

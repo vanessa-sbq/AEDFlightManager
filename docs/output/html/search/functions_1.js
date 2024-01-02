@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['run_0',['run',['../class_application.html#a27c58712d868d161ec1f407fcab72e24',1,'Application']]]
+  ['bfs_0',['bfs',['../class_graph.html#aa47a4130165550e208e7a063fce6983a',1,'Graph']]],
+  ['bfsminimalairports_1',['bfsMinimalAirports',['../_flight_manager_8cpp.html#a2811b7bcbdcb720a79ab05fcdf4cd594',1,'FlightManager.cpp']]]
 ];

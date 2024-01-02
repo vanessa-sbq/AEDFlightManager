@@ -1,43 +1,140 @@
 \doxysection{Edge\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
 \hypertarget{class_edge}{}\label{class_edge}\index{Edge$<$ T $>$@{Edge$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_edge_a9da861a03f920c89984be33515a5d870}\label{class_edge_a9da861a03f920c89984be33515a5d870} 
-{\bfseries Edge} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*}d, double w)
+\mbox{\hyperlink{class_edge_aae60850ca9441ca701804af0a91e7575}{Edge}} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*}d, double w1, \mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*}w2)
 \item 
-\Hypertarget{class_edge_a9a2de066dff8513dd788d553fc1d0c81}\label{class_edge_a9a2de066dff8513dd788d553fc1d0c81} 
-\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Dest} () const
+\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_a9a2de066dff8513dd788d553fc1d0c81}{get\+Dest}} () const
 \item 
-\Hypertarget{class_edge_a163ee9f75e35701e6a04ea1c987e4094}\label{class_edge_a163ee9f75e35701e6a04ea1c987e4094} 
-void {\bfseries set\+Dest} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*}dest)
+void \mbox{\hyperlink{class_edge_a163ee9f75e35701e6a04ea1c987e4094}{set\+Dest}} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_edge_ae4d65678b91bd9d814af4720ad87cd0c}{dest}})
 \item 
-\Hypertarget{class_edge_a3df378e283d6c8be5be4170ac8d7f4e8}\label{class_edge_a3df378e283d6c8be5be4170ac8d7f4e8} 
-double {\bfseries get\+Weight} () const
+double \mbox{\hyperlink{class_edge_a3df378e283d6c8be5be4170ac8d7f4e8}{get\+Weight}} () const
 \item 
-\Hypertarget{class_edge_aff600b093dd6917feeeb35bb7947bdd4}\label{class_edge_aff600b093dd6917feeeb35bb7947bdd4} 
-void {\bfseries set\+Weight} (double weight)
+\mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_a731d30df1fc37825794e19b3148ce393}{get\+Weight2}} () const
+\item 
+void \mbox{\hyperlink{class_edge_aff600b093dd6917feeeb35bb7947bdd4}{set\+Weight}} (double weight)
+\item 
+void \mbox{\hyperlink{class_edge_a49a003ecd48b98a6494601801cd0cfbf}{set\+Weight2}} (\mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*}weight2)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_edge_ae4d65678b91bd9d814af4720ad87cd0c}\label{class_edge_ae4d65678b91bd9d814af4720ad87cd0c} 
-\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} {\bfseries dest}
+\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_ae4d65678b91bd9d814af4720ad87cd0c}{dest}}
 \item 
-\Hypertarget{class_edge_af188b57b604f0d65e2da48733bd76426}\label{class_edge_af188b57b604f0d65e2da48733bd76426} 
-double {\bfseries weight}
+double \mbox{\hyperlink{class_edge_a11d2f061c130cc03798924f2fac484be}{distance}}
+\item 
+\mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge_a981a63c80eca1a18596fd5048eca252f}{airline}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_edge_aefa9b76cd57411c5354e5620dc2d84dd}\label{class_edge_aefa9b76cd57411c5354e5620dc2d84dd} 
-class {\bfseries Graph$<$ T $>$}
+class \mbox{\hyperlink{class_edge_aefa9b76cd57411c5354e5620dc2d84dd}{Graph$<$ T $>$}}
 \item 
-\Hypertarget{class_edge_a2e120a12dec663fa334633b4f26cbed8}\label{class_edge_a2e120a12dec663fa334633b4f26cbed8} 
-class {\bfseries Vertex$<$ T $>$}
+class \mbox{\hyperlink{class_edge_a2e120a12dec663fa334633b4f26cbed8}{Vertex$<$ T $>$}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_edge_aae60850ca9441ca701804af0a91e7575}\label{class_edge_aae60850ca9441ca701804af0a91e7575} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!Edge@{Edge}}
+\index{Edge@{Edge}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Edge()}{Edge()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\mbox{\hyperlink{class_edge}{\+::\+Edge}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{d,  }\item[{double}]{w1,  }\item[{\mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*}}]{w2 }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edge_a9a2de066dff8513dd788d553fc1d0c81}\label{class_edge_a9a2de066dff8513dd788d553fc1d0c81} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!getDest@{getDest}}
+\index{getDest@{getDest}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getDest()}{getDest()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::get\+Dest (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_edge_a3df378e283d6c8be5be4170ac8d7f4e8}\label{class_edge_a3df378e283d6c8be5be4170ac8d7f4e8} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!getWeight@{getWeight}}
+\index{getWeight@{getWeight}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getWeight()}{getWeight()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+double \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::get\+Weight (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_edge_a731d30df1fc37825794e19b3148ce393}\label{class_edge_a731d30df1fc37825794e19b3148ce393} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!getWeight2@{getWeight2}}
+\index{getWeight2@{getWeight2}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getWeight2()}{getWeight2()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::get\+Weight2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_edge_a163ee9f75e35701e6a04ea1c987e4094}\label{class_edge_a163ee9f75e35701e6a04ea1c987e4094} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!setDest@{setDest}}
+\index{setDest@{setDest}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setDest()}{setDest()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::set\+Dest (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{dest }\end{DoxyParamCaption})}
+
+\Hypertarget{class_edge_aff600b093dd6917feeeb35bb7947bdd4}\label{class_edge_aff600b093dd6917feeeb35bb7947bdd4} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!setWeight@{setWeight}}
+\index{setWeight@{setWeight}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setWeight()}{setWeight()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::set\+Weight (\begin{DoxyParamCaption}\item[{double}]{weight }\end{DoxyParamCaption})}
+
+\Hypertarget{class_edge_a49a003ecd48b98a6494601801cd0cfbf}\label{class_edge_a49a003ecd48b98a6494601801cd0cfbf} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!setWeight2@{setWeight2}}
+\index{setWeight2@{setWeight2}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setWeight2()}{setWeight2()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::set\+Weight2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*}}]{weight2 }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_edge_aefa9b76cd57411c5354e5620dc2d84dd}\label{class_edge_aefa9b76cd57411c5354e5620dc2d84dd} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\index{Graph$<$ T $>$@{Graph$<$ T $>$}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Graph$<$ T $>$}{Graph< T >}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+friend class \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\hspace{0.3cm}{\ttfamily [friend]}}
+
+\Hypertarget{class_edge_a2e120a12dec663fa334633b4f26cbed8}\label{class_edge_a2e120a12dec663fa334633b4f26cbed8} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Vertex$<$ T $>$}{Vertex< T >}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+friend class \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_edge_a981a63c80eca1a18596fd5048eca252f}\label{class_edge_a981a63c80eca1a18596fd5048eca252f} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!airline@{airline}}
+\index{airline@{airline}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{airline}{airline}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_airline}{Airline}}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::airline\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_edge_ae4d65678b91bd9d814af4720ad87cd0c}\label{class_edge_ae4d65678b91bd9d814af4720ad87cd0c} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!dest@{dest}}
+\index{dest@{dest}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{dest}{dest}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_vertex}{Vertex}}$<$T$>$\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::dest\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_edge_a11d2f061c130cc03798924f2fac484be}\label{class_edge_a11d2f061c130cc03798924f2fac484be} 
+\index{Edge$<$ T $>$@{Edge$<$ T $>$}!distance@{distance}}
+\index{distance@{distance}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{distance}{distance}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+double \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::distance\hspace{0.3cm}{\ttfamily [private]}}
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/Graph.\+h\end{DoxyCompactItemize}
+/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_graph_8h}{Graph.\+h}}\end{DoxyCompactItemize}

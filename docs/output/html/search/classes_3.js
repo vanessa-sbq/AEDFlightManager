@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['graph_0',['Graph',['../class_graph.html',1,'']]]
+  ['flightmanager_0',['FlightManager',['../class_flight_manager.html',1,'']]]
 ];

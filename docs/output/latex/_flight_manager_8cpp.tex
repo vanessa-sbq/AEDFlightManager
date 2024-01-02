@@ -1,0 +1,101 @@
+\doxysection{/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/\+Flight\+Manager.cpp File Reference}
+\hypertarget{_flight_manager_8cpp}{}\label{_flight_manager_8cpp}\index{/Users/antonioabilio/CLionProjects/AEDFlightManager/src/FlightManager.cpp@{/Users/antonioabilio/CLionProjects/AEDFlightManager/src/FlightManager.cpp}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include "{}Flight\+Manager.\+h"{}}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structbfs_path}{bfs\+Path}}
+\begin{DoxyCompactList}\small\item\em Basic path data structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_flight_manager_8cpp_a55e5cf2d4b670801b1613cb35a69a0ec}{dfs\+Number\+Flights}} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}airport, int \&number\+Flights, const std\+::string \&airline\+Code)
+\begin{DoxyCompactList}\small\item\em Print the number of flights that an airline has. \end{DoxyCompactList}\item 
+vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{_flight_manager_8cpp_af944f94ce150560b0b99a94917e31777}{nodes\+At\+Distance\+BFS}} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}\&source\+Vertex, int \&level)
+\item 
+vector$<$ vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ $>$ \mbox{\hyperlink{_flight_manager_8cpp_aed3e6ca6b2b80afde51858ee5aef7a86}{elim\+Dups}} (const vector$<$ vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ $>$ \&paths)
+\item 
+vector$<$ vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ $>$ \mbox{\hyperlink{_flight_manager_8cpp_ad967361af9f5b00a403c85a2f55ed4fa}{shortest\+Path}} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}start, \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}end, const vector$<$ \mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*} $>$ \&airlines, bool ignore\+Filter)
+\begin{DoxyCompactList}\small\item\em BFS to compute the shortest path(s) between two vertices. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_flight_manager_8cpp_aba3ff94ba918f513c1af5ace637abbc1}{airline\+In\+Filter}} (\mbox{\hyperlink{class_edge}{Edge}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ edge, const vector$<$ \mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*} $>$ \&filtered\+Airlines)
+\item 
+vector$<$ \mbox{\hyperlink{structbfs_path}{bfs\+Path}} $>$ \mbox{\hyperlink{_flight_manager_8cpp_a2811b7bcbdcb720a79ab05fcdf4cd594}{bfs\+Minimal\+Airports}} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}source, \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}target)
+\begin{DoxyCompactList}\small\item\em BFS algorithm to discover the shortest path with minimal different airlines. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_flight_manager_8cpp_aba3ff94ba918f513c1af5ace637abbc1}\label{_flight_manager_8cpp_aba3ff94ba918f513c1af5ace637abbc1} 
+\index{FlightManager.cpp@{FlightManager.cpp}!airlineInFilter@{airlineInFilter}}
+\index{airlineInFilter@{airlineInFilter}!FlightManager.cpp@{FlightManager.cpp}}
+\doxysubsubsection{\texorpdfstring{airlineInFilter()}{airlineInFilter()}}
+{\footnotesize\ttfamily bool airline\+In\+Filter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_edge}{Edge}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$}]{edge,  }\item[{const vector$<$ \mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*} $>$ \&}]{filtered\+Airlines }\end{DoxyParamCaption})}
+
+\Hypertarget{_flight_manager_8cpp_a2811b7bcbdcb720a79ab05fcdf4cd594}\label{_flight_manager_8cpp_a2811b7bcbdcb720a79ab05fcdf4cd594} 
+\index{FlightManager.cpp@{FlightManager.cpp}!bfsMinimalAirports@{bfsMinimalAirports}}
+\index{bfsMinimalAirports@{bfsMinimalAirports}!FlightManager.cpp@{FlightManager.cpp}}
+\doxysubsubsection{\texorpdfstring{bfsMinimalAirports()}{bfsMinimalAirports()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{structbfs_path}{bfs\+Path}} $>$ bfs\+Minimal\+Airports (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}}]{source,  }\item[{\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}}]{target }\end{DoxyParamCaption})}
+
+
+
+BFS algorithm to discover the shortest path with minimal different airlines. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Starting \doxylink{class_vertex}{Vertex} \\
+\hline
+{\em target} & Target \doxylink{class_vertex}{Vertex} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector containing every path from source to target vertices with set and number of airlines used.
+\end{DoxyReturn}
+The BFS algorithm is employed to explore the graph, starting from the source airport vertex. The algorithm continues until all minimal paths to the target airport are reached. The indegree of each vertex is decremented during traversal to ensure that every edge is used. The resulting minimal paths are stored in a vector and returned.
+
+The \doxylink{structbfs_path}{bfs\+Path} structure is used to keep track of paths and the number of airlines used.
+
+Time complexity\+: O(V + E) where V is the number of vertices and E the number of edges. \Hypertarget{_flight_manager_8cpp_a55e5cf2d4b670801b1613cb35a69a0ec}\label{_flight_manager_8cpp_a55e5cf2d4b670801b1613cb35a69a0ec} 
+\index{FlightManager.cpp@{FlightManager.cpp}!dfsNumberFlights@{dfsNumberFlights}}
+\index{dfsNumberFlights@{dfsNumberFlights}!FlightManager.cpp@{FlightManager.cpp}}
+\doxysubsubsection{\texorpdfstring{dfsNumberFlights()}{dfsNumberFlights()}}
+{\footnotesize\ttfamily void dfs\+Number\+Flights (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}}]{airport,  }\item[{int \&}]{number\+Flights,  }\item[{const std\+::string \&}]{airline\+Code }\end{DoxyParamCaption})}
+
+
+
+Print the number of flights that an airline has. 
+
+The number of flights is calculated using a dfs approach. We use the dfs algorithm to visit every airport
+
+and check it\textquotesingle{}s edges (Flight). From here we verify if the any flight of this airport is of the airline we are looking for.
+
+If it is then we will increment the counter.
+
+Time Complexity for this is O(\+V) + O(\+E) where V is the number of airports and E then number of edges. \Hypertarget{_flight_manager_8cpp_aed3e6ca6b2b80afde51858ee5aef7a86}\label{_flight_manager_8cpp_aed3e6ca6b2b80afde51858ee5aef7a86} 
+\index{FlightManager.cpp@{FlightManager.cpp}!elimDups@{elimDups}}
+\index{elimDups@{elimDups}!FlightManager.cpp@{FlightManager.cpp}}
+\doxysubsubsection{\texorpdfstring{elimDups()}{elimDups()}}
+{\footnotesize\ttfamily vector$<$ vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ $>$ elim\+Dups (\begin{DoxyParamCaption}\item[{const vector$<$ vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ $>$ \&}]{paths }\end{DoxyParamCaption})}
+
+\Hypertarget{_flight_manager_8cpp_af944f94ce150560b0b99a94917e31777}\label{_flight_manager_8cpp_af944f94ce150560b0b99a94917e31777} 
+\index{FlightManager.cpp@{FlightManager.cpp}!nodesAtDistanceBFS@{nodesAtDistanceBFS}}
+\index{nodesAtDistanceBFS@{nodesAtDistanceBFS}!FlightManager.cpp@{FlightManager.cpp}}
+\doxysubsubsection{\texorpdfstring{nodesAtDistanceBFS()}{nodesAtDistanceBFS()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ nodes\+At\+Distance\+BFS (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}\&}]{source\+Vertex,  }\item[{int \&}]{level }\end{DoxyParamCaption})}
+
+\Hypertarget{_flight_manager_8cpp_ad967361af9f5b00a403c85a2f55ed4fa}\label{_flight_manager_8cpp_ad967361af9f5b00a403c85a2f55ed4fa} 
+\index{FlightManager.cpp@{FlightManager.cpp}!shortestPath@{shortestPath}}
+\index{shortestPath@{shortestPath}!FlightManager.cpp@{FlightManager.cpp}}
+\doxysubsubsection{\texorpdfstring{shortestPath()}{shortestPath()}}
+{\footnotesize\ttfamily vector$<$ vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ $>$ shortest\+Path (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}}]{start,  }\item[{\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}}]{end,  }\item[{const vector$<$ \mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*} $>$ \&}]{airlines,  }\item[{bool}]{ignore\+Filter }\end{DoxyParamCaption})}
+
+
+
+BFS to compute the shortest path(s) between two vertices. 
+
+Time complexity\+: O(V + E), where V is the number of vertices and E the number of edges \begin{DoxyReturn}{Returns}
+vector containing all the paths as vectors 
+\end{DoxyReturn}
