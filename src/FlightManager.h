@@ -35,8 +35,7 @@ public:
     void parseData();
 
     // Network statistics
-    void printGlobalNumAirports(); // 1
-    void printGlobalNumFlights(); // 1
+    void printGlobalNums(); // 1
     void printNumFlightsOutOfAirport(); // 2
     void printNumFlightsCity(const std::string& cityName, const std::string& coutryName); // 3
     void printNumFlightsAirline(const std::string& airlineName); // 3

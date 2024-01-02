@@ -113,21 +113,16 @@ void FlightManager::processFlights(std::ifstream &in){
     }
 }
 
-/**
- * @brief Prints the number of airports available.
- */
-void FlightManager::printGlobalNumAirports(){
-    std::cout << "Number of Airports = " << airportMap.size() << '\n';
-}
 
 /**
- * @brief Prints the number of flights.
- * @details Performs a BFS algorithm to find the number of available flights on the airportNetwork.
+ * @brief Prints the number of airports and flights available.
+ * @details Performs a BFS algorithm to find the number of available airports and flights on the airportNetwork.
  *
  * Time Complexity: O(V + E), where V is the number of vertices and E the number of edges.
  */
-void FlightManager::printGlobalNumFlights(){
+void FlightManager::printGlobalNums(){
     int numFlights = 0;
+    int numAirports = 0;
     for (auto v : airportNetwork.getVertexSet()) v->setVisited(false);
 
     for (auto v : airportNetwork.getVertexSet()) {
@@ -137,7 +132,7 @@ void FlightManager::printGlobalNumFlights(){
             v->setVisited(true);
             while (!q.empty()) {
                 auto vertex = q.front();
-
+                numAirports++;
                 numFlights += vertex->getAdj().size();
 
                 q.pop();
@@ -151,8 +146,9 @@ void FlightManager::printGlobalNumFlights(){
             }
         }
     }
-
+    std::cout << "Number of airports = " << numAirports << '\n';
     std::cout << "Number of flights = " << numFlights << '\n';
+
 }
 
 

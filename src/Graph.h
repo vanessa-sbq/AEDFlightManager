@@ -93,16 +93,15 @@ public:
     bool removeVertex(const T &in);
     bool addEdge(const T &sourc, const T &dest, double w, Airline* airline);
     bool removeEdge(const T &sourc, const T &dest);
-    double calculateDistance(const std::pair<double, double> p1, const std::pair<double, double> p2);
     vector<Vertex<T> * > getVertexSet() const;
     vector<T> dfs() const;
     vector<T> dfs(const T & source) const;
     vector<T> bfs(const T &source) const;
-    int numCC() const;
-    int numCC(Vertex<T>* excludedVertex) const;
 
     void dfs_art(Vertex<T> *v, stack<T> &s, unordered_set<T> &l, int &i);
-    };
+    double calculateDistance(const std::pair<double, double> p1, const std::pair<double, double> p2);
+
+};
 
 
 

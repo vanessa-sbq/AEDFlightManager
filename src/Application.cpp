@@ -157,8 +157,7 @@ void Application::showGoBackMenu(int functionNumber, const std::string& function
 }
 
 void Application::globalNumberOfAvailableFlights() {
-    flightManager.printGlobalNumAirports();
-    flightManager.printGlobalNumFlights();
+    flightManager.printGlobalNums();
     showGoBackMenu(1, "Show global number of available flights.");
 }
 
