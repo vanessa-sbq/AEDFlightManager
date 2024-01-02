@@ -388,6 +388,15 @@ void FlightManager::printNumDestinationsForGivenAirport(const std::string& airpo
 }
 
 // 5
+bool checkAddCity(vector<pair<string, string>> cities, string vcountry, string vcity){
+    pair<string, string> v = make_pair(vcountry, vcity);
+
+    // Use find to check if the pair already exists in the vector
+    auto it = find(cities.begin(), cities.end(), v);
+
+    if (it != cities.end()) return false;
+    else return true;
+}
 /**
  * @brief Prints the number of reachable destinations (airports, cities or countries) in a maximum number of X stops (lay-overs)
  * @details Time complexity: O(V + E)
@@ -402,6 +411,7 @@ void FlightManager::printNumReachableX(const std::string& airport_code, int x, i
         return;
     }
     std::vector<std::string> res;
+    std::vector<pair<std::string, std::string>> cities;
     auto vertex = airportNetwork.findVertex(source);
     for (auto& a : airportNetwork.getVertexSet()) a->setVisited(false);
     if (vertex == nullptr){
@@ -419,8 +429,12 @@ void FlightManager::printNumReachableX(const std::string& airport_code, int x, i
             q.pop();
             if (level <= x && level > 0) {
                 if (funcNum == 0) res.push_back(v->getInfo()->getCode());
-                else if (funcNum == 1) res.push_back(v->getInfo()->getCity());
-                else if (funcNum == 2) res.push_back(v->getInfo()->getCountry());
+                else if (funcNum == 1 && checkAddCity(cities,v->getInfo()->getCountry(), v->getInfo()->getCity())){
+                    cities.push_back(make_pair(v->getInfo()->getCountry(), v->getInfo()->getCity()));
+                }
+                else if (funcNum == 2 && (std::find(res.begin(), res.end(), v->getInfo()->getCountry()) == res.end())){
+                    res.push_back(v->getInfo()->getCountry());
+                }
             }
 
             for (auto& e : v->getAdj()){
@@ -434,9 +448,10 @@ void FlightManager::printNumReachableX(const std::string& airport_code, int x, i
         level++;
     }
     if (funcNum == 0) std::cout << "There are " << res.size() << " airport destinations with a maximum of " << x-1 << " layovers.";
-    else if (funcNum == 1) std::cout << "There are " << res.size() << " city destinations with a maximum of " << x-1 << " layovers.";
+    else if (funcNum == 1) std::cout << "There are " << cities.size() << " city destinations with a maximum of " << x-1 << " layovers.";
     else if (funcNum == 2) std::cout << "There are " << res.size() << " country destinations with a maximum of " << x-1 << " layovers.";
 }
+
 vector<Airport*> nodesAtDistanceBFS(Vertex<Airport*>*& sourceVertex, int& level) {
     vector<Airport*> targetAirports; // This is where we will store the reached airports
     queue<Vertex<Airport*>*> vertexQueue; // Queue for the vertexes that we have to process
