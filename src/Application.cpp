@@ -58,6 +58,9 @@ void Application::run(int processedKey) {
     }
 }
 
+/**
+ * @brief clears (or simulates clearing) the screen, depending on the OS used
+ */
 void Application::clearScreen() {
     if (env == "win")
         L1:
@@ -69,6 +72,9 @@ void Application::clearScreen() {
         if ( system("clear") == -1 ) goto L1;
 }
 
+/**
+ * @brief Small delay for design purposes
+ */
 void Application::delay(long sleepMS) {
     std::this_thread::sleep_for(std::chrono::milliseconds(sleepMS));
 }
@@ -86,6 +92,9 @@ int Application::processKey(const std::string& option) {
     }
 }
 
+/**
+ * @brief Shows the main menu
+ */
 std::string Application::showMainMenu() {
     std::string opti;
     std::cout << "\nSelect an operation you would like to do:\n\n"
@@ -119,6 +128,9 @@ std::string Application::showMainMenu() {
     return opti;
 }
 
+/**
+ * @brief Shows the go back menu
+ */
 void Application::showGoBackMenu(int functionNumber, const std::string& functionName) {
     L1:
     std::cout << "\nPress enter to continue";
@@ -156,18 +168,27 @@ void Application::showGoBackMenu(int functionNumber, const std::string& function
     }
 }
 
+/**
+ * @brief Calls the corresponding function from the FlightManager
+ */
 void Application::globalNumberOfAvailableFlights() {
     clearScreen();
     flightManager.printGlobalNums();
     showGoBackMenu(1, "Show global number of available flights.");
 }
 
+/**
+ * @brief Calls the corresponding function from the FlightManager
+ */
 void Application::numberOfFlightsOutOfAnAirport() {
     clearScreen();
     flightManager.printNumFlightsOutOfAirport();
     showGoBackMenu(2, "Show number of flights out of an airport.");
 }
 
+/**
+ * @brief Calls the corresponding function from the FlightManager
+ */
 void Application::numberOfFlights() {
     L1:
     clearScreen();
@@ -211,6 +232,9 @@ void Application::numberOfFlights() {
     showGoBackMenu(3, "Show number of flights per city/airline.");
 }
 
+/**
+ * @brief Calls the corresponding function from the FlightManager
+ */
 void Application::numOfDestinationsForGivenAirport(){
     clearScreen();
     std::cout << "Please input the airport code: ";
@@ -245,6 +269,9 @@ void Application::numOfDestinationsForGivenAirport(){
     showGoBackMenu(5, "Show number of destinations for a given airport.");
 }
 
+/**
+ * @brief Calls the corresponding function from the FlightManager
+ */
 void Application::numberOfCountries() {
     clearScreen();
     L1:
@@ -290,6 +317,9 @@ void Application::numberOfCountries() {
     showGoBackMenu(4, "Show number of countries that an airport/city flies to");
 }
 
+/**
+ * @brief Calls the corresponding function from the FlightManager
+ */
 void Application::numberOfDestinations() {
     L1:
     clearScreen();
@@ -336,12 +366,18 @@ void Application::numberOfDestinations() {
     }
 }
 
+/**
+ * @brief Calls the corresponding function from the FlightManager
+ */
 void Application::flightsWithGreatestNumberOfStops() {
     clearScreen();
     flightManager.printMaxTrip();
     showGoBackMenu(7, "Show maximum trips (flights with greatest number of stops).");
 }
 
+/**
+ * @brief Calls the corresponding function from the FlightManager
+ */
 void Application::topAirportsWithGreatestAirCapacity() {
     clearScreen();
     std::cout << "Please input a number for k (number of top airport): ";
@@ -352,12 +388,18 @@ void Application::topAirportsWithGreatestAirCapacity() {
     showGoBackMenu(8, "Show top-k airport with greatest air traffic capacity.\n");
 }
 
+/**
+ * @brief Calls the corresponding function from the FlightManager
+ */
 void Application::essentialAirports() {
     clearScreen();
     flightManager.printEssentialAirports();
     showGoBackMenu(9, "Show essential airports.");
 }
 
+/**
+ * @brief Calls the corresponding function from the FlightManager
+ */
 void Application::checkBestFlightOptions() {
     std::string input1, input2, input3, input4, input5, input6, sourceOpt, targetOpt;
     std::string radius = "ignore";

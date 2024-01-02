@@ -4,7 +4,9 @@
 #include <set>
 #include <climits>
 
-
+/**
+ * @brief Calls the other data parsing functions
+ */
 void FlightManager::parseData(){
     std::ifstream in;
 
@@ -40,6 +42,9 @@ void FlightManager::parseData(){
     }
 }
 
+/**
+ * @brief Parses the data from airlines.csv
+ */
 void FlightManager::processAirlines(std::ifstream &in){
     std::string line;
     getline(in,line);
@@ -60,6 +65,9 @@ void FlightManager::processAirlines(std::ifstream &in){
     }
 }
 
+/**
+ * @brief Parses the data from airports.csv
+ */
 void FlightManager::processAirports(std::ifstream &in){
     std::string line;
     getline(in,line);
@@ -90,6 +98,9 @@ void FlightManager::processAirports(std::ifstream &in){
     }
 }
 
+/**
+ * @brief Parses the data from flights.csv
+ */
 void FlightManager::processFlights(std::ifstream &in){
     std::string line;
     getline(in, line);
@@ -980,6 +991,9 @@ pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> FlightManager::getCon
 
 FlightManager::FlightManager() = default;
 
+/**
+ * @brief Frees the data on program exit
+ */
 void FlightManager::dataGoBoom(){
     for (Vertex<Airport*>* airportVertex : this->airportNetwork.getVertexSet()){
         airportNetwork.removeVertex(airportVertex->getInfo());
