@@ -113,10 +113,19 @@ void FlightManager::processFlights(std::ifstream &in){
     }
 }
 
+/**
+ * @brief Prints the number of airports available.
+ */
 void FlightManager::printGlobalNumAirports(){
     std::cout << "Number of Airports = " << airportMap.size() << '\n';
 }
 
+/**
+ * @brief Prints the number of flights.
+ * @details Performs a BFS algorithm to find the number of available flights on the airportNetwork.
+ *
+ * Time Complexity: O(V + E), where V is the number of vertices and E the number of edges.
+ */
 void FlightManager::printGlobalNumFlights(){
     int numFlights = 0;
     for (auto v : airportNetwork.getVertexSet()) v->setVisited(false);
@@ -148,9 +157,16 @@ void FlightManager::printGlobalNumFlights(){
 
 
 // 2
+/**
+ * @brief Prints the number flights out of an airport.
+ * @details This function prompts the user for an airport code, searches for the corresponding vertex in
+ * the airport network, and then prints the number of flights and unique airlines departing from the specified airport.
+ *
+ * Time Complexity: O(V), where V is the number of vertices.
+ */
 void FlightManager::printNumFlightsOutOfAirport(){
     std::string airport;
-    std::cout << "Airport code: ";
+    std::cout << "Airport code:";
     std::cin >> airport;
 
     for (char &c : airport) c = char(tolower(c));
@@ -710,17 +726,37 @@ vector<vector<Airport*>> shortestPath(Vertex<Airport*>* start, Vertex<Airport*>*
     return res;
 }
 
+/**
+ * @brief Basic path data structure
+ * @details When searching for minimal different airlines, the algorithm needs to keep track of the airlines used to travel.
+**/
 struct bfsPath {
     std::vector<Vertex<Airport*>*> path;
     std::unordered_set<Airline*> airlines;
     int numAirlines = 0;
 };
-vector<bfsPath> bfsMinimalAirports(Vertex<Airport*> *v , Vertex<Airport*> *target) {
+
+/**
+ *
+ * @param source Starting Vertex
+ * @param target Target Vertex
+ * @return Vector containing every path from source to target vertices with set and number of airlines used.
+ * @brief BFS algorithm to discover the shortest path with minimal different airlines.
+ * @details The BFS algorithm is employed to explore the graph, starting from the source airport vertex.
+ * The algorithm continues until all minimal paths to the target airport are reached. The indegree of each
+ * vertex is decremented during traversal to ensure that every edge is used. The resulting minimal paths are
+ * stored in a vector and returned.
+ *
+ * The bfsPath structure is used to keep track of paths and the number of airlines used.
+ *
+ * Time complexity: O(V + E) where V is the number of vertices and E the number of edges.
+**/
+vector<bfsPath> bfsMinimalAirports(Vertex<Airport*> *source , Vertex<Airport*> *target) {
     std::queue<bfsPath> q;
     vector<bfsPath> res;
 
     bfsPath start;
-    start.path.push_back(v);
+    start.path.push_back(source);
     q.push(start);
 
     while (!q.empty()) {
@@ -754,7 +790,16 @@ vector<bfsPath> bfsMinimalAirports(Vertex<Airport*> *v , Vertex<Airport*> *targe
     return res;
 }
 
-// 9
+/**
+ *
+ * @brief Prints the flight from source to destination vertices using the least different airlines possible.
+ * @details This function iterates through each combination of source and destination airports to find the
+ * path using the minimum number of different airlines, perfoming a series of operations on the graph (airportNetwork).
+ * First, resets the indegrees of each vertex  ensuring accurate traversal by the ^bfsMinimalAirports^ function and
+ * then compares each path found to find the desired path.
+ *
+ * Time Complexity: O(n^2 * V + E), where n is both the worst case size of source and destination vectors.
+ */
 void FlightManager::printFlightOptionMinimalAirlines(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest){
     bfsPath best;
     best.numAirlines = INT_MAX;
@@ -775,9 +820,9 @@ void FlightManager::printFlightOptionMinimalAirlines(vector<Vertex<Airport*>*> s
         }
     }
 
-    std::cout << "This is the minimum amount of different airlines = " << best.numAirlines << "\n ROUTE ";
+    std::cout << "Minimum amount of different airlines = " << best.numAirlines << "\nRoute: ";
     for (Vertex<Airport*> *v : best.path) {
-        std::cout << "|" << v->getInfo()->getCode();
+        std::cout << v->getInfo()->getCode() << ' ';
     }
     std::cout << '\n';
 }

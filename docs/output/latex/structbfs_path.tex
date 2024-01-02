@@ -1,0 +1,47 @@
+\doxysection{bfs\+Path Struct Reference}
+\hypertarget{structbfs_path}{}\label{structbfs_path}\index{bfsPath@{bfsPath}}
+
+
+Basic path data structure.  
+
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{structbfs_path_adc3a9871e21ae2303cb1855ddf024a25}{path}}
+\item 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{structbfs_path_a2538b0c82b1ed50405c45bdcf6e41e12}{airlines}}
+\item 
+int \mbox{\hyperlink{structbfs_path_a9f9ab530f9d7428870a5d8909b532641}{num\+Airlines}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Basic path data structure. 
+
+When searching for minimal different airlines, the algorithm needs to keep track of the airlines used to travel. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structbfs_path_a2538b0c82b1ed50405c45bdcf6e41e12}\label{structbfs_path_a2538b0c82b1ed50405c45bdcf6e41e12} 
+\index{bfsPath@{bfsPath}!airlines@{airlines}}
+\index{airlines@{airlines}!bfsPath@{bfsPath}}
+\doxysubsubsection{\texorpdfstring{airlines}{airlines}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+set$<$\mbox{\hyperlink{class_airline}{Airline}}\texorpdfstring{$\ast$}{*}$>$ bfs\+Path\+::airlines}
+
+\Hypertarget{structbfs_path_a9f9ab530f9d7428870a5d8909b532641}\label{structbfs_path_a9f9ab530f9d7428870a5d8909b532641} 
+\index{bfsPath@{bfsPath}!numAirlines@{numAirlines}}
+\index{numAirlines@{numAirlines}!bfsPath@{bfsPath}}
+\doxysubsubsection{\texorpdfstring{numAirlines}{numAirlines}}
+{\footnotesize\ttfamily int bfs\+Path\+::num\+Airlines = 0}
+
+\Hypertarget{structbfs_path_adc3a9871e21ae2303cb1855ddf024a25}\label{structbfs_path_adc3a9871e21ae2303cb1855ddf024a25} 
+\index{bfsPath@{bfsPath}!path@{path}}
+\index{path@{path}!bfsPath@{bfsPath}}
+\doxysubsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{class_vertex}{Vertex}}$<$\mbox{\hyperlink{class_airport}{Airport}}\texorpdfstring{$\ast$}{*}$>$\texorpdfstring{$\ast$}{*}$>$ bfs\+Path\+::path}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_flight_manager_8cpp}{Flight\+Manager.\+cpp}}\end{DoxyCompactItemize}

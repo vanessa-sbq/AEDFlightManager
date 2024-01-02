@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['edge_0',['Edge',['../class_edge.html',1,'']]]
+  ['bfspath_0',['bfsPath',['../structbfs_path.html',1,'']]]
 ];
