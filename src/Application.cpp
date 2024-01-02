@@ -157,17 +157,20 @@ void Application::showGoBackMenu(int functionNumber, const std::string& function
 }
 
 void Application::globalNumberOfAvailableFlights() {
+    clearScreen();
     flightManager.printGlobalNums();
     showGoBackMenu(1, "Show global number of available flights.");
 }
 
 void Application::numberOfFlightsOutOfAnAirport() {
+    clearScreen();
     flightManager.printNumFlightsOutOfAirport();
     showGoBackMenu(2, "Show number of flights out of an airport.");
 }
 
 void Application::numberOfFlights() {
-L1:
+    L1:
+    clearScreen();
     std::cout << "Choose an option:\n"
               << "1 - Per City\n"
               << "2 - Per AirLine\n"
@@ -209,6 +212,7 @@ L1:
 }
 
 void Application::numOfDestinationsForGivenAirport(){
+    clearScreen();
     std::cout << "Please input the airport code: ";
     std::string airportCode, opts;
     std::cin >> airportCode;
@@ -242,6 +246,7 @@ void Application::numOfDestinationsForGivenAirport(){
 }
 
 void Application::numberOfCountries() {
+    clearScreen();
     L1:
     std::cout << "Choose an option:\n"
               << "1 - Reachable countries from airport\n"
@@ -286,6 +291,8 @@ void Application::numberOfCountries() {
 }
 
 void Application::numberOfDestinations() {
+    L1:
+    clearScreen();
     std::string airport_code;
     std::cout << "Please input Airport code: ";
     std::cin >> airport_code;
@@ -330,11 +337,13 @@ void Application::numberOfDestinations() {
 }
 
 void Application::flightsWithGreatestNumberOfStops() {
+    clearScreen();
     flightManager.printMaxTrip();
     showGoBackMenu(7, "Show maximum trips (flights with greatest number of stops).");
 }
 
 void Application::topAirportsWithGreatestAirCapacity() {
+    clearScreen();
     std::cout << "Please input a number for k (number of top airport): ";
     int k = 0;
     std::cin >> k;
@@ -344,6 +353,7 @@ void Application::topAirportsWithGreatestAirCapacity() {
 }
 
 void Application::essentialAirports() {
+    clearScreen();
     flightManager.printEssentialAirports();
     showGoBackMenu(9, "Show essential airports.");
 }
@@ -352,8 +362,9 @@ void Application::checkBestFlightOptions() {
     std::string input1, input2, input3, input4, input5, input6, sourceOpt, targetOpt;
     std::string radius = "ignore";
 
-    beginSourceAirport:
+
     clearScreen();
+    beginSourceAirport:
     std::cout << "\nHow would you like to search for the source Airport ?\n"
               << "1 - Using it's code.\n"
               << "2 - Using it's name.\n"
@@ -363,7 +374,6 @@ void Application::checkBestFlightOptions() {
               << "Input: ";
     std::cin >> sourceOpt;
 
-    clearScreen();
 
     switch (processKey(sourceOpt)) {
         case 1:
@@ -473,6 +483,7 @@ void Application::checkBestFlightOptions() {
         default:
             goto beginTargetAirport;
     }
+    clearScreen();
 
     pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> converted = flightManager.getConvertedVertexesFromUser(input1, input2, input3, input4, input5, input6, radius);
 
