@@ -17,49 +17,47 @@ Class that manages the menu.
 void \mbox{\hyperlink{class_application_a27c58712d868d161ec1f407fcab72e24}{run}} (int processed\+Key)
 \begin{DoxyCompactList}\small\item\em Starts the application. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_ab0547067a5688fa2a17c067dacdf3f6a}{clear\+Screen}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em clears (or simulates clearing) the screen, depending on the OS used \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 static void \mbox{\hyperlink{class_application_ad12666083e189dcf95c8b87bf59d95c2}{delay}} (long sleep\+Time)
-\item 
-static int \mbox{\hyperlink{class_application_a6889e8e33946b8931ccff6f419630331}{process\+Key}} (const std\+::string \&\mbox{\hyperlink{class_application_a7bbe4a805abb73f00d862263dd85fde1}{option}})
+\begin{DoxyCompactList}\small\item\em Small delay for design purposes. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{class_application_a6889e8e33946b8931ccff6f419630331}{process\+Key}} (const std\+::string \&option)
 \begin{DoxyCompactList}\small\item\em Handles the exception thrown by std\+::stoi. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 std\+::string \mbox{\hyperlink{class_application_a8dc9c233e74d5b6cb129eeda5b62fd64}{show\+Main\+Menu}} ()
-\item 
-void \mbox{\hyperlink{class_application_a07eba7cd2a9fcfd846da6ab3e5d2067e}{show\+Go\+Back\+Menu}} (int \mbox{\hyperlink{class_application_a7bbe4a805abb73f00d862263dd85fde1}{option}}, const std\+::string \&function\+Name)
-\item 
+\begin{DoxyCompactList}\small\item\em Shows the main menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_application_a07eba7cd2a9fcfd846da6ab3e5d2067e}{show\+Go\+Back\+Menu}} (int option, const std\+::string \&function\+Name)
+\begin{DoxyCompactList}\small\item\em Shows the go back menu. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_a367a13ff01a5f097cb337ae773b5ed9d}{global\+Number\+Of\+Available\+Flights}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_affdb9d35960a5b513b7fbbe575890318}{number\+Of\+Flights\+Out\+Of\+An\+Airport}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_a791937ede08ba5b7234954c19eeeb71d}{number\+Of\+Flights}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_a5ce7473b2fa9cc55bec0ad2a14d26540}{number\+Of\+Countries}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_a55c73ebb18185815bdbc660ee52f2c1a}{num\+Of\+Destinations\+For\+Given\+Airport}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_a0969f7f7beeec96aebce4b079566145a}{number\+Of\+Destinations}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_a5bd734ee50b7985e34dd28455d24268c}{flights\+With\+Greatest\+Number\+Of\+Stops}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_ab44a5dfa4b8e1dac27c33d6aafd22023}{top\+Airports\+With\+Greatest\+Air\+Capacity}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_aba1a28d6689d2311b0f2990e6a530840}{essential\+Airports}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_application_a6c14d09d346541290de14f87ce2693c8}{check\+Best\+Flight\+Options}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_flight_manager}{Flight\+Manager}} \mbox{\hyperlink{class_application_a77163221e5b220573ef7d01b15b777ff}{flight\+Manager}}
 \item 
 std\+::string \mbox{\hyperlink{class_application_ab7b151fe7350dc2a7d17ea76972ecc56}{env}}
-\item 
-int \mbox{\hyperlink{class_application_a7bbe4a805abb73f00d862263dd85fde1}{option}}
 \end{DoxyCompactItemize}
 
 
@@ -82,11 +80,19 @@ Class that manages the menu.
 \doxysubsubsection{\texorpdfstring{checkBestFlightOptions()}{checkBestFlightOptions()}}
 {\footnotesize\ttfamily void Application\+::check\+Best\+Flight\+Options (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. 
+
 \Hypertarget{class_application_ab0547067a5688fa2a17c067dacdf3f6a}\label{class_application_ab0547067a5688fa2a17c067dacdf3f6a} 
 \index{Application@{Application}!clearScreen@{clearScreen}}
 \index{clearScreen@{clearScreen}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{clearScreen()}{clearScreen()}}
 {\footnotesize\ttfamily void Application\+::clear\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+clears (or simulates clearing) the screen, depending on the OS used 
 
 \Hypertarget{class_application_ad12666083e189dcf95c8b87bf59d95c2}\label{class_application_ad12666083e189dcf95c8b87bf59d95c2} 
 \index{Application@{Application}!delay@{delay}}
@@ -94,11 +100,19 @@ Class that manages the menu.
 \doxysubsubsection{\texorpdfstring{delay()}{delay()}}
 {\footnotesize\ttfamily void Application\+::delay (\begin{DoxyParamCaption}\item[{long}]{sleep\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Small delay for design purposes. 
+
 \Hypertarget{class_application_aba1a28d6689d2311b0f2990e6a530840}\label{class_application_aba1a28d6689d2311b0f2990e6a530840} 
 \index{Application@{Application}!essentialAirports@{essentialAirports}}
 \index{essentialAirports@{essentialAirports}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{essentialAirports()}{essentialAirports()}}
 {\footnotesize\ttfamily void Application\+::essential\+Airports (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. 
 
 \Hypertarget{class_application_a5bd734ee50b7985e34dd28455d24268c}\label{class_application_a5bd734ee50b7985e34dd28455d24268c} 
 \index{Application@{Application}!flightsWithGreatestNumberOfStops@{flightsWithGreatestNumberOfStops}}
@@ -106,11 +120,19 @@ Class that manages the menu.
 \doxysubsubsection{\texorpdfstring{flightsWithGreatestNumberOfStops()}{flightsWithGreatestNumberOfStops()}}
 {\footnotesize\ttfamily void Application\+::flights\+With\+Greatest\+Number\+Of\+Stops (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. 
+
 \Hypertarget{class_application_a367a13ff01a5f097cb337ae773b5ed9d}\label{class_application_a367a13ff01a5f097cb337ae773b5ed9d} 
 \index{Application@{Application}!globalNumberOfAvailableFlights@{globalNumberOfAvailableFlights}}
 \index{globalNumberOfAvailableFlights@{globalNumberOfAvailableFlights}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{globalNumberOfAvailableFlights()}{globalNumberOfAvailableFlights()}}
 {\footnotesize\ttfamily void Application\+::global\+Number\+Of\+Available\+Flights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. 
 
 \Hypertarget{class_application_a5ce7473b2fa9cc55bec0ad2a14d26540}\label{class_application_a5ce7473b2fa9cc55bec0ad2a14d26540} 
 \index{Application@{Application}!numberOfCountries@{numberOfCountries}}
@@ -118,11 +140,19 @@ Class that manages the menu.
 \doxysubsubsection{\texorpdfstring{numberOfCountries()}{numberOfCountries()}}
 {\footnotesize\ttfamily void Application\+::number\+Of\+Countries (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. 
+
 \Hypertarget{class_application_a0969f7f7beeec96aebce4b079566145a}\label{class_application_a0969f7f7beeec96aebce4b079566145a} 
 \index{Application@{Application}!numberOfDestinations@{numberOfDestinations}}
 \index{numberOfDestinations@{numberOfDestinations}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{numberOfDestinations()}{numberOfDestinations()}}
 {\footnotesize\ttfamily void Application\+::number\+Of\+Destinations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. 
 
 \Hypertarget{class_application_a791937ede08ba5b7234954c19eeeb71d}\label{class_application_a791937ede08ba5b7234954c19eeeb71d} 
 \index{Application@{Application}!numberOfFlights@{numberOfFlights}}
@@ -130,17 +160,29 @@ Class that manages the menu.
 \doxysubsubsection{\texorpdfstring{numberOfFlights()}{numberOfFlights()}}
 {\footnotesize\ttfamily void Application\+::number\+Of\+Flights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. 
+
 \Hypertarget{class_application_affdb9d35960a5b513b7fbbe575890318}\label{class_application_affdb9d35960a5b513b7fbbe575890318} 
 \index{Application@{Application}!numberOfFlightsOutOfAnAirport@{numberOfFlightsOutOfAnAirport}}
 \index{numberOfFlightsOutOfAnAirport@{numberOfFlightsOutOfAnAirport}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{numberOfFlightsOutOfAnAirport()}{numberOfFlightsOutOfAnAirport()}}
 {\footnotesize\ttfamily void Application\+::number\+Of\+Flights\+Out\+Of\+An\+Airport (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. 
+
 \Hypertarget{class_application_a55c73ebb18185815bdbc660ee52f2c1a}\label{class_application_a55c73ebb18185815bdbc660ee52f2c1a} 
 \index{Application@{Application}!numOfDestinationsForGivenAirport@{numOfDestinationsForGivenAirport}}
 \index{numOfDestinationsForGivenAirport@{numOfDestinationsForGivenAirport}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{numOfDestinationsForGivenAirport()}{numOfDestinationsForGivenAirport()}}
 {\footnotesize\ttfamily void Application\+::num\+Of\+Destinations\+For\+Given\+Airport (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. 
 
 \Hypertarget{class_application_a6889e8e33946b8931ccff6f419630331}\label{class_application_a6889e8e33946b8931ccff6f419630331} 
 \index{Application@{Application}!processKey@{processKey}}
@@ -168,17 +210,29 @@ Starts the application.
 \doxysubsubsection{\texorpdfstring{showGoBackMenu()}{showGoBackMenu()}}
 {\footnotesize\ttfamily void Application\+::show\+Go\+Back\+Menu (\begin{DoxyParamCaption}\item[{int}]{option,  }\item[{const std\+::string \&}]{function\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Shows the go back menu. 
+
 \Hypertarget{class_application_a8dc9c233e74d5b6cb129eeda5b62fd64}\label{class_application_a8dc9c233e74d5b6cb129eeda5b62fd64} 
 \index{Application@{Application}!showMainMenu@{showMainMenu}}
 \index{showMainMenu@{showMainMenu}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{showMainMenu()}{showMainMenu()}}
 {\footnotesize\ttfamily std\+::string Application\+::show\+Main\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Shows the main menu. 
+
 \Hypertarget{class_application_ab44a5dfa4b8e1dac27c33d6aafd22023}\label{class_application_ab44a5dfa4b8e1dac27c33d6aafd22023} 
 \index{Application@{Application}!topAirportsWithGreatestAirCapacity@{topAirportsWithGreatestAirCapacity}}
 \index{topAirportsWithGreatestAirCapacity@{topAirportsWithGreatestAirCapacity}!Application@{Application}}
 \doxysubsubsection{\texorpdfstring{topAirportsWithGreatestAirCapacity()}{topAirportsWithGreatestAirCapacity()}}
 {\footnotesize\ttfamily void Application\+::top\+Airports\+With\+Greatest\+Air\+Capacity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Calls the corresponding function from the \doxylink{class_flight_manager}{Flight\+Manager}. 
 
 
 
@@ -195,15 +249,9 @@ Starts the application.
 \doxysubsubsection{\texorpdfstring{flightManager}{flightManager}}
 {\footnotesize\ttfamily \mbox{\hyperlink{class_flight_manager}{Flight\+Manager}} Application\+::flight\+Manager\hspace{0.3cm}{\ttfamily [private]}}
 
-\Hypertarget{class_application_a7bbe4a805abb73f00d862263dd85fde1}\label{class_application_a7bbe4a805abb73f00d862263dd85fde1} 
-\index{Application@{Application}!option@{option}}
-\index{option@{option}!Application@{Application}}
-\doxysubsubsection{\texorpdfstring{option}{option}}
-{\footnotesize\ttfamily int Application\+::option\hspace{0.3cm}{\ttfamily [private]}}
-
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_application_8h}{Application.\+h}}\item 
-/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_application_8cpp}{Application.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Dados/\+Uni/2ano/1semestre/\+AED/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_application_8h}{Application.\+h}}\item 
+C\+:/\+Dados/\+Uni/2ano/1semestre/\+AED/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_application_8cpp}{Application.\+cpp}}\end{DoxyCompactItemize}

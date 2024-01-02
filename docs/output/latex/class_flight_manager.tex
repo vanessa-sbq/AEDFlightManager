@@ -15,11 +15,9 @@ Class that does operations on the data.
 \mbox{\hyperlink{class_flight_manager_a7599ce64e8b61d288a731293cba2569c}{Flight\+Manager}} ()
 \item 
 void \mbox{\hyperlink{class_flight_manager_a399eac8dc20dfad684223547717950d7}{parse\+Data}} ()
-\item 
-void \mbox{\hyperlink{class_flight_manager_a88c9221312df604cd44c5279220893fb}{print\+Global\+Num\+Airports}} ()
-\begin{DoxyCompactList}\small\item\em Prints the number of airports available. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_flight_manager_ae4c1be97835361dfcb66eb6df99aa85a}{print\+Global\+Num\+Flights}} ()
-\begin{DoxyCompactList}\small\item\em Prints the number of flights. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Calls the other data parsing functions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_flight_manager_adedfb8ef9aaa18709d837540377ca611}{print\+Global\+Nums}} ()
+\begin{DoxyCompactList}\small\item\em Prints the number of airports and flights available. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_flight_manager_ac05d785d237adb8ac85f187e3a4d76cd}{print\+Num\+Flights\+Out\+Of\+Airport}} ()
 \begin{DoxyCompactList}\small\item\em Prints the number flights out of an airport. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_flight_manager_af929058e390362094478ee3d19cd0894}{print\+Num\+Flights\+City}} (const std\+::string \&city\+Name, const std\+::string \&coutry\+Name)
@@ -46,25 +44,21 @@ void \mbox{\hyperlink{class_flight_manager_ac1a6e5d8da564e716306de9528b37a0a}{pr
 \begin{DoxyCompactList}\small\item\em Prints the best flights option with an optional airline filter. \end{DoxyCompactList}\item 
 pair$<$ vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$, vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} $>$ $>$ \mbox{\hyperlink{class_flight_manager_a68373ab4f2725face0916a9fa2dc9f62}{get\+Converted\+Vertexes\+From\+User}} (const string \&input1, const string \&input2, const string \&input3, const string \&input4, const string \&input5, const string \&input6, const string \&radius)
 \begin{DoxyCompactList}\small\item\em Helper function. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_flight_manager_ab0c7e1f03f2358642d1dbe926c33dc32}{testing\+Calculate\+Distance}} ()
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_flight_manager_ac935024dd6b3ab0489d9f976d136b660}{data\+Go\+Boom}} ()
+\begin{DoxyCompactList}\small\item\em Frees the data on program exit. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{class_flight_manager_a3c53ab61d3ff9cd728a58516f4b478d5}{number\+Of\+Flights}} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}airport)
-\item 
 void \mbox{\hyperlink{class_flight_manager_a62d0b55f1bb098481d54590442c22c37}{process\+Airlines}} (std\+::ifstream \&in)
-\item 
+\begin{DoxyCompactList}\small\item\em Parses the data from airlines.\+csv. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_flight_manager_a289c730da2913dbf45e041b4b6103a9f}{process\+Airports}} (std\+::ifstream \&in)
-\item 
+\begin{DoxyCompactList}\small\item\em Parses the data from airports.\+csv. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_flight_manager_a83f2295040b89bb779a67dcd9c7d9f85}{process\+Flights}} (std\+::ifstream \&in)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Parses the data from flights.\+csv. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_graph}{Graph}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_flight_manager_ad2434350a9fe895bdf1e7884d2969347}{airport\+Network}}
-\item 
-std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*},\mbox{\hyperlink{struct_hash_function}{Hash\+Function}} $>$ \mbox{\hyperlink{class_flight_manager_a9c16e87641804e9a5c9aa231be146f17}{airline\+Set}}
 \item 
 std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{class_airline}{Airline}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_flight_manager_af223e44014e09f92f508cf926d9263fd}{airline\+Map}}
 \item 
@@ -89,6 +83,16 @@ Class that does operations on the data.
 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{class_flight_manager_ac935024dd6b3ab0489d9f976d136b660}\label{class_flight_manager_ac935024dd6b3ab0489d9f976d136b660} 
+\index{FlightManager@{FlightManager}!dataGoBoom@{dataGoBoom}}
+\index{dataGoBoom@{dataGoBoom}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{dataGoBoom()}{dataGoBoom()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::data\+Go\+Boom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Frees the data on program exit. 
+
 \Hypertarget{class_flight_manager_a68373ab4f2725face0916a9fa2dc9f62}\label{class_flight_manager_a68373ab4f2725face0916a9fa2dc9f62} 
 \index{FlightManager@{FlightManager}!getConvertedVertexesFromUser@{getConvertedVertexesFromUser}}
 \index{getConvertedVertexesFromUser@{getConvertedVertexesFromUser}!FlightManager@{FlightManager}}
@@ -105,17 +109,15 @@ even geographical coordinates.
 
 It\textquotesingle{}s time complexity depends on what the combination the user chooses to use but assuming the worst possible
 
-combination then it\textquotesingle{}s O(4n). \Hypertarget{class_flight_manager_a3c53ab61d3ff9cd728a58516f4b478d5}\label{class_flight_manager_a3c53ab61d3ff9cd728a58516f4b478d5} 
-\index{FlightManager@{FlightManager}!numberOfFlights@{numberOfFlights}}
-\index{numberOfFlights@{numberOfFlights}!FlightManager@{FlightManager}}
-\doxysubsubsection{\texorpdfstring{numberOfFlights()}{numberOfFlights()}}
-{\footnotesize\ttfamily int Flight\+Manager\+::number\+Of\+Flights (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}}]{airport }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-\Hypertarget{class_flight_manager_a399eac8dc20dfad684223547717950d7}\label{class_flight_manager_a399eac8dc20dfad684223547717950d7} 
+combination then it\textquotesingle{}s O(4n). \Hypertarget{class_flight_manager_a399eac8dc20dfad684223547717950d7}\label{class_flight_manager_a399eac8dc20dfad684223547717950d7} 
 \index{FlightManager@{FlightManager}!parseData@{parseData}}
 \index{parseData@{parseData}!FlightManager@{FlightManager}}
 \doxysubsubsection{\texorpdfstring{parseData()}{parseData()}}
 {\footnotesize\ttfamily void Flight\+Manager\+::parse\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calls the other data parsing functions. 
 
 \Hypertarget{class_flight_manager_a00395fd3b9bbdc4c2d70910b637c3d52}\label{class_flight_manager_a00395fd3b9bbdc4c2d70910b637c3d52} 
 \index{FlightManager@{FlightManager}!printEssentialAirports@{printEssentialAirports}}
@@ -145,27 +147,17 @@ Prints the flight from source to destination vertices using the least different 
 
 This function iterates through each combination of source and destination airports to find the path using the minimum number of different airlines, perfoming a series of operations on the graph (airport\+Network). First, resets the indegrees of each vertex ensuring accurate traversal by the \texorpdfstring{$^\wedge$}{\string^}bfs\+Minimal\+Airports\texorpdfstring{$^\wedge$}{\string^} function and then compares each path found to find the desired path.
 
-Time Complexity\+: O(n\texorpdfstring{$^\wedge$}{\string^}2 \texorpdfstring{$\ast$}{*} V + E), where n is both the worst case size of source and destination vectors. \Hypertarget{class_flight_manager_a88c9221312df604cd44c5279220893fb}\label{class_flight_manager_a88c9221312df604cd44c5279220893fb} 
-\index{FlightManager@{FlightManager}!printGlobalNumAirports@{printGlobalNumAirports}}
-\index{printGlobalNumAirports@{printGlobalNumAirports}!FlightManager@{FlightManager}}
-\doxysubsubsection{\texorpdfstring{printGlobalNumAirports()}{printGlobalNumAirports()}}
-{\footnotesize\ttfamily void Flight\+Manager\+::print\+Global\+Num\+Airports (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+Time Complexity\+: O(n\texorpdfstring{$^\wedge$}{\string^}2 \texorpdfstring{$\ast$}{*} V + E), where n is both the worst case size of source and destination vectors. \Hypertarget{class_flight_manager_adedfb8ef9aaa18709d837540377ca611}\label{class_flight_manager_adedfb8ef9aaa18709d837540377ca611} 
+\index{FlightManager@{FlightManager}!printGlobalNums@{printGlobalNums}}
+\index{printGlobalNums@{printGlobalNums}!FlightManager@{FlightManager}}
+\doxysubsubsection{\texorpdfstring{printGlobalNums()}{printGlobalNums()}}
+{\footnotesize\ttfamily void Flight\+Manager\+::print\+Global\+Nums (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Prints the number of airports available. 
+Prints the number of airports and flights available. 
 
-\Hypertarget{class_flight_manager_ae4c1be97835361dfcb66eb6df99aa85a}\label{class_flight_manager_ae4c1be97835361dfcb66eb6df99aa85a} 
-\index{FlightManager@{FlightManager}!printGlobalNumFlights@{printGlobalNumFlights}}
-\index{printGlobalNumFlights@{printGlobalNumFlights}!FlightManager@{FlightManager}}
-\doxysubsubsection{\texorpdfstring{printGlobalNumFlights()}{printGlobalNums()}}
-{\footnotesize\ttfamily void Flight\+Manager\+::print\+Global\+Num\+Flights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Prints the number of flights. 
-
-Performs a BFS algorithm to find the number of available flights on the airport\+Network.
+Performs a BFS algorithm to find the number of available airports and flights on the airport\+Network.
 
 Time Complexity\+: O(V + E), where V is the number of vertices and E the number of edges. \Hypertarget{class_flight_manager_a1e56d0d44e9037c6b52f63f5ebafa5a2}\label{class_flight_manager_a1e56d0d44e9037c6b52f63f5ebafa5a2} 
 \index{FlightManager@{FlightManager}!printMaxTrip@{printMaxTrip}}
@@ -275,11 +267,19 @@ Time complexity\+: O(\+V), where V is the number of vertices in the graph \Hyper
 \doxysubsubsection{\texorpdfstring{processAirlines()}{processAirlines()}}
 {\footnotesize\ttfamily void Flight\+Manager\+::process\+Airlines (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Parses the data from airlines.\+csv. 
+
 \Hypertarget{class_flight_manager_a289c730da2913dbf45e041b4b6103a9f}\label{class_flight_manager_a289c730da2913dbf45e041b4b6103a9f} 
 \index{FlightManager@{FlightManager}!processAirports@{processAirports}}
 \index{processAirports@{processAirports}!FlightManager@{FlightManager}}
 \doxysubsubsection{\texorpdfstring{processAirports()}{processAirports()}}
 {\footnotesize\ttfamily void Flight\+Manager\+::process\+Airports (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Parses the data from airports.\+csv. 
 
 \Hypertarget{class_flight_manager_a83f2295040b89bb779a67dcd9c7d9f85}\label{class_flight_manager_a83f2295040b89bb779a67dcd9c7d9f85} 
 \index{FlightManager@{FlightManager}!processFlights@{processFlights}}
@@ -287,11 +287,9 @@ Time complexity\+: O(\+V), where V is the number of vertices in the graph \Hyper
 \doxysubsubsection{\texorpdfstring{processFlights()}{processFlights()}}
 {\footnotesize\ttfamily void Flight\+Manager\+::process\+Flights (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
-\Hypertarget{class_flight_manager_ab0c7e1f03f2358642d1dbe926c33dc32}\label{class_flight_manager_ab0c7e1f03f2358642d1dbe926c33dc32} 
-\index{FlightManager@{FlightManager}!testingCalculateDistance@{testingCalculateDistance}}
-\index{testingCalculateDistance@{testingCalculateDistance}!FlightManager@{FlightManager}}
-\doxysubsubsection{\texorpdfstring{testingCalculateDistance()}{testingCalculateDistance()}}
-{\footnotesize\ttfamily void Flight\+Manager\+::testing\+Calculate\+Distance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+Parses the data from flights.\+csv. 
 
 
 
@@ -301,12 +299,6 @@ Time complexity\+: O(\+V), where V is the number of vertices in the graph \Hyper
 \index{airlineMap@{airlineMap}!FlightManager@{FlightManager}}
 \doxysubsubsection{\texorpdfstring{airlineMap}{airlineMap}}
 {\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{class_airline}{Airline}}\texorpdfstring{$\ast$}{*}$>$ Flight\+Manager\+::airline\+Map\hspace{0.3cm}{\ttfamily [private]}}
-
-\Hypertarget{class_flight_manager_a9c16e87641804e9a5c9aa231be146f17}\label{class_flight_manager_a9c16e87641804e9a5c9aa231be146f17} 
-\index{FlightManager@{FlightManager}!airlineSet@{airlineSet}}
-\index{airlineSet@{airlineSet}!FlightManager@{FlightManager}}
-\doxysubsubsection{\texorpdfstring{airlineSet}{airlineSet}}
-{\footnotesize\ttfamily std\+::unordered\+\_\+set$<$\mbox{\hyperlink{class_airline}{Airline}}\texorpdfstring{$\ast$}{*} ,\mbox{\hyperlink{struct_hash_function}{Hash\+Function}}$>$ Flight\+Manager\+::airline\+Set\hspace{0.3cm}{\ttfamily [private]}}
 
 \Hypertarget{class_flight_manager_a1d6b07381f7179f7520689952f0d9a5b}\label{class_flight_manager_a1d6b07381f7179f7520689952f0d9a5b} 
 \index{FlightManager@{FlightManager}!airportCityMap@{airportCityMap}}
@@ -336,5 +328,5 @@ Time complexity\+: O(\+V), where V is the number of vertices in the graph \Hyper
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_flight_manager_8h}{Flight\+Manager.\+h}}\item 
-/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_flight_manager_8cpp}{Flight\+Manager.\+cpp}}\end{DoxyCompactItemize}
+C\+:/\+Dados/\+Uni/2ano/1semestre/\+AED/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_flight_manager_8h}{Flight\+Manager.\+h}}\item 
+C\+:/\+Dados/\+Uni/2ano/1semestre/\+AED/\+AEDFlight\+Manager/src/\mbox{\hyperlink{_flight_manager_8cpp}{Flight\+Manager.\+cpp}}\end{DoxyCompactItemize}

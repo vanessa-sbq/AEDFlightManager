@@ -1,5 +1,5 @@
 \doxysection{Application.\+h}
-\hypertarget{_application_8h_source}{}\label{_application_8h_source}\index{/Users/antonioabilio/CLionProjects/AEDFlightManager/src/Application.h@{/Users/antonioabilio/CLionProjects/AEDFlightManager/src/Application.h}}
+\hypertarget{_application_8h_source}{}\label{_application_8h_source}\index{C:/Dados/Uni/2ano/1semestre/AED/AEDFlightManager/src/Application.h@{C:/Dados/Uni/2ano/1semestre/AED/AEDFlightManager/src/Application.h}}
 \mbox{\hyperlink{_application_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ AEDFLIGHTMANAGER\_APPLICATION\_H}}
@@ -23,14 +23,14 @@
 \DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_a27c58712d868d161ec1f407fcab72e24}{run}}(\textcolor{keywordtype}{int}\ processedKey);}
 \DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_ab0547067a5688fa2a17c067dacdf3f6a}{clearScreen}}();}
 \DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_ad12666083e189dcf95c8b87bf59d95c2}{delay}}(\textcolor{keywordtype}{long}\ sleepTime);}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_application_a6889e8e33946b8931ccff6f419630331}{processKey}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{class_application_a7bbe4a805abb73f00d862263dd85fde1}{option}});}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_application_a6889e8e33946b8931ccff6f419630331}{processKey}}(\textcolor{keyword}{const}\ std::string\&\ option);}
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_flight_manager}{FlightManager}}\ \mbox{\hyperlink{class_application_a77163221e5b220573ef7d01b15b777ff}{flightManager}};}
 \DoxyCodeLine{00027\ }
 \DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ Menu\ options}}
 \DoxyCodeLine{00029\ \ \ \ \ std::string\ \mbox{\hyperlink{class_application_a8dc9c233e74d5b6cb129eeda5b62fd64}{showMainMenu}}();}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_a07eba7cd2a9fcfd846da6ab3e5d2067e}{showGoBackMenu}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_application_a7bbe4a805abb73f00d862263dd85fde1}{option}},\ \textcolor{keyword}{const}\ std::string\&\ functionName);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_a07eba7cd2a9fcfd846da6ab3e5d2067e}{showGoBackMenu}}(\textcolor{keywordtype}{int}\ option,\ \textcolor{keyword}{const}\ std::string\&\ functionName);}
 \DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_a367a13ff01a5f097cb337ae773b5ed9d}{globalNumberOfAvailableFlights}}();}
 \DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_affdb9d35960a5b513b7fbbe575890318}{numberOfFlightsOutOfAnAirport}}();}
 \DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_a791937ede08ba5b7234954c19eeeb71d}{numberOfFlights}}();}
@@ -41,14 +41,12 @@
 \DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_ab44a5dfa4b8e1dac27c33d6aafd22023}{topAirportsWithGreatestAirCapacity}}();}
 \DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_aba1a28d6689d2311b0f2990e6a530840}{essentialAirports}}();}
 \DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_application_a6c14d09d346541290de14f87ce2693c8}{checkBestFlightOptions}}();}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ ToDo}}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ Attributes}}
-\DoxyCodeLine{00044\ \ \ \ \ std::string\ \mbox{\hyperlink{class_application_ab7b151fe7350dc2a7d17ea76972ecc56}{env}};\ \textcolor{comment}{//\ System\ environment\ variable}}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_application_a7bbe4a805abb73f00d862263dd85fde1}{option}};}
-\DoxyCodeLine{00046\ \};}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//AEDFLIGHTMANAGER\_APPLICATION\_H}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//\ Attributes}}
+\DoxyCodeLine{00043\ \ \ \ \ std::string\ \mbox{\hyperlink{class_application_ab7b151fe7350dc2a7d17ea76972ecc56}{env}};\ \textcolor{comment}{//\ System\ environment\ variable}}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//AEDFLIGHTMANAGER\_APPLICATION\_H}}
 
 \end{DoxyCode}

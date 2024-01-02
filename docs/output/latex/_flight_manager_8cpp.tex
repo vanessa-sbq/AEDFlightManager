@@ -1,10 +1,10 @@
-\doxysection{/\+Users/antonioabilio/\+CLion\+Projects/\+AEDFlight\+Manager/src/\+Flight\+Manager.cpp File Reference}
-\hypertarget{_flight_manager_8cpp}{}\label{_flight_manager_8cpp}\index{/Users/antonioabilio/CLionProjects/AEDFlightManager/src/FlightManager.cpp@{/Users/antonioabilio/CLionProjects/AEDFlightManager/src/FlightManager.cpp}}
+\doxysection{C\+:/\+Dados/\+Uni/2ano/1semestre/\+AED/\+AEDFlight\+Manager/src/\+Flight\+Manager.cpp File Reference}
+\hypertarget{_flight_manager_8cpp}{}\label{_flight_manager_8cpp}\index{C:/Dados/Uni/2ano/1semestre/AED/AEDFlightManager/src/FlightManager.cpp@{C:/Dados/Uni/2ano/1semestre/AED/AEDFlightManager/src/FlightManager.cpp}}
 {\ttfamily \#include $<$algorithm$>$}\newline
 {\ttfamily \#include $<$map$>$}\newline
 {\ttfamily \#include "{}Flight\+Manager.\+h"{}}\newline
 {\ttfamily \#include $<$set$>$}\newline
-{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$climits$>$}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -15,6 +15,10 @@ struct \mbox{\hyperlink{structbfs_path}{bfs\+Path}}
 \item 
 void \mbox{\hyperlink{_flight_manager_8cpp_a55e5cf2d4b670801b1613cb35a69a0ec}{dfs\+Number\+Flights}} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}airport, int \&number\+Flights, const std\+::string \&airline\+Code)
 \begin{DoxyCompactList}\small\item\em Print the number of flights that an airline has. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_flight_manager_8cpp_a6d94dafffec4497f4a5d823c9891a55e}{check\+City}} (vector$<$ pair$<$ string, string $>$ $>$ cities, string vcountry, string vcity)
+\item 
+bool \mbox{\hyperlink{_flight_manager_8cpp_aed9020c7d9b703045990abcd9ceea145}{check\+Add\+City}} (vector$<$ pair$<$ string, string $>$ $>$ cities, string vcountry, string vcity)
+\item 
 vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{_flight_manager_8cpp_af944f94ce150560b0b99a94917e31777}{nodes\+At\+Distance\+BFS}} (\mbox{\hyperlink{class_vertex}{Vertex}}$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}\&source\+Vertex, int \&level)
 \item 
 vector$<$ vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ $>$ \mbox{\hyperlink{_flight_manager_8cpp_aed3e6ca6b2b80afde51858ee5aef7a86}{elim\+Dups}} (const vector$<$ vector$<$ \mbox{\hyperlink{class_airport}{Airport}} \texorpdfstring{$\ast$}{*} $>$ $>$ \&paths)
@@ -58,7 +62,19 @@ The BFS algorithm is employed to explore the graph, starting from the source air
 
 The \doxylink{structbfs_path}{bfs\+Path} structure is used to keep track of paths and the number of airlines used.
 
-Time complexity\+: O(V + E) where V is the number of vertices and E the number of edges. \Hypertarget{_flight_manager_8cpp_a55e5cf2d4b670801b1613cb35a69a0ec}\label{_flight_manager_8cpp_a55e5cf2d4b670801b1613cb35a69a0ec} 
+Time complexity\+: O(V + E) where V is the number of vertices and E the number of edges. \Hypertarget{_flight_manager_8cpp_aed9020c7d9b703045990abcd9ceea145}\label{_flight_manager_8cpp_aed9020c7d9b703045990abcd9ceea145} 
+\index{FlightManager.cpp@{FlightManager.cpp}!checkAddCity@{checkAddCity}}
+\index{checkAddCity@{checkAddCity}!FlightManager.cpp@{FlightManager.cpp}}
+\doxysubsubsection{\texorpdfstring{checkAddCity()}{checkAddCity()}}
+{\footnotesize\ttfamily bool check\+Add\+City (\begin{DoxyParamCaption}\item[{vector$<$ pair$<$ string, string $>$ $>$}]{cities,  }\item[{string}]{vcountry,  }\item[{string}]{vcity }\end{DoxyParamCaption})}
+
+\Hypertarget{_flight_manager_8cpp_a6d94dafffec4497f4a5d823c9891a55e}\label{_flight_manager_8cpp_a6d94dafffec4497f4a5d823c9891a55e} 
+\index{FlightManager.cpp@{FlightManager.cpp}!checkCity@{checkCity}}
+\index{checkCity@{checkCity}!FlightManager.cpp@{FlightManager.cpp}}
+\doxysubsubsection{\texorpdfstring{checkCity()}{checkCity()}}
+{\footnotesize\ttfamily bool check\+City (\begin{DoxyParamCaption}\item[{vector$<$ pair$<$ string, string $>$ $>$}]{cities,  }\item[{string}]{vcountry,  }\item[{string}]{vcity }\end{DoxyParamCaption})}
+
+\Hypertarget{_flight_manager_8cpp_a55e5cf2d4b670801b1613cb35a69a0ec}\label{_flight_manager_8cpp_a55e5cf2d4b670801b1613cb35a69a0ec} 
 \index{FlightManager.cpp@{FlightManager.cpp}!dfsNumberFlights@{dfsNumberFlights}}
 \index{dfsNumberFlights@{dfsNumberFlights}!FlightManager.cpp@{FlightManager.cpp}}
 \doxysubsubsection{\texorpdfstring{dfsNumberFlights()}{dfsNumberFlights()}}
