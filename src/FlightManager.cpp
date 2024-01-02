@@ -291,6 +291,19 @@ void FlightManager::printNumCountriesCity(const std::string& city, const std::st
     else cout << "There are direct flights to " << res.size() << " different countries from " << city << ".";
 }
 
+bool checkCity(vector<pair<string, string>> cities, string vcountry, string vcity){
+    pair<string, string> v = make_pair(vcountry, vcity);
+
+    // Use find to check if the pair already exists in the vector
+    auto it = find(cities.begin(), cities.end(), v);
+
+    if (it == cities.end()) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 /** @brief Print the number of airports, countries or cities from a given airport.
  *  @details From a given airport code we will check it's neighboring vertices while also keeping track of the countries, cities and airports that
  *  @details were visited for those cases where there are two cities with the same name or a single city has many airports.
@@ -322,7 +335,7 @@ void FlightManager::printNumDestinationsForGivenAirport(const std::string& airpo
     unsigned long reachableCities = 0;
     Vertex<Airport*>* airportSource = airportNetwork.findVertex(airport);
     vector<string> countries;
-    vector<string> cities;
+    vector<pair<string,string>> cities;
 
     for (Vertex<Airport*>* airports: airportNetwork.getVertexSet()){
         airports->setVisited(false);
@@ -337,10 +350,12 @@ void FlightManager::printNumDestinationsForGivenAirport(const std::string& airpo
                 countries.push_back(destination->getInfo()->getCountry());
                 reachableCountries++;
             }
-            if (std::find(cities.begin(), cities.end(), destination->getInfo()->getCity()) == cities.end()){
-                countries.push_back(destination->getInfo()->getCity());
+
+            if (!checkCity(cities, destination->getInfo()->getCountry(), destination->getInfo()->getCity())){
+                cities.push_back({destination->getInfo()->getCountry(), destination->getInfo()->getCity()});
                 reachableCities++;
             }
+
             destination->setVisited(true);
         }
     }
