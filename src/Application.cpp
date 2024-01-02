@@ -169,8 +169,8 @@ void Application::numberOfFlightsOutOfAnAirport() {
 }
 
 void Application::numberOfFlights() {
+    L1:
     clearScreen();
-L1:
     std::cout << "Choose an option:\n"
               << "1 - Per City\n"
               << "2 - Per AirLine\n"
@@ -338,11 +338,13 @@ void Application::numberOfDestinations() {
 }
 
 void Application::flightsWithGreatestNumberOfStops() {
+    clearScreen();
     flightManager.printMaxTrip();
     showGoBackMenu(7, "Show maximum trips (flights with greatest number of stops).");
 }
 
 void Application::topAirportsWithGreatestAirCapacity() {
+    clearScreen();
     std::cout << "Please input a number for k (number of top airport): ";
     int k = 0;
     std::cin >> k;
