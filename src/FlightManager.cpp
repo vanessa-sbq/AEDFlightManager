@@ -603,9 +603,6 @@ vector<vector<Airport*>> elimDups(const vector<vector<Airport*>>& paths){
     vector<vector<Airport*>> uniquePaths;
 
     int min = INT_MAX;
-    if (!paths.empty()){
-        int min = paths[0].size();
-    }
 
     for (int i = 0; i < paths.size(); i++){
         if (paths[i].size() <= min) min = paths[i].size();
