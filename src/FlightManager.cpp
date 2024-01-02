@@ -975,3 +975,9 @@ pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> FlightManager::getCon
 }
 
 FlightManager::FlightManager() = default;
+
+void FlightManager::dataGoBoom(){
+    for (Vertex<Airport*>* airportVertex : this->airportNetwork.getVertexSet()){
+        airportNetwork.removeVertex(airportVertex->getInfo());
+    }
+}

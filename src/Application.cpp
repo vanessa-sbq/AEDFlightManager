@@ -50,7 +50,8 @@ void Application::run(int processedKey) {
             std::cout << 8;
             break;
         case 11:
-            std::cout << "Thank you very much and Bye-Bye.";
+            flightManager.dataGoBoom();
+            std::cout << "Thank you very much and Bye-Bye.\n";
             break;
         default:
             goto L1;

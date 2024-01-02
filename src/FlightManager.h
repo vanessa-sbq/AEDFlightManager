@@ -53,6 +53,8 @@ public:
     void printFlightOptionAirlineFiltered(vector<Vertex<Airport*>*> source , vector<Vertex<Airport*>*> dest, const string& filteredAirlines, bool ignoreFilter); // 9
     pair<vector<Vertex<Airport*>*>, vector<Vertex<Airport*>*>> getConvertedVertexesFromUser(const string& input1,const string& input2, const string& input3, const string& input4, const string& input5, const string& input6, const string& radius);
 
+    void dataGoBoom();
+
 private:
     Graph<Airport*> airportNetwork;
 
