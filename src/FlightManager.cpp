@@ -267,7 +267,14 @@ void FlightManager::printNumCountriesAirport(const std::string& airportCode){
     std::string airportCodeDup = airportCode;
     for (char& c : airportCodeDup) c = (char) tolower(c);
 
-    Airport* source = airportMap[airportCodeDup];
+    Airport* source;
+    try {
+        source = airportMap.at(airportCodeDup);
+    } catch (std::out_of_range& ofr){
+        cout << "No airport with code " << airportCode << " was found.\n";
+        return;
+    }
+
     auto vertex = airportNetwork.findVertex(source);
     set<std::string> res;
     for (Edge<Airport*> e : vertex->getAdj()) res.insert(e.getDest()->getInfo()->getCountry());

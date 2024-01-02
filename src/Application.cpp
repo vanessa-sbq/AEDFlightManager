@@ -296,7 +296,7 @@ void Application::numberOfDestinations() {
     std::cout << "\n";
     clearScreen();
 
-    L1:
+
     std::cout << "Choose an option:\n"
               << "1 - Reachable Airports\n"
               << "2 - Reachable Cities\n"
@@ -325,9 +325,8 @@ void Application::numberOfDestinations() {
         case 4:
             throw std::invalid_argument("-1");
         default:
-            goto L1;
+            showGoBackMenu(6, "Show number of destinations (airports, cities, countries) from a given airport in a maximum amount of X stops (lay-overs).");
     }
-    showGoBackMenu(6, "Show number of destinations (airports, cities, countries) from a given airport in a maximum amount of X stops (lay-overs).");
 }
 
 void Application::flightsWithGreatestNumberOfStops() {
